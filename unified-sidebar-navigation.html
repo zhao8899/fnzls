@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WaterMIS统一侧边栏导航系统</title>
+    <style>
+        :root {
+            /* WaterMIS智慧水务品牌色彩系统 */
+            --primary-50: #e6f7ff;
+            --primary-100: #bae7ff;
+            --primary-200: #91d5ff;
+            --primary-300: #69c0ff;
+            --primary-400: #40a9ff;
+            --primary-500: #2196f3;
+            --primary-600: #1976d2;
+            --primary-700: #1565c0;
+            --primary-800: #0d47a1;
+            --primary-900: #01579b;
+            
+            /* 成功色 - 清澈水蓝 */
+            --success-50: #e0f7fa;
+            --success-100: #b2ebf2;
+            --success-200: #80deea;
+            --success-300: #4dd0e1;
+            --success-400: #26c6da;
+            --success-500: #00bcd4;
+            --success-600: #00acc1;
+            --success-700: #0097a7;
+            --success-800: #00838f;
+            --success-900: #006064;
+            
+            /* 警告色 - 阳光橙 */
+            --warning-50: #fff8e1;
+            --warning-100: #ffecb3;
+            --warning-200: #ffe082;
+            --warning-300: #ffd54f;
+            --warning-400: #ffca28;
+            --warning-500: #ff9800;
+            --warning-600: #fb8c00;
+            --warning-700: #f57c00;
+            --warning-800: #ef6c00;
+            --warning-900: #e65100;
+            
+            /* 错误色 - 珊瑚红 */
+            --danger-50: #ffebee;
+            --danger-100: #ffcdd2;
+            --danger-200: #ef9a9a;
+            --danger-300: #e57373;
+            --danger-400: #ef5350;
+            --danger-500: #f44336;
+            --danger-600: #e53935;
+            --danger-700: #d32f2f;
+            --danger-800: #c62828;
+            --danger-900: #b71c1c;
+            
+            /* 中性色系 */
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #eeeeee;
+            --gray-300: #e0e0e0;
+            --gray-400: #bdbdbd;
+            --gray-500: #9e9e9e;
+            --gray-600: #757575;
+            --gray-700: #616161;
+            --gray-800: #424242;
+            --gray-900: #212121;
+            
+            /* 语义化颜色 */
+            --text-primary: var(--gray-900);
+            --text-secondary: var(--gray-700);
+            --text-tertiary: var(--gray-600);
+            --text-inverse: #ffffff;
+            
+            --bg-primary: #ffffff;
+            --bg-secondary: var(--gray-50);
+            --bg-tertiary: var(--gray-100);
+            
+            /* 间距系统 - 8px基准 */
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-5: 20px;
+            --space-6: 24px;
+            --space-8: 32px;
+            --space-10: 40px;
+            --space-12: 48px;
+            --space-16: 64px;
+            --space-20: 80px;
+            
+            /* 圆角系统 */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-2xl: 24px;
+            --radius-3xl: 28px;
+            --radius-full: 9999px;
+            
+            /* 阴影系统 */
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.12);
+            --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+            
+            /* 动画系统 */
+            --duration-fast: 150ms;
+            --duration-base: 300ms;
+            --duration-slow: 500ms;
+            --easing: cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* 字体系统 */
+            --font-size-xs: 12px;
+            --font-size-sm: 14px;
+            --font-size-base: 16px;
+            --font-size-lg: 18px;
+            --font-size-xl: 20px;
+            --font-size-2xl: 24px;
+            --font-size-3xl: 30px;
+            --font-size-4xl: 36px;
+            
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            display: flex;
+        }
+        
+        /* 统一侧边栏导航系统 */
+        .unified-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 320px;
+            height: 100vh;
+            background: linear-gradient(180deg, #1a1d29 0%, #232940 50%, #1a1d29 100%);
+            box-shadow: var(--shadow-2xl);
+            z-index: 1000;
+            overflow-y: auto;
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .unified-sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .unified-sidebar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .unified-sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-full);
+        }
+        
+        /* WaterMIS品牌标识区域 */
+        .sidebar-header {
+            padding: var(--space-6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--space-4);
+        }
+        
+        .water-logo {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            margin-right: var(--space-4);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(33, 150, 243, 0.4);
+        }
+        
+        .water-logo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: rotate(-45deg);
+            animation: logoShine 3s infinite;
+        }
+        
+        @keyframes logoShine {
+            0% { transform: translateX(-100%) rotate(-45deg); }
+            50% { transform: translateX(100%) rotate(-45deg); }
+            100% { transform: translateX(-100%) rotate(-45deg); }
+        }
+        
+        .system-branding {
+            flex: 1;
+        }
+        
+        .system-title {
+            color: var(--text-inverse);
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--space-1);
+            letter-spacing: 0.5px;
+        }
+        
+        .system-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .system-version {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: var(--font-size-xs);
+            margin-top: 2px;
+        }
+        
+        /* 用户权限信息卡片 */
+        .user-permission-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .user-permission-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--space-3);
+        }
+        
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--success-500), var(--success-600));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-weight: var(--font-weight-bold);
+            margin-right: var(--space-3);
+            font-size: var(--font-size-sm);
+        }
+        
+        .user-details h4 {
+            color: var(--text-inverse);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: 2px;
+        }
+        
+        .user-details span {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: var(--font-size-xs);
+        }
+        
+        .permission-level {
+            background: linear-gradient(90deg, rgba(33, 150, 243, 0.3), rgba(0, 188, 212, 0.2));
+            border-radius: var(--radius-md);
+            padding: var(--space-2) var(--space-3);
+            border-left: 3px solid var(--primary-400);
+        }
+        
+        .permission-text {
+            color: var(--text-inverse);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        /* 统一导航分组系统 */
+        .navigation-section {
+            padding: var(--space-6) 0;
+        }
+        
+        .nav-group {
+            margin-bottom: var(--space-8);
+        }
+        
+        .nav-group-header {
+            padding: 0 var(--space-6) var(--space-4);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .nav-group-icon {
+            font-size: var(--font-size-base);
+            opacity: 0.8;
+        }
+        
+        .nav-group-title {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-group-count {
+            background: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: var(--font-size-xs);
+            padding: 2px var(--space-2);
+            border-radius: var(--radius-full);
+            margin-left: auto;
+        }
+        
+        .nav-items-list {
+            list-style: none;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: var(--space-3) var(--space-6);
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            transition: all var(--duration-fast) var(--easing);
+            position: relative;
+            border-left: 3px solid transparent;
+            margin-bottom: var(--space-1);
+        }
+        
+        .nav-item-icon {
+            width: 22px;
+            margin-right: var(--space-3);
+            font-size: 16px;
+            text-align: center;
+            opacity: 0.9;
+        }
+        
+        .nav-item-text {
+            flex: 1;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .nav-item-badge {
+            background: var(--danger-500);
+            color: var(--text-inverse);
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: var(--radius-full);
+            font-weight: var(--font-weight-bold);
+            margin-left: var(--space-2);
+        }
+        
+        .nav-item-badge.success {
+            background: var(--success-500);
+        }
+        
+        .nav-item-badge.warning {
+            background: var(--warning-500);
+        }
+        
+        /* 导航项交互状态 */
+        .nav-item:hover {
+            background: linear-gradient(90deg, rgba(33, 150, 243, 0.2), rgba(33, 150, 243, 0.05));
+            color: var(--text-inverse);
+            border-left-color: var(--primary-400);
+            transform: translateX(6px);
+        }
+        
+        .nav-item.active {
+            background: linear-gradient(90deg, rgba(33, 150, 243, 0.4), rgba(33, 150, 243, 0.15));
+            color: var(--text-inverse);
+            border-left-color: var(--primary-300);
+            font-weight: var(--font-weight-semibold);
+            box-shadow: inset 0 0 20px rgba(33, 150, 243, 0.1);
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            right: var(--space-4);
+            width: 8px;
+            height: 8px;
+            background: var(--primary-300);
+            border-radius: var(--radius-full);
+            box-shadow: 0 0 12px var(--primary-400);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(0.9); }
+        }
+        
+        /* 侧边栏折叠/展开功能 */
+        .sidebar-toggle {
+            position: absolute;
+            bottom: var(--space-6);
+            left: var(--space-6);
+            right: var(--space-6);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.8);
+            padding: var(--space-3);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--easing);
+            font-size: var(--font-size-xs);
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .sidebar-toggle:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--text-inverse);
+            transform: translateY(-2px);
+        }
+        
+        /* 主内容区域适配 */
+        .main-content {
+            margin-left: 320px;
+            flex: 1;
+            padding: var(--space-6);
+            background: var(--bg-primary);
+            border-radius: var(--radius-xl) 0 0 var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            min-height: 100vh;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .unified-sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .unified-sidebar.mobile-open {
+                transform: translateX(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .unified-sidebar {
+                width: 100%;
+            }
+        }
+        
+        /* 状态指示器 */
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: var(--radius-full);
+            margin-right: var(--space-2);
+        }
+        
+        .status-indicator.online {
+            background: var(--success-500);
+            box-shadow: 0 0 8px var(--success-400);
+        }
+        
+        .status-indicator.offline {
+            background: var(--gray-400);
+        }
+        
+        .status-indicator.warning {
+            background: var(--warning-500);
+            box-shadow: 0 0 8px var(--warning-400);
+        }
+        
+        /* 搜索功能（可选） */
+        .nav-search {
+            padding: 0 var(--space-6) var(--space-4);
+        }
+        
+        .nav-search-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-inverse);
+            padding: var(--space-3);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-sm);
+            transition: all var(--duration-fast) var(--easing);
+        }
+        
+        .nav-search-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .nav-search-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--primary-400);
+            box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+        }
+        
+        /* 示例内容样式 */
+        .demo-content {
+            padding: var(--space-8);
+        }
+        
+        .demo-title {
+            font-size: var(--font-size-3xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
+        }
+        
+        .demo-description {
+            color: var(--text-secondary);
+            font-size: var(--font-size-base);
+            line-height: 1.7;
+            max-width: 800px;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+        }
+        
+        .feature-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-md);
+            border-left: 4px solid var(--primary-500);
+        }
+        
+        .feature-card h3 {
+            color: var(--text-primary);
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-3);
+        }
+        
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <!-- 统一侧边栏导航系统 -->
+    <nav class="unified-sidebar">
+        <!-- WaterMIS品牌标识区域 -->
+        <div class="sidebar-header">
+            <div class="logo-section">
+                <div class="water-logo">水</div>
+                <div class="system-branding">
+                    <div class="system-title">WaterMIS</div>
+                    <div class="system-subtitle">智慧水务管理平台</div>
+                    <div class="system-version">v4.0</div>
+                </div>
+            </div>
+            
+            <!-- 用户权限信息卡片 -->
+            <div class="user-permission-card">
+                <div class="user-info">
+                    <div class="user-avatar">管</div>
+                    <div class="user-details">
+                        <h4>系统管理员</h4>
+                        <span><span class="status-indicator online"></span>张三 • 在线</span>
+                    </div>
+                </div>
+                <div class="permission-level">
+                    <div class="permission-text">权限范围：县级管理权限</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 可选：搜索功能 -->
+        <div class="nav-search">
+            <input type="text" class="nav-search-input" placeholder="搜索功能模块...">
+        </div>
+        
+        <!-- 统一导航分组系统 -->
+        <div class="navigation-section">
+            <!-- 1. 工作台 -->
+            <div class="nav-group">
+                <div class="nav-group-header">
+                    <span class="nav-group-icon">🏠</span>
+                    <span class="nav-group-title">工作台</span>
+                    <span class="nav-group-count">1</span>
+                </div>
+                <ul class="nav-items-list">
+                    <li>
+                        <a href="#" class="nav-item active">
+                            <span class="nav-item-icon">📊</span>
+                            <span class="nav-item-text">管理仪表板</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- 2. 营业管理中心 -->
+            <div class="nav-group">
+                <div class="nav-group-header">
+                    <span class="nav-group-icon">💼</span>
+                    <span class="nav-group-title">营业管理中心</span>
+                    <span class="nav-group-count">5</span>
+                </div>
+                <ul class="nav-items-list">
+                    <li>
+                        <a href="#" class="nav-item">
+                            <span class="nav-item-icon">👥</span>
+                            <span class="nav-item-text">用户管理</span>
+                            <span class="nav-item-badge success">15,248</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-item">
+                            <span class="nav-item-icon">💳</span>
+                            <span class="nav-item-text">账户管理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-item">
+                            <span class="nav-item-icon">📋</span>
+                            <span class="nav-item-text">抄表管理中心</span>
+                            <span class="nav-item-badge warning">待处理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-item">
+                            <span class="nav-item-icon">💰</span>
+                            <span class="nav-item-text">收费管理中心</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-item">
+                            <span class="nav-item-icon">🏦</span>
+                            <span class="nav-item-text">预存水费管理</span>
+                            <span class="nav-item-badge">892</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- 3. 设备运维中心 -->
+            <div class="nav-group">
+                <div class="nav-group-header">
+                    <span class="nav-group-icon">⚙️</span>
+                    <span class="nav-group-title">设备运维中心</span>
+                    <span class="nav-group-count">2</span>
+                </div>
+                <ul class="nav-items-list">
+                    <li>
+                        <a href="#" class="nav-item">
+                            <span class="nav-item-icon">🔧</span>
+                            <span class="nav-item-text">设备管理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-item">
+                            <span class="nav-item-icon">⚖️</span>
+                            <span class="nav-item-text">计量管理</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- 4. 数据分析中心 -->
+            <div class="nav-group">
+                <div class="nav-group-header">
+                    <span class="nav-group-icon">📈</span>
+                    <span class="nav-group-title">数据分析中心</span>
+                    <span class="nav-group-count">3</span>
+                </div>
+                <ul class="nav-items-list">
+                    <li>
+                        <a href="#" class="nav-item">
+                            <span class="nav-item-icon">🔍</span>
+                            <span class="nav-item-text">高级数据查询</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-item">
+                            <span class="nav-item-icon">📊</span>
+                            <span class="nav-item-text">统计报表</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-item">
+                            <span class="nav-item-icon">📈</span>
+                            <span class="nav-item-text">分析图表</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- 5. 客户服务中心 -->
+            <div class="nav-group">
+                <div class="nav-group-header">
+                    <span class="nav-group-icon">🎧</span>
+                    <span class="nav-group-title">客户服务中心</span>
+                    <span class="nav-group-count">1</span>
+                </div>
+                <ul class="nav-items-list">
+                    <li>
+                        <a href="#" class="nav-item">
+                            <span class="nav-item-icon">🎯</span>
+                            <span class="nav-item-text">客户服务管理</span>
+                            <span class="nav-item-badge warning">127</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- 6. 系统管控中心 -->
+            <div class="nav-group">
+                <div class="nav-group-header">
+                    <span class="nav-group-icon">🏛️</span>
+                    <span class="nav-group-title">系统管控中心</span>
+                    <span class="nav-group-count">4</span>
+                </div>
+                <ul class="nav-items-list">
+                    <li>
+                        <a href="#" class="nav-item">
+                            <span class="nav-item-icon">🌏</span>
+                            <span class="nav-item-text">营业分区管理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-item">
+                            <span class="nav-item-icon">👨‍💼</span>
+                            <span class="nav-item-text">人事管理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-item">
+                            <span class="nav-item-icon">⚙️</span>
+                            <span class="nav-item-text">基本设置</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-item">
+                            <span class="nav-item-icon">🔧</span>
+                            <span class="nav-item-text">系统维护</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- 侧边栏控制 -->
+        <div class="sidebar-toggle" onclick="toggleSidebar()">
+            ⬅️ 收起侧边栏
+        </div>
+    </nav>
+    
+    <!-- 主内容区域 -->
+    <main class="main-content">
+        <div class="demo-content">
+            <h1 class="demo-title">WaterMIS统一侧边栏导航系统</h1>
+            <p class="demo-description">
+                这是基于深度需求分析设计的统一侧边栏导航系统，完整覆盖12个WaterMIS核心模块，
+                采用科学的分组方式和现代化的视觉设计，为水务预付费管理平台提供高效、直观的导航体验。
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🎯 业务流程导向</h3>
+                    <p>遵循抄表→收费→分析→管理的实际业务流程，确保导航符合用户工作习惯。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>📊 权限可视化</h3>
+                    <p>清晰展示用户权限范围和数据访问级别，支持多级权限管理。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>🔍 智能搜索</h3>
+                    <p>快速定位功能模块，提升大型系统中的导航效率。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>📱 响应式设计</h3>
+                    <p>完美适配桌面和移动设备，确保跨平台一致体验。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>🎨 水务主题</h3>
+                    <p>专为水务行业设计的色彩系统和视觉风格，体现专业性。</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h3>⚡ 高性能</h3>
+                    <p>优化的CSS动画和交互效果，确保流畅的用户体验。</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 侧边栏交互功能
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.unified-sidebar');
+            const mainContent = document.querySelector('.main-content');
+            const toggleBtn = document.querySelector('.sidebar-toggle');
+            
+            sidebar.classList.toggle('collapsed');
+            
+            if (sidebar.classList.contains('collapsed')) {
+                sidebar.style.width = '80px';
+                mainContent.style.marginLeft = '80px';
+                toggleBtn.innerHTML = '➡️ 展开';
+                
+                // 隐藏文字，只显示图标
+                document.querySelectorAll('.nav-item-text, .nav-group-title, .system-title, .system-subtitle').forEach(el => {
+                    el.style.display = 'none';
+                });
+                
+                document.querySelectorAll('.nav-group-count, .nav-item-badge, .user-details').forEach(el => {
+                    el.style.display = 'none';
+                });
+                
+            } else {
+                sidebar.style.width = '320px';
+                mainContent.style.marginLeft = '320px';
+                toggleBtn.innerHTML = '⬅️ 收起侧边栏';
+                
+                // 显示所有文字
+                document.querySelectorAll('.nav-item-text, .nav-group-title, .system-title, .system-subtitle').forEach(el => {
+                    el.style.display = 'block';
+                });
+                
+                document.querySelectorAll('.nav-group-count, .nav-item-badge, .user-details').forEach(el => {
+                    el.style.display = 'inline-block';
+                });
+            }
+        }
+        
+        // 导航项点击处理
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // 移除其他活动状态
+                document.querySelectorAll('.nav-item').forEach(nav => {
+                    nav.classList.remove('active');
+                });
+                
+                // 添加当前活动状态
+                this.classList.add('active');
+                
+                // 可以在这里添加页面跳转或内容切换逻辑
+                console.log('导航到:', this.querySelector('.nav-item-text').textContent);
+            });
+        });
+        
+        // 搜索功能
+        const searchInput = document.querySelector('.nav-search-input');
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            navItems.forEach(item => {
+                const itemText = item.querySelector('.nav-item-text').textContent.toLowerCase();
+                const navGroup = item.closest('.nav-group');
+                
+                if (itemText.includes(searchTerm) || searchTerm === '') {
+                    item.style.display = 'flex';
+                    navGroup.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // 隐藏没有可见项目的分组
+            document.querySelectorAll('.nav-group').forEach(group => {
+                const visibleItems = group.querySelectorAll('.nav-item[style*="flex"]');
+                if (visibleItems.length === 0 && searchTerm !== '') {
+                    group.style.display = 'none';
+                } else {
+                    group.style.display = 'block';
+                }
+            });
+        });
+        
+        // 响应式处理
+        function handleResize() {
+            const sidebar = document.querySelector('.unified-sidebar');
+            const mainContent = document.querySelector('.main-content');
+            
+            if (window.innerWidth <= 1024) {
+                sidebar.classList.add('mobile');
+                mainContent.style.marginLeft = '0';
+            } else {
+                sidebar.classList.remove('mobile');
+                if (!sidebar.classList.contains('collapsed')) {
+                    mainContent.style.marginLeft = '320px';
+                }
+            }
+        }
+        
+        window.addEventListener('resize', handleResize);
+        window.addEventListener('load', handleResize);
+        
+        // 移动端菜单切换
+        function toggleMobileSidebar() {
+            if (window.innerWidth <= 1024) {
+                document.querySelector('.unified-sidebar').classList.toggle('mobile-open');
+            }
+        }
+        
+        // 添加平滑滚动效果
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(6px)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('active')) {
+                    this.style.transform = 'translateX(0)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

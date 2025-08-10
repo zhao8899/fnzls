@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高级数据查询 - WaterMIS智慧水务管理平台</title>
+    <style>
+        :root {
+            /* WaterMIS v4.0 统一设计系统 */
+            --primary-50: #e6f7ff;
+            --primary-100: #bae7ff;
+            --primary-200: #91d5ff;
+            --primary-300: #69c0ff;
+            --primary-400: #40a9ff;
+            --primary-500: #2196f3;
+            --primary-600: #1976d2;
+            --primary-700: #1565c0;
+            --primary-800: #0d47a1;
+            --primary-900: #01579b;
+            
+            /* 成功色 - 清澈水蓝 */
+            --success-50: #e0f7fa;
+            --success-100: #b2ebf2;
+            --success-200: #80deea;
+            --success-300: #4dd0e1;
+            --success-400: #26c6da;
+            --success-500: #00bcd4;
+            --success-600: #00acc1;
+            --success-700: #0097a7;
+            --success-800: #00838f;
+            --success-900: #006064;
+            
+            /* 警告色 - 阳光橙 */
+            --warning-50: #fff8e1;
+            --warning-100: #ffecb3;
+            --warning-200: #ffe082;
+            --warning-300: #ffd54f;
+            --warning-400: #ffca28;
+            --warning-500: #ff9800;
+            --warning-600: #fb8c00;
+            --warning-700: #f57c00;
+            --warning-800: #ef6c00;
+            --warning-900: #e65100;
+            
+            /* 错误色 - 珊瑚红 */
+            --error-50: #ffebee;
+            --error-100: #ffcdd2;
+            --error-200: #ef9a9a;
+            --error-300: #e57373;
+            --error-400: #ef5350;
+            --error-500: #f44336;
+            --error-600: #e53935;
+            --error-700: #d32f2f;
+            --error-800: #c62828;
+            --error-900: #b71c1c;
+            
+            /* 中性色系 */
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #eeeeee;
+            --gray-300: #e0e0e0;
+            --gray-400: #bdbdbd;
+            --gray-500: #9e9e9e;
+            --gray-600: #757575;
+            --gray-700: #616161;
+            --gray-800: #424242;
+            --gray-900: #212121;
+            
+            /* 语义化颜色 */
+            --text-primary: var(--gray-900);
+            --text-secondary: var(--gray-700);
+            --text-tertiary: var(--gray-600);
+            --text-inverse: #ffffff;
+            
+            --bg-primary: #ffffff;
+            --bg-secondary: var(--gray-50);
+            --bg-tertiary: var(--gray-100);
+            
+            /* 间距系统 - 4px/8px基准 */
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-5: 20px;
+            --space-6: 24px;
+            --space-8: 32px;
+            --space-10: 40px;
+            --space-12: 48px;
+            --space-16: 64px;
+            --space-20: 80px;
+            
+            /* 圆角系统 */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-2xl: 24px;
+            --radius-3xl: 28px;
+            --radius-full: 9999px;
+            
+            /* 阴影系统 */
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.12);
+            --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+            
+            /* 动画系统 */
+            --duration-fast: 150ms;
+            --duration-base: 300ms;
+            --duration-slow: 500ms;
+            --easing: cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* 字体系统 */
+            --font-size-xs: 12px;
+            --font-size-sm: 14px;
+            --font-size-base: 16px;
+            --font-size-lg: 18px;
+            --font-size-xl: 20px;
+            --font-size-2xl: 24px;
+            --font-size-3xl: 30px;
+            --font-size-4xl: 36px;
+            
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* 智能自适应侧边栏 */
+        .unified-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 320px;
+            height: 100vh;
+            background: linear-gradient(180deg, #1a1d29 0%, #232940 50%, #1a1d29 100%);
+            box-shadow: var(--shadow-xl);
+            z-index: 1000;
+            overflow-y: auto;
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-full);
+        }
+        
+        /* 智慧水务标识区域 */
+        .sidebar-header {
+            padding: var(--space-6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--space-4);
+        }
+        
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-weight: var(--font-weight-bold);
+            margin-right: var(--space-4);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(33, 150, 243, 0.3);
+        }
+        
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transform: rotate(-45deg);
+            animation: logoShine 3s infinite;
+        }
+        
+        @keyframes logoShine {
+            0% { transform: translateX(-100%) rotate(-45deg); }
+            50% { transform: translateX(100%) rotate(-45deg); }
+            100% { transform: translateX(-100%) rotate(-45deg); }
+        }
+        
+        .system-title {
+            color: var(--text-inverse);
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-1);
+        }
+        
+        .system-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: var(--font-size-sm);
+        }
+        
+        /* 用户信息卡片 */
+        .user-info-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .user-info-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-1px);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--success-500), var(--success-600));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-weight: var(--font-weight-semibold);
+            margin-right: var(--space-3);
+        }
+        
+        .user-details h4 {
+            color: var(--text-inverse);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: 2px;
+        }
+        
+        .user-details span {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: var(--font-size-xs);
+        }
+        
+        /* 权限层级指示器 */
+        .permission-indicator {
+            margin-top: var(--space-3);
+            padding: var(--space-2) var(--space-3);
+            background: rgba(33, 150, 243, 0.2);
+            border-radius: var(--radius-md);
+            border-left: 3px solid var(--primary-500);
+        }
+        
+        .permission-text {
+            color: var(--text-inverse);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        /* 搜索功能 */
+        .search-container {
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: var(--space-3);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-md);
+            color: var(--text-inverse);
+            font-size: var(--font-size-sm);
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--primary-400);
+            box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+        }
+        
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* 智能导航分组 */
+        .nav-section {
+            padding: var(--space-6) 0;
+        }
+        
+        .nav-group {
+            margin-bottom: var(--space-6);
+        }
+        
+        .nav-group-title {
+            padding: 0 var(--space-6) var(--space-3);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: var(--space-4) var(--space-6);
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all var(--duration-fast) var(--easing);
+            position: relative;
+            border-left: 3px solid transparent;
+        }
+        
+        .nav-item i {
+            width: 20px;
+            margin-right: var(--space-3);
+            font-size: 16px;
+        }
+        
+        .nav-item:hover {
+            background: linear-gradient(90deg, rgba(33, 150, 243, 0.15), transparent);
+            color: var(--text-inverse);
+            border-left-color: var(--primary-400);
+            transform: translateX(4px);
+        }
+        
+        .nav-item.active {
+            background: linear-gradient(90deg, rgba(33, 150, 243, 0.3), rgba(33, 150, 243, 0.1));
+            color: var(--text-inverse);
+            border-left-color: var(--primary-500);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            right: var(--space-4);
+            width: 6px;
+            height: 6px;
+            background: var(--primary-500);
+            border-radius: var(--radius-full);
+            box-shadow: 0 0 8px var(--primary-500);
+        }
+        
+        /* 主内容区域 */
+        .main-content {
+            margin-left: 320px;
+            min-height: 100vh;
+            background: var(--bg-secondary);
+            transition: margin-left var(--duration-base) var(--easing);
+        }
+        
+        /* 现代化顶部栏 */
+        .top-bar {
+            background: var(--bg-primary);
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        /* 面包屑导航 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .breadcrumb-item {
+            color: var(--text-tertiary);
+            font-size: var(--font-size-sm);
+            text-decoration: none;
+        }
+        
+        .breadcrumb-item.active {
+            color: var(--text-primary);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .breadcrumb-separator {
+            color: var(--text-tertiary);
+        }
+        
+        .page-title {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .title-icon {
+            margin-right: var(--space-2);
+            padding: var(--space-2);
+            background: var(--success-100);
+            color: var(--success-600);
+            border-radius: var(--radius-md);
+        }
+        
+        /* 快速操作区域 */
+        .quick-actions {
+            display: flex;
+            gap: var(--space-3);
+        }
+        
+        /* 内容区域 */
+        .content-area {
+            padding: var(--space-6);
+        }
+        
+        /* 查询构建器 */
+        .query-builder {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-200);
+            margin-bottom: var(--space-8);
+            overflow: hidden;
+        }
+        
+        .builder-header {
+            padding: var(--space-5);
+            background: var(--gray-50);
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .builder-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .builder-actions {
+            display: flex;
+            gap: var(--space-2);
+        }
+        
+        .btn {
+            padding: var(--space-2) var(--space-4);
+            border-radius: var(--radius-md);
+            border: none;
+            cursor: pointer;
+            font-weight: var(--font-weight-medium);
+            transition: all 0.3s ease;
+            font-size: var(--font-size-sm);
+        }
+        
+        .btn-primary {
+            background: var(--primary-500);
+            color: var(--text-inverse);
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-600);
+            transform: translateY(-1px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--gray-300);
+        }
+        
+        .btn-outline:hover {
+            background: var(--gray-50);
+        }
+        
+        .btn-success {
+            background: var(--success-500);
+            color: var(--text-inverse);
+        }
+        
+        .btn-success:hover {
+            background: var(--success-600);
+            transform: translateY(-1px);
+        }
+        
+        .builder-content {
+            padding: var(--space-6);
+        }
+        
+        /* 查询条件组 */
+        .condition-groups {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+        
+        .condition-group {
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-md);
+            padding: var(--space-4);
+            background: var(--gray-50);
+            position: relative;
+        }
+        
+        .group-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-4);
+        }
+        
+        .group-logic {
+            padding: var(--space-1) var(--space-3);
+            background: var(--primary-500);
+            color: var(--text-inverse);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+        }
+        
+        .group-actions {
+            display: flex;
+            gap: var(--space-2);
+        }
+        
+        .btn-sm {
+            padding: var(--space-1) var(--space-2);
+            font-size: var(--font-size-xs);
+            border-radius: var(--radius-sm);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-add {
+            background: var(--success-500);
+            color: var(--text-inverse);
+        }
+        
+        .btn-add:hover {
+            background: var(--success-600);
+        }
+        
+        .btn-remove {
+            background: var(--error-500);
+            color: var(--text-inverse);
+        }
+        
+        .btn-remove:hover {
+            background: var(--error-600);
+        }
+        
+        /* 查询条件 */
+        .conditions {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+        
+        .condition {
+            display: grid;
+            grid-template-columns: 200px 120px 1fr 60px;
+            gap: var(--space-3);
+            align-items: center;
+            padding: var(--space-3);
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .form-select, .form-input {
+            padding: var(--space-2) var(--space-3);
+            border: 1px solid var(--gray-300);
+            border-radius: var(--radius-sm);
+            font-size: var(--font-size-sm);
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-select:focus, .form-input:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.1);
+        }
+        
+        .remove-condition {
+            background: var(--error-100);
+            color: var(--error-600);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .remove-condition:hover {
+            background: var(--error-500);
+            color: var(--text-inverse);
+        }
+        
+        /* 快速查询模板 */
+        .quick-templates {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-4);
+            margin-bottom: var(--space-8);
+        }
+        
+        .template-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-5);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .template-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+            border-color: var(--primary-300);
+        }
+        
+        .template-card.popular::before {
+            content: '热门';
+            position: absolute;
+            top: 8px;
+            right: -20px;
+            background: var(--warning-500);
+            color: var(--text-inverse);
+            padding: 4px 24px;
+            font-size: 10px;
+            font-weight: 600;
+            transform: rotate(45deg);
+        }
+        
+        .template-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-xl);
+            margin-bottom: var(--space-3);
+        }
+        
+        .template-card.billing .template-icon {
+            background: var(--success-100);
+            color: var(--success-600);
+        }
+        
+        .template-card.usage .template-icon {
+            background: var(--primary-100);
+            color: var(--primary-600);
+        }
+        
+        .template-card.device .template-icon {
+            background: var(--warning-100);
+            color: var(--warning-600);
+        }
+        
+        .template-card.audit .template-icon {
+            background: var(--error-100);
+            color: var(--error-600);
+        }
+        
+        .template-title {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+        }
+        
+        .template-desc {
+            font-size: var(--font-size-sm);
+            color: var(--text-tertiary);
+            line-height: 1.4;
+        }
+        
+        /* 查询结果区域 */
+        .query-results {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-200);
+            overflow: hidden;
+        }
+        
+        .results-header {
+            padding: var(--space-5);
+            background: var(--gray-50);
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .results-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .results-meta {
+            font-size: var(--font-size-sm);
+            color: var(--text-tertiary);
+        }
+        
+        .results-actions {
+            display: flex;
+            gap: var(--space-2);
+        }
+        
+        /* 数据表格 */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-primary);
+        }
+        
+        .data-table th {
+            text-align: left;
+            padding: var(--space-4);
+            background: var(--gray-50);
+            border-bottom: 1px solid var(--gray-200);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+            position: sticky;
+            top: 0;
+        }
+        
+        .data-table td {
+            padding: var(--space-4);
+            border-bottom: 1px solid var(--gray-200);
+            font-size: var(--font-size-sm);
+        }
+        
+        .data-table tr:hover {
+            background: var(--gray-50);
+        }
+        
+        .table-container {
+            max-height: 500px;
+            overflow: auto;
+        }
+        
+        /* 加载状态 */
+        .loading-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: var(--space-16);
+            color: var(--text-tertiary);
+        }
+        
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--gray-200);
+            border-top: 4px solid var(--primary-500);
+            border-radius: var(--radius-full);
+            animation: spin 1s linear infinite;
+            margin-bottom: var(--space-4);
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 空状态 */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: var(--space-16);
+            color: var(--text-tertiary);
+        }
+        
+        .empty-icon {
+            font-size: 64px;
+            margin-bottom: var(--space-4);
+            opacity: 0.5;
+        }
+        
+        /* 统计图表区域 */
+        .chart-container {
+            padding: var(--space-5);
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gray-50);
+            border-radius: var(--radius-md);
+            margin: var(--space-5);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .unified-sidebar {
+                width: 0;
+                overflow: hidden;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .quick-templates {
+                grid-template-columns: 1fr;
+            }
+            
+            .condition {
+                grid-template-columns: 1fr;
+                gap: var(--space-2);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 智能自适应侧边栏 -->
+    <aside class="unified-sidebar">
+        <!-- 智慧水务标识区域 -->
+        <div class="sidebar-header">
+            <div class="logo-section">
+                <div class="logo">💧</div>
+                <div>
+                    <div class="system-title">WaterMIS</div>
+                    <div class="system-subtitle">智慧水务管理平台</div>
+                </div>
+            </div>
+            
+            <!-- 用户信息卡片 -->
+            <div class="user-info-card">
+                <div class="user-info">
+                    <div class="user-avatar">管</div>
+                    <div class="user-details">
+                        <h4>系统管理员</h4>
+                        <span>在线 • 权限级别: 超级管理员</span>
+                    </div>
+                </div>
+                <div class="permission-indicator">
+                    <div class="permission-text">🔐 全系统访问权限</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 搜索功能 -->
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="搜索功能模块..." id="navSearch">
+        </div>
+
+        <!-- 智能导航分组 -->
+        <div class="nav-section">
+            <!-- 营业管理中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">📊 营业管理中心</div>
+                <a href="admin-dashboard-redesigned.html" class="nav-item">
+                    <i>🏠</i>
+                    工作台
+                </a>
+                <a href="admin-user-management.html" class="nav-item">
+                    <i>👥</i>
+                    用户管理
+                </a>
+                <a href="admin-account-management.html" class="nav-item">
+                    <i>💰</i>
+                    账户管理
+                </a>
+                <a href="admin-meter-reading-center.html" class="nav-item">
+                    <i>📊</i>
+                    抄表管理
+                </a>
+                <a href="admin-billing-center.html" class="nav-item">
+                    <i>💳</i>
+                    收费管理
+                </a>
+                <a href="admin-user-recharge.html" class="nav-item">
+                    <i>🏦</i>
+                    预存水费管理
+                </a>
+            </div>
+            
+            <!-- 设备运维中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">⚙️ 设备运维中心</div>
+                <a href="admin-device-management.html" class="nav-item">
+                    <i>🔧</i>
+                    设备管理
+                </a>
+                <a href="#" class="nav-item">
+                    <i>⚖️</i>
+                    计量管理
+                </a>
+            </div>
+            
+            <!-- 数据分析中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">📈 数据分析中心</div>
+                <a href="admin-advanced-query.html" class="nav-item active">
+                    <i>🔍</i>
+                    数据查询
+                </a>
+                <a href="admin-report-center.html" class="nav-item">
+                    <i>📋</i>
+                    统计报表
+                </a>
+                <a href="#" class="nav-item">
+                    <i>📊</i>
+                    分析图表
+                </a>
+            </div>
+            
+            <!-- 系统管控中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">🏛️ 系统管控中心</div>
+                <a href="admin-region-management.html" class="nav-item">
+                    <i>🌏</i>
+                    营业分区管理
+                </a>
+                <a href="admin-operator-management.html" class="nav-item">
+                    <i>👨‍💼</i>
+                    人事管理
+                </a>
+                <a href="admin-system-settings.html" class="nav-item">
+                    <i>⚙️</i>
+                    基本设置
+                </a>
+                <a href="#" class="nav-item">
+                    <i>🔧</i>
+                    系统维护
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- 主内容区域 -->
+    <main class="main-content">
+        <!-- 现代化顶部栏 -->
+        <header class="top-bar">
+            <div style="display: flex; align-items: center;">
+                <nav class="breadcrumb">
+                    <a href="admin-dashboard-redesigned.html" class="breadcrumb-item">管理仪表板</a>
+                    <span class="breadcrumb-separator">›</span>
+                    <span class="breadcrumb-item active">高级数据查询</span>
+                </nav>
+            </div>
+            
+            <div class="quick-actions">
+                <span style="color: var(--text-secondary); font-size: var(--font-size-sm); margin-right: var(--space-4);">
+                    已保存查询: 12个
+                </span>
+                <button class="btn btn-outline" onclick="showHelp()" style="padding: var(--space-2) var(--space-3); font-size: var(--font-size-xs);">
+                    ❓ 使用帮助
+                </button>
+            </div>
+        </header>
+
+        <!-- 内容区域 -->
+        <div class="content-area">
+            <!-- 页面标题区域 -->
+            <div style="margin-bottom: var(--space-8);">
+                <div class="page-title" style="margin-bottom: var(--space-3);">
+                    <span class="title-icon">🔍</span>
+                    高级数据查询
+                </div>
+                <p style="color: var(--text-secondary); font-size: var(--font-size-sm); margin: 0;">
+                    使用可视化查询构建器快速构建复杂查询条件，支持多种数据源和导出格式
+                </p>
+            </div>
+            
+            <!-- 快速查询模板 -->
+            <div style="margin-bottom: 32px;">
+                <h3 style="margin-bottom: 16px; color: var(--text-primary);">快速查询模板</h3>
+                <div class="quick-templates">
+                    <div class="template-card billing popular" onclick="loadTemplate('billing')">
+                        <div class="template-icon">💰</div>
+                        <div class="template-title">收费数据查询</div>
+                        <div class="template-desc">查询指定时间范围内的收费记录、欠费统计、收费异常等财务数据</div>
+                    </div>
+                    
+                    <div class="template-card usage" onclick="loadTemplate('usage')">
+                        <div class="template-icon">💧</div>
+                        <div class="template-title">用水量分析</div>
+                        <div class="template-desc">分析用户用水趋势、用量异常、节水效果等用水相关数据</div>
+                    </div>
+                    
+                    <div class="template-card device" onclick="loadTemplate('device')">
+                        <div class="template-icon">🔧</div>
+                        <div class="template-title">设备运行状态</div>
+                        <div class="template-desc">查询水表状态、设备故障、维护记录等设备管理数据</div>
+                    </div>
+                    
+                    <div class="template-card audit" onclick="loadTemplate('audit')">
+                        <div class="template-icon">📋</div>
+                        <div class="template-title">审计日志查询</div>
+                        <div class="template-desc">查看系统操作记录、数据变更历史、用户行为审计等</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 高级查询构建器 -->
+            <div class="query-builder">
+                <div class="builder-header">
+                    <h3 class="builder-title">
+                        <span style="margin-right: 8px;">⚙️</span>
+                        可视化查询构建器
+                    </h3>
+                    <div class="builder-actions">
+                        <button class="btn btn-outline" onclick="clearQuery()">清空条件</button>
+                        <button class="btn btn-outline" onclick="saveQuery()">保存查询</button>
+                        <button class="btn btn-success" onclick="executeQuery()">执行查询</button>
+                    </div>
+                </div>
+                
+                <div class="builder-content">
+                    <div class="condition-groups" id="conditionGroups">
+                        <!-- 默认条件组 -->
+                        <div class="condition-group" data-group="0">
+                            <div class="group-header">
+                                <div class="group-logic">AND</div>
+                                <div class="group-actions">
+                                    <button class="btn-sm btn-add" onclick="addCondition(0)">+ 添加条件</button>
+                                    <button class="btn-sm btn-remove" onclick="removeGroup(0)">删除组</button>
+                                </div>
+                            </div>
+                            
+                            <div class="conditions" data-conditions="0">
+                                <div class="condition">
+                                    <select class="form-select" name="field">
+                                        <option value="">选择字段</option>
+                                        <option value="user_id">用户编号</option>
+                                        <option value="user_name">用户姓名</option>
+                                        <option value="address">地址</option>
+                                        <option value="balance">账户余额</option>
+                                        <option value="usage">用水量</option>
+                                        <option value="bill_amount">账单金额</option>
+                                        <option value="payment_date">缴费日期</option>
+                                        <option value="meter_reading">水表读数</option>
+                                        <option value="device_status">设备状态</option>
+                                        <option value="region">所属区域</option>
+                                    </select>
+                                    
+                                    <select class="form-select" name="operator">
+                                        <option value="eq">等于</option>
+                                        <option value="ne">不等于</option>
+                                        <option value="gt">大于</option>
+                                        <option value="gte">大于等于</option>
+                                        <option value="lt">小于</option>
+                                        <option value="lte">小于等于</option>
+                                        <option value="like">包含</option>
+                                        <option value="between">介于</option>
+                                        <option value="in">在列表中</option>
+                                    </select>
+                                    
+                                    <input type="text" class="form-input" name="value" placeholder="请输入查询值">
+                                    
+                                    <button class="remove-condition" onclick="removeCondition(this)">×</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px; text-align: center;">
+                        <button class="btn btn-primary" onclick="addConditionGroup()">+ 添加条件组(OR)</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 查询结果 -->
+            <div class="query-results">
+                <div class="results-header">
+                    <h3 class="results-title">
+                        <span style="margin-right: 8px;">📊</span>
+                        查询结果
+                    </h3>
+                    <div class="results-meta">
+                        <span id="resultCount">共 0 条记录</span>
+                        <span style="margin-left: 16px;">查询耗时: <span id="queryTime">0ms</span></span>
+                    </div>
+                    <div class="results-actions">
+                        <button class="btn btn-outline" onclick="exportResults('csv')">导出CSV</button>
+                        <button class="btn btn-outline" onclick="exportResults('excel')">导出Excel</button>
+                        <button class="btn btn-outline" onclick="createChart()">生成图表</button>
+                    </div>
+                </div>
+                
+                <div id="resultsContent">
+                    <!-- 初始空状态 -->
+                    <div class="empty-state">
+                        <div class="empty-icon">🔍</div>
+                        <h4>请构建查询条件并执行查询</h4>
+                        <p>您可以使用上方的快速模板或自定义查询条件</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let queryGroups = 1;
+        let conditionCounter = 1;
+        
+        // 模板数据
+        const templates = {
+            billing: {
+                title: '收费数据查询',
+                conditions: [
+                    { field: 'payment_date', operator: 'between', value: '2025-01-01,2025-12-31' },
+                    { field: 'bill_amount', operator: 'gt', value: '0' }
+                ]
+            },
+            usage: {
+                title: '用水量分析', 
+                conditions: [
+                    { field: 'usage', operator: 'gt', value: '0' },
+                    { field: 'meter_reading', operator: 'gt', value: '0' }
+                ]
+            },
+            device: {
+                title: '设备运行状态',
+                conditions: [
+                    { field: 'device_status', operator: 'eq', value: '正常' }
+                ]
+            },
+            audit: {
+                title: '审计日志查询',
+                conditions: [
+                    { field: 'user_id', operator: 'like', value: '' }
+                ]
+            }
+        };
+        
+        // 示例数据
+        const sampleData = [
+            { user_id: 'A001234', user_name: '张先生', address: '东城区建国路123号', balance: '156.80', usage: '23.5', bill_amount: '87.60', payment_date: '2025-01-15', meter_reading: '1247.5', device_status: '正常', region: '东城区' },
+            { user_id: 'B005678', user_name: '李女士', address: '西城区中山路456号', balance: '89.20', usage: '18.7', bill_amount: '69.80', payment_date: '2025-01-16', meter_reading: '892.1', device_status: '正常', region: '西城区' },
+            { user_id: 'C009876', user_name: '王先生', address: '南城区解放路789号', balance: '234.50', usage: '31.2', bill_amount: '116.40', payment_date: '2025-01-14', meter_reading: '2156.8', device_status: '异常', region: '南城区' },
+            { user_id: 'D003456', user_name: '赵女士', address: '北城区胜利路321号', balance: '67.90', usage: '15.8', bill_amount: '58.90', payment_date: '2025-01-17', meter_reading: '674.3', device_status: '正常', region: '北城区' },
+            { user_id: 'E007890', user_name: '陈先生', address: '东城区和平路654号', balance: '178.30', usage: '26.4', bill_amount: '98.50', payment_date: '2025-01-13', meter_reading: '1534.7', device_status: '维修中', region: '东城区' }
+        ];
+        
+        // 字段中文映射
+        const fieldLabels = {
+            'user_id': '用户编号',
+            'user_name': '用户姓名', 
+            'address': '地址',
+            'balance': '账户余额(元)',
+            'usage': '用水量(吨)',
+            'bill_amount': '账单金额(元)',
+            'payment_date': '缴费日期',
+            'meter_reading': '水表读数',
+            'device_status': '设备状态',
+            'region': '所属区域'
+        };
+        
+        // 加载查询模板
+        function loadTemplate(templateKey) {
+            const template = templates[templateKey];
+            if (!template) return;
+            
+            // 清空现有条件
+            clearQuery();
+            
+            // 加载模板条件
+            const firstGroup = document.querySelector('[data-conditions="0"]');
+            const firstCondition = firstGroup.querySelector('.condition');
+            
+            template.conditions.forEach((condition, index) => {
+                let conditionEl;
+                if (index === 0) {
+                    conditionEl = firstCondition;
+                } else {
+                    conditionEl = createConditionElement();
+                    firstGroup.appendChild(conditionEl);
+                }
+                
+                conditionEl.querySelector('[name="field"]').value = condition.field;
+                conditionEl.querySelector('[name="operator"]').value = condition.operator;
+                conditionEl.querySelector('[name="value"]').value = condition.value;
+            });
+            
+            showToast(`已加载 "${template.title}" 查询模板`, 'success');
+        }
+        
+        // 添加条件
+        function addCondition(groupIndex) {
+            const conditionsContainer = document.querySelector(`[data-conditions="${groupIndex}"]`);
+            const newCondition = createConditionElement();
+            conditionsContainer.appendChild(newCondition);
+        }
+        
+        // 创建条件元素
+        function createConditionElement() {
+            const div = document.createElement('div');
+            div.className = 'condition';
+            div.innerHTML = `
+                <select class="form-select" name="field">
+                    <option value="">选择字段</option>
+                    <option value="user_id">用户编号</option>
+                    <option value="user_name">用户姓名</option>
+                    <option value="address">地址</option>
+                    <option value="balance">账户余额</option>
+                    <option value="usage">用水量</option>
+                    <option value="bill_amount">账单金额</option>
+                    <option value="payment_date">缴费日期</option>
+                    <option value="meter_reading">水表读数</option>
+                    <option value="device_status">设备状态</option>
+                    <option value="region">所属区域</option>
+                </select>
+                
+                <select class="form-select" name="operator">
+                    <option value="eq">等于</option>
+                    <option value="ne">不等于</option>
+                    <option value="gt">大于</option>
+                    <option value="gte">大于等于</option>
+                    <option value="lt">小于</option>
+                    <option value="lte">小于等于</option>
+                    <option value="like">包含</option>
+                    <option value="between">介于</option>
+                    <option value="in">在列表中</option>
+                </select>
+                
+                <input type="text" class="form-input" name="value" placeholder="请输入查询值">
+                
+                <button class="remove-condition" onclick="removeCondition(this)">×</button>
+            `;
+            return div;
+        }
+        
+        // 移除条件
+        function removeCondition(button) {
+            const condition = button.closest('.condition');
+            const conditionsContainer = condition.parentElement;
+            
+            if (conditionsContainer.children.length > 1) {
+                condition.remove();
+            } else {
+                showToast('每个条件组至少需要一个查询条件', 'warning');
+            }
+        }
+        
+        // 添加条件组
+        function addConditionGroup() {
+            const container = document.getElementById('conditionGroups');
+            const groupDiv = document.createElement('div');
+            groupDiv.className = 'condition-group';
+            groupDiv.setAttribute('data-group', queryGroups);
+            
+            groupDiv.innerHTML = `
+                <div class="group-header">
+                    <div class="group-logic">OR</div>
+                    <div class="group-actions">
+                        <button class="btn-sm btn-add" onclick="addCondition(${queryGroups})">+ 添加条件</button>
+                        <button class="btn-sm btn-remove" onclick="removeGroup(${queryGroups})">删除组</button>
+                    </div>
+                </div>
+                
+                <div class="conditions" data-conditions="${queryGroups}">
+                    <div class="condition">
+                        <select class="form-select" name="field">
+                            <option value="">选择字段</option>
+                            <option value="user_id">用户编号</option>
+                            <option value="user_name">用户姓名</option>
+                            <option value="address">地址</option>
+                            <option value="balance">账户余额</option>
+                            <option value="usage">用水量</option>
+                            <option value="bill_amount">账单金额</option>
+                            <option value="payment_date">缴费日期</option>
+                            <option value="meter_reading">水表读数</option>
+                            <option value="device_status">设备状态</option>
+                            <option value="region">所属区域</option>
+                        </select>
+                        
+                        <select class="form-select" name="operator">
+                            <option value="eq">等于</option>
+                            <option value="ne">不等于</option>
+                            <option value="gt">大于</option>
+                            <option value="gte">大于等于</option>
+                            <option value="lt">小于</option>
+                            <option value="lte">小于等于</option>
+                            <option value="like">包含</option>
+                            <option value="between">介于</option>
+                            <option value="in">在列表中</option>
+                        </select>
+                        
+                        <input type="text" class="form-input" name="value" placeholder="请输入查询值">
+                        
+                        <button class="remove-condition" onclick="removeCondition(this)">×</button>
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(groupDiv);
+            queryGroups++;
+        }
+        
+        // 移除条件组
+        function removeGroup(groupIndex) {
+            const groups = document.querySelectorAll('.condition-group');
+            if (groups.length > 1) {
+                document.querySelector(`[data-group="${groupIndex}"]`).remove();
+            } else {
+                showToast('至少需要保留一个查询条件组', 'warning');
+            }
+        }
+        
+        // 清空查询
+        function clearQuery() {
+            const container = document.getElementById('conditionGroups');
+            container.innerHTML = `
+                <div class="condition-group" data-group="0">
+                    <div class="group-header">
+                        <div class="group-logic">AND</div>
+                        <div class="group-actions">
+                            <button class="btn-sm btn-add" onclick="addCondition(0)">+ 添加条件</button>
+                            <button class="btn-sm btn-remove" onclick="removeGroup(0)">删除组</button>
+                        </div>
+                    </div>
+                    
+                    <div class="conditions" data-conditions="0">
+                        <div class="condition">
+                            <select class="form-select" name="field">
+                                <option value="">选择字段</option>
+                                <option value="user_id">用户编号</option>
+                                <option value="user_name">用户姓名</option>
+                                <option value="address">地址</option>
+                                <option value="balance">账户余额</option>
+                                <option value="usage">用水量</option>
+                                <option value="bill_amount">账单金额</option>
+                                <option value="payment_date">缴费日期</option>
+                                <option value="meter_reading">水表读数</option>
+                                <option value="device_status">设备状态</option>
+                                <option value="region">所属区域</option>
+                            </select>
+                            
+                            <select class="form-select" name="operator">
+                                <option value="eq">等于</option>
+                                <option value="ne">不等于</option>
+                                <option value="gt">大于</option>
+                                <option value="gte">大于等于</option>
+                                <option value="lt">小于</option>
+                                <option value="lte">小于等于</option>
+                                <option value="like">包含</option>
+                                <option value="between">介于</option>
+                                <option value="in">在列表中</option>
+                            </select>
+                            
+                            <input type="text" class="form-input" name="value" placeholder="请输入查询值">
+                            
+                            <button class="remove-condition" onclick="removeCondition(this)">×</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            queryGroups = 1;
+            
+            // 重置结果区域
+            document.getElementById('resultsContent').innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon">🔍</div>
+                    <h4>请构建查询条件并执行查询</h4>
+                    <p>您可以使用上方的快速模板或自定义查询条件</p>
+                </div>
+            `;
+        }
+        
+        // 保存查询
+        function saveQuery() {
+            const queryName = prompt('请输入查询名称:');
+            if (queryName) {
+                // 这里可以保存查询条件到后端
+                showToast(`查询 "${queryName}" 已保存`, 'success');
+            }
+        }
+        
+        // 执行查询
+        function executeQuery() {
+            const startTime = Date.now();
+            
+            // 显示加载状态
+            document.getElementById('resultsContent').innerHTML = `
+                <div class="loading-state">
+                    <div class="loading-spinner"></div>
+                    <p>正在执行查询...</p>
+                </div>
+            `;
+            
+            // 收集查询条件
+            const queryConditions = collectQueryConditions();
+            
+            // 模拟查询延迟
+            setTimeout(() => {
+                // 执行查询逻辑 (这里使用示例数据模拟)
+                const results = filterData(sampleData, queryConditions);
+                const queryTime = Date.now() - startTime;
+                
+                // 显示结果
+                displayResults(results, queryTime);
+            }, 1000 + Math.random() * 1000); // 1-2秒延迟模拟
+        }
+        
+        // 收集查询条件
+        function collectQueryConditions() {
+            const conditions = [];
+            const groups = document.querySelectorAll('.condition-group');
+            
+            groups.forEach(group => {
+                const groupConditions = [];
+                const conditionElements = group.querySelectorAll('.condition');
+                
+                conditionElements.forEach(condition => {
+                    const field = condition.querySelector('[name="field"]').value;
+                    const operator = condition.querySelector('[name="operator"]').value;
+                    const value = condition.querySelector('[name="value"]').value;
+                    
+                    if (field && operator && value) {
+                        groupConditions.push({ field, operator, value });
+                    }
+                });
+                
+                if (groupConditions.length > 0) {
+                    conditions.push(groupConditions);
+                }
+            });
+            
+            return conditions;
+        }
+        
+        // 过滤数据 (简单实现)
+        function filterData(data, conditions) {
+            if (conditions.length === 0) return data;
+            
+            return data.filter(item => {
+                // OR逻辑：任一条件组匹配即可
+                return conditions.some(group => {
+                    // AND逻辑：组内所有条件都要匹配
+                    return group.every(condition => {
+                        const { field, operator, value } = condition;
+                        const itemValue = item[field];
+                        
+                        switch (operator) {
+                            case 'eq': return itemValue === value;
+                            case 'ne': return itemValue !== value;
+                            case 'gt': return parseFloat(itemValue) > parseFloat(value);
+                            case 'gte': return parseFloat(itemValue) >= parseFloat(value);
+                            case 'lt': return parseFloat(itemValue) < parseFloat(value);
+                            case 'lte': return parseFloat(itemValue) <= parseFloat(value);
+                            case 'like': return itemValue.includes(value);
+                            case 'between':
+                                const [min, max] = value.split(',');
+                                const numValue = parseFloat(itemValue);
+                                return numValue >= parseFloat(min) && numValue <= parseFloat(max);
+                            case 'in':
+                                const values = value.split(',').map(v => v.trim());
+                                return values.includes(itemValue);
+                            default: return true;
+                        }
+                    });
+                });
+            });
+        }
+        
+        // 显示查询结果
+        function displayResults(results, queryTime) {
+            document.getElementById('resultCount').textContent = `共 ${results.length} 条记录`;
+            document.getElementById('queryTime').textContent = `${queryTime}ms`;
+            
+            if (results.length === 0) {
+                document.getElementById('resultsContent').innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📭</div>
+                        <h4>没有找到符合条件的数据</h4>
+                        <p>请尝试调整查询条件</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // 生成表格
+            const tableHtml = generateTable(results);
+            document.getElementById('resultsContent').innerHTML = `
+                <div class="table-container">
+                    ${tableHtml}
+                </div>
+            `;
+        }
+        
+        // 生成数据表格
+        function generateTable(data) {
+            if (data.length === 0) return '';
+            
+            const headers = Object.keys(data[0]);
+            
+            let html = `
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            ${headers.map(header => `<th>${fieldLabels[header] || header}</th>`).join('')}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${data.map(row => `
+                            <tr>
+                                ${headers.map(header => `<td>${row[header]}</td>`).join('')}
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            
+            return html;
+        }
+        
+        // 导出结果
+        function exportResults(format) {
+            const resultCount = parseInt(document.getElementById('resultCount').textContent.match(/\d+/)[0]);
+            
+            if (resultCount === 0) {
+                showToast('没有数据可以导出', 'warning');
+                return;
+            }
+            
+            showToast(`正在导出 ${format.toUpperCase()} 格式文件...`, 'info');
+            
+            // 模拟导出过程
+            setTimeout(() => {
+                showToast(`${format.toUpperCase()} 文件导出成功！`, 'success');
+            }, 1500);
+        }
+        
+        // 生成图表
+        function createChart() {
+            const resultCount = parseInt(document.getElementById('resultCount').textContent.match(/\d+/)[0]);
+            
+            if (resultCount === 0) {
+                showToast('没有数据可以生成图表', 'warning');
+                return;
+            }
+            
+            // 在结果区域添加图表
+            const chartContainer = document.createElement('div');
+            chartContainer.className = 'chart-container';
+            chartContainer.innerHTML = `
+                <div>
+                    <div style="font-size: 48px; margin-bottom: 16px;">📊</div>
+                    <h4>数据可视化图表</h4>
+                    <p style="color: var(--text-secondary);">图表功能开发中，将支持柱状图、饼图、折线图等多种图表类型</p>
+                </div>
+            `;
+            
+            document.getElementById('resultsContent').appendChild(chartContainer);
+            showToast('图表已生成', 'success');
+        }
+        
+        // Toast提示
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            
+            const bgColor = {
+                'success': 'var(--success-500)',
+                'warning': 'var(--warning-500)', 
+                'error': 'var(--error-500)',
+                'info': 'var(--primary-500)'
+            }[type];
+            
+            toast.style.cssText = `
+                position: fixed;
+                top: 80px;
+                right: 20px;
+                background: ${bgColor};
+                color: white;
+                padding: 12px 24px;
+                border-radius: 8px;
+                font-size: 14px;
+                z-index: 2000;
+                animation: slideInRight 0.3s ease;
+                box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            `;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.remove();
+                    }
+                }, 300);
+            }, 3000);
+        }
+        
+        // 添加动画CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    opacity: 0;
+                    transform: translateX(100%);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+            
+            @keyframes slideOutRight {
+                from {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateX(100%);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // 显示帮助
+        function showHelp() {
+            showToast('查询帮助：使用模板快速开始，或手动构建复杂查询条件', 'info');
+        }
+    </script>
+</body>
+</html>

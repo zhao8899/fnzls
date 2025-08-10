@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>客户服务中心 - WaterMIS智慧水务管理平台</title>
+    <style>
+        :root {
+            /* WaterMIS v4.0 统一设计系统 */
+            --primary-50: #e6f7ff;
+            --primary-100: #bae7ff;
+            --primary-200: #91d5ff;
+            --primary-300: #69c0ff;
+            --primary-400: #40a9ff;
+            --primary-500: #2196f3;
+            --primary-600: #1976d2;
+            --primary-700: #1565c0;
+            --primary-800: #0d47a1;
+            --primary-900: #01579b;
+            
+            /* 成功色 - 清澈水蓝 */
+            --success-50: #e0f7fa;
+            --success-100: #b2ebf2;
+            --success-200: #80deea;
+            --success-300: #4dd0e1;
+            --success-400: #26c6da;
+            --success-500: #00bcd4;
+            --success-600: #00acc1;
+            --success-700: #0097a7;
+            --success-800: #00838f;
+            --success-900: #006064;
+            
+            /* 警告色 - 阳光橙 */
+            --warning-50: #fff8e1;
+            --warning-100: #ffecb3;
+            --warning-200: #ffe082;
+            --warning-300: #ffd54f;
+            --warning-400: #ffca28;
+            --warning-500: #ff9800;
+            --warning-600: #fb8c00;
+            --warning-700: #f57c00;
+            --warning-800: #ef6c00;
+            --warning-900: #e65100;
+            
+            /* 错误色 - 珊瑚红 */
+            --error-50: #ffebee;
+            --error-100: #ffcdd2;
+            --error-200: #ef9a9a;
+            --error-300: #e57373;
+            --error-400: #ef5350;
+            --error-500: #f44336;
+            --error-600: #e53935;
+            --error-700: #d32f2f;
+            --error-800: #c62828;
+            --error-900: #b71c1c;
+            
+            /* 中性色系 */
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #eeeeee;
+            --gray-300: #e0e0e0;
+            --gray-400: #bdbdbd;
+            --gray-500: #9e9e9e;
+            --gray-600: #757575;
+            --gray-700: #616161;
+            --gray-800: #424242;
+            --gray-900: #212121;
+            
+            /* 语义化颜色 */
+            --text-primary: var(--gray-900);
+            --text-secondary: var(--gray-700);
+            --text-tertiary: var(--gray-600);
+            --text-inverse: #ffffff;
+            
+            --bg-primary: #ffffff;
+            --bg-secondary: var(--gray-50);
+            --bg-tertiary: var(--gray-100);
+            
+            /* 间距系统 - 4px/8px基准 */
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-5: 20px;
+            --space-6: 24px;
+            --space-8: 32px;
+            --space-10: 40px;
+            --space-12: 48px;
+            --space-20: 80px;
+            
+            /* 圆角系统 */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-2xl: 24px;
+            --radius-3xl: 28px;
+            --radius-full: 9999px;
+            
+            /* 阴影系统 */
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.12);
+            --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+            
+            /* 动画系统 */
+            --duration-fast: 150ms;
+            --duration-base: 300ms;
+            --duration-slow: 500ms;
+            --easing: cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* 字体系统 */
+            --font-size-xs: 12px;
+            --font-size-sm: 14px;
+            --font-size-base: 16px;
+            --font-size-lg: 18px;
+            --font-size-xl: 20px;
+            --font-size-2xl: 24px;
+            --font-size-3xl: 30px;
+            --font-size-4xl: 36px;
+            
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* 智能自适应侧边栏 */
+        .unified-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 320px;
+            height: 100vh;
+            background: linear-gradient(180deg, #1a1d29 0%, #232940 50%, #1a1d29 100%);
+            box-shadow: var(--shadow-xl);
+            z-index: 1000;
+            overflow-y: auto;
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .unified-sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .unified-sidebar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .unified-sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-full);
+        }
+        
+        /* 智慧水务标识区域 */
+        .sidebar-header {
+            padding: var(--space-6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--space-4);
+        }
+        
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-weight: var(--font-weight-bold);
+            margin-right: var(--space-4);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(33, 150, 243, 0.3);
+        }
+        
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transform: rotate(-45deg);
+            animation: logoShine 3s infinite;
+        }
+        
+        @keyframes logoShine {
+            0% { transform: translateX(-100%) rotate(-45deg); }
+            50% { transform: translateX(100%) rotate(-45deg); }
+            100% { transform: translateX(-100%) rotate(-45deg); }
+        }
+        
+        .system-title {
+            color: var(--text-inverse);
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-1);
+        }
+        
+        .system-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: var(--font-size-sm);
+        }
+        
+        /* 用户信息卡片 */
+        .user-info-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .user-info-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-1px);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--success-500), var(--success-600));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-weight: var(--font-weight-semibold);
+            margin-right: var(--space-3);
+        }
+        
+        .user-details h4 {
+            color: var(--text-inverse);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: 2px;
+        }
+        
+        .user-details span {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: var(--font-size-xs);
+        }
+        
+        /* 权限层级指示器 */
+        .permission-indicator {
+            margin-top: var(--space-3);
+            padding: var(--space-2) var(--space-3);
+            background: rgba(33, 150, 243, 0.2);
+            border-radius: var(--radius-md);
+            border-left: 3px solid var(--primary-500);
+        }
+        
+        .permission-text {
+            color: var(--text-inverse);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        /* 搜索功能 */
+        .search-container {
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: var(--space-3);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-md);
+            color: var(--text-inverse);
+            font-size: var(--font-size-sm);
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--primary-400);
+            box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+        }
+        
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* 智能导航分组 */
+        .nav-section {
+            padding: var(--space-6) 0;
+        }
+        
+        .nav-group {
+            margin-bottom: var(--space-6);
+        }
+        
+        .nav-group-title {
+            padding: 0 var(--space-6) var(--space-3);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: var(--space-4) var(--space-6);
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all var(--duration-fast) var(--easing);
+            position: relative;
+            border-left: 3px solid transparent;
+        }
+        
+        .nav-item i {
+            width: 20px;
+            margin-right: var(--space-3);
+            font-size: 16px;
+        }
+        
+        .nav-item:hover {
+            background: linear-gradient(90deg, rgba(33, 150, 243, 0.15), transparent);
+            color: var(--text-inverse);
+            border-left-color: var(--primary-400);
+            transform: translateX(4px);
+        }
+        
+        .nav-item.active {
+            background: linear-gradient(90deg, rgba(33, 150, 243, 0.3), rgba(33, 150, 243, 0.1));
+            color: var(--text-inverse);
+            border-left-color: var(--primary-500);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            right: var(--space-4);
+            width: 6px;
+            height: 6px;
+            background: var(--primary-500);
+            border-radius: var(--radius-full);
+            box-shadow: 0 0 8px var(--primary-500);
+        }
+        
+        /* 主内容区域 */
+        .main-content {
+            margin-left: 320px;
+            min-height: 100vh;
+            background: var(--bg-secondary);
+            transition: margin-left var(--duration-base) var(--easing);
+        }
+        
+        /* 现代化顶部栏 */
+        .top-bar {
+            background: var(--bg-primary);
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        /* 面包屑导航 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .breadcrumb-item {
+            color: var(--text-tertiary);
+            font-size: var(--font-size-sm);
+            text-decoration: none;
+        }
+        
+        .breadcrumb-item.active {
+            color: var(--text-primary);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .breadcrumb-separator {
+            color: var(--text-tertiary);
+        }
+        
+        .page-title {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .title-icon {
+            margin-right: var(--space-2);
+            padding: var(--space-2);
+            background: var(--success-100);
+            color: var(--success-600);
+            border-radius: var(--radius-md);
+        }
+        
+        /* 内容区域 */
+        .content-area {
+            padding: var(--space-6);
+        }
+        
+        /* 客服概览面板 */
+        .service-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+        
+        .overview-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-200);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .overview-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+        }
+        
+        .overview-card.pending::before {
+            background: var(--warning-500);
+        }
+        
+        .overview-card.processing::before {
+            background: var(--primary-500);
+        }
+        
+        .overview-card.resolved::before {
+            background: var(--success-500);
+        }
+        
+        .overview-card.satisfaction::before {
+            background: var(--success-600);
+        }
+        
+        .overview-header {
+            display: flex;
+            align-items: center;
+            justify-content: between;
+            margin-bottom: var(--space-4);
+        }
+        
+        .overview-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-xl);
+            margin-right: var(--space-4);
+        }
+        
+        .pending .overview-icon {
+            background: var(--warning-100);
+            color: var(--warning-600);
+        }
+        
+        .processing .overview-icon {
+            background: var(--primary-100);
+            color: var(--primary-600);
+        }
+        
+        .resolved .overview-icon {
+            background: var(--success-100);
+            color: var(--success-600);
+        }
+        
+        .satisfaction .overview-icon {
+            background: var(--success-100);
+            color: var(--success-700);
+        }
+        
+        .overview-info h3 {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-2);
+        }
+        
+        .overview-value {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+        }
+        
+        .overview-trend {
+            font-size: var(--font-size-sm);
+            margin-top: var(--space-2);
+        }
+        
+        .trend-up {
+            color: var(--success-600);
+        }
+        
+        .trend-down {
+            color: var(--error-600);
+        }
+        
+        /* 服务队列区域 */
+        .service-queues {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-6);
+            margin-bottom: var(--space-8);
+        }
+        
+        .queue-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-200);
+            overflow: hidden;
+        }
+        
+        .queue-header {
+            padding: var(--space-5);
+            background: var(--gray-50);
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: between;
+        }
+        
+        .queue-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .queue-actions {
+            display: flex;
+            gap: var(--space-2);
+        }
+        
+        .btn-sm {
+            padding: var(--space-2) var(--space-3);
+            font-size: var(--font-size-sm);
+            border-radius: var(--radius-sm);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .btn-primary {
+            background: var(--primary-500);
+            color: var(--text-inverse);
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-600);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--gray-300);
+        }
+        
+        .btn-outline:hover {
+            background: var(--gray-50);
+        }
+        
+        .queue-content {
+            padding: var(--space-5);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        /* 服务工单列表 */
+        .ticket-list {
+            list-style: none;
+        }
+        
+        .ticket-item {
+            padding: var(--space-4);
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background 0.3s ease;
+        }
+        
+        .ticket-item:last-child {
+            border-bottom: none;
+        }
+        
+        .ticket-item:hover {
+            background: var(--gray-50);
+        }
+        
+        .ticket-info {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+        
+        .ticket-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: var(--space-3);
+            font-weight: var(--font-weight-semibold);
+            font-size: var(--font-size-sm);
+        }
+        
+        .ticket-avatar.urgent {
+            background: var(--error-100);
+            color: var(--error-600);
+        }
+        
+        .ticket-avatar.normal {
+            background: var(--primary-100);
+            color: var(--primary-600);
+        }
+        
+        .ticket-avatar.low {
+            background: var(--success-100);
+            color: var(--success-600);
+        }
+        
+        .ticket-details h4 {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+        }
+        
+        .ticket-details p {
+            font-size: var(--font-size-xs);
+            color: var(--text-tertiary);
+        }
+        
+        .ticket-meta {
+            text-align: right;
+            font-size: var(--font-size-xs);
+            color: var(--text-tertiary);
+        }
+        
+        .ticket-status {
+            font-size: var(--font-size-xs);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-sm);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: var(--space-1);
+        }
+        
+        .status-pending {
+            background: var(--warning-100);
+            color: var(--warning-700);
+        }
+        
+        .status-processing {
+            background: var(--primary-100);
+            color: var(--primary-700);
+        }
+        
+        .status-resolved {
+            background: var(--success-100);
+            color: var(--success-700);
+        }
+        
+        /* 实时通信区域 */
+        .communication-section {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-200);
+            overflow: hidden;
+        }
+        
+        .communication-header {
+            padding: var(--space-5);
+            background: var(--gray-50);
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .comm-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .online-indicator {
+            width: 8px;
+            height: 8px;
+            background: var(--success-500);
+            border-radius: var(--radius-full);
+            margin-right: var(--space-2);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .communication-tabs {
+            display: flex;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .comm-tab {
+            flex: 1;
+            padding: var(--space-4);
+            text-align: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+        
+        .comm-tab.active {
+            background: var(--primary-500);
+            color: var(--text-inverse);
+        }
+        
+        .communication-content {
+            padding: var(--space-5);
+            height: 300px;
+            overflow-y: auto;
+        }
+        
+        /* 消息列表 */
+        .message-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+        
+        .message-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-3);
+        }
+        
+        .message-item.outgoing {
+            flex-direction: row-reverse;
+        }
+        
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            background: var(--primary-100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            color: var(--primary-600);
+        }
+        
+        .message-content {
+            max-width: 70%;
+            padding: var(--space-3) var(--space-4);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-sm);
+            line-height: 1.4;
+        }
+        
+        .message-item.incoming .message-content {
+            background: var(--gray-100);
+            color: var(--text-primary);
+        }
+        
+        .message-item.outgoing .message-content {
+            background: var(--primary-500);
+            color: var(--text-inverse);
+        }
+        
+        .message-time {
+            font-size: var(--font-size-xs);
+            color: var(--text-tertiary);
+            margin-top: var(--space-1);
+            text-align: center;
+        }
+        
+        /* 快捷操作栏 */
+        .quick-actions {
+            display: flex;
+            gap: var(--space-4);
+            margin-bottom: var(--space-6);
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: var(--space-4) var(--space-6);
+            border-radius: var(--radius-lg);
+            border: none;
+            cursor: pointer;
+            font-weight: var(--font-weight-semibold);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+        }
+        
+        .action-btn.new-ticket {
+            background: var(--primary-500);
+            color: var(--text-inverse);
+        }
+        
+        .action-btn.new-ticket:hover {
+            background: var(--primary-600);
+            transform: translateY(-2px);
+        }
+        
+        .action-btn.knowledge-base {
+            background: var(--success-500);
+            color: var(--text-inverse);
+        }
+        
+        .action-btn.knowledge-base:hover {
+            background: var(--success-600);
+            transform: translateY(-2px);
+        }
+        
+        .action-btn.escalate {
+            background: var(--warning-500);
+            color: var(--text-inverse);
+        }
+        
+        .action-btn.escalate:hover {
+            background: var(--warning-600);
+            transform: translateY(-2px);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .unified-sidebar {
+                width: 0;
+                overflow: hidden;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .service-queues {
+                grid-template-columns: 1fr;
+            }
+            
+            .service-overview {
+                grid-template-columns: 1fr;
+            }
+            
+            .quick-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 智能自适应侧边栏 -->
+    <aside class="unified-sidebar">
+        <!-- 智慧水务标识区域 -->
+        <div class="sidebar-header">
+            <div class="logo-section">
+                <div class="logo">💧</div>
+                <div>
+                    <div class="system-title">WaterMIS</div>
+                    <div class="system-subtitle">智慧水务管理平台</div>
+                </div>
+            </div>
+            
+            <!-- 用户信息卡片 -->
+            <div class="user-info-card">
+                <div class="user-info">
+                    <div class="user-avatar">管</div>
+                    <div class="user-details">
+                        <h4>系统管理员</h4>
+                        <span>在线 • 权限级别: 超级管理员</span>
+                    </div>
+                </div>
+                <div class="permission-indicator">
+                    <div class="permission-text">🔐 全系统访问权限</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 搜索功能 -->
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="搜索功能模块..." id="navSearch">
+        </div>
+
+        <!-- 智能导航分组 -->
+        <div class="nav-section">
+            <!-- 营业管理中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">📊 营业管理中心</div>
+                <a href="admin-dashboard-redesigned.html" class="nav-item active">
+                    <i>🏠</i>
+                    工作台
+                </a>
+                <a href="admin-user-management.html" class="nav-item">
+                    <i>👥</i>
+                    用户管理
+                </a>
+                <a href="admin-account-management.html" class="nav-item">
+                    <i>💰</i>
+                    账户管理
+                </a>
+                <a href="admin-meter-reading-center.html" class="nav-item">
+                    <i>📊</i>
+                    抄表管理
+                </a>
+                <a href="admin-billing-center.html" class="nav-item">
+                    <i>💳</i>
+                    收费管理
+                </a>
+                <a href="admin-user-recharge.html" class="nav-item">
+                    <i>🏦</i>
+                    预存水费管理
+                </a>
+            </div>
+            
+            <!-- 设备运维中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">⚙️ 设备运维中心</div>
+                <a href="admin-device-management.html" class="nav-item">
+                    <i>🔧</i>
+                    设备管理
+                </a>
+                <a href="#" class="nav-item">
+                    <i>⚖️</i>
+                    计量管理
+                </a>
+            </div>
+            
+            <!-- 数据分析中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">📈 数据分析中心</div>
+                <a href="admin-advanced-query.html" class="nav-item">
+                    <i>🔍</i>
+                    数据查询
+                </a>
+                <a href="admin-report-center.html" class="nav-item">
+                    <i>📋</i>
+                    统计报表
+                </a>
+                <a href="#" class="nav-item">
+                    <i>📊</i>
+                    分析图表
+                </a>
+            </div>
+            
+            <!-- 系统管控中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">🏛️ 系统管控中心</div>
+                <a href="admin-region-management.html" class="nav-item">
+                    <i>🌏</i>
+                    营业分区管理
+                </a>
+                <a href="admin-operator-management.html" class="nav-item">
+                    <i>👨‍💼</i>
+                    人事管理
+                </a>
+                <a href="admin-system-settings.html" class="nav-item">
+                    <i>⚙️</i>
+                    基本设置
+                </a>
+                <a href="#" class="nav-item">
+                    <i>🔧</i>
+                    系统维护
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- 主内容区域 -->
+    <main class="main-content">
+        <!-- 现代化顶部栏 -->
+        <header class="top-bar">
+            <div style="display: flex; align-items: center;">
+                <nav class="breadcrumb">
+                    <a href="admin-dashboard-redesigned.html" class="breadcrumb-item">管理仪表板</a>
+                    <span class="breadcrumb-separator">›</span>
+                    <span class="breadcrumb-item active">客户服务中心</span>
+                </nav>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: var(--space-4);">
+                <div class="online-indicator"></div>
+                <span style="color: var(--text-secondary); font-size: var(--font-size-sm);">
+                    在线客服: 5人 | 活跃会话: 12个
+                </span>
+                <button class="btn btn-outline" onclick="showServiceHelp()" style="padding: var(--space-2) var(--space-3); font-size: var(--font-size-xs);">
+                    ❓ 服务帮助
+                </button>
+            </div>
+        </header>
+
+        <!-- 内容区域 -->
+        <div class="content-area">
+            <!-- 页面标题区域 -->
+            <div style="margin-bottom: var(--space-8);">
+                <div class="page-title" style="margin-bottom: var(--space-3);">
+                    <span class="title-icon">🎧</span>
+                    客户服务中心
+                </div>
+                <p style="color: var(--text-secondary); font-size: var(--font-size-sm); margin: 0;">
+                    实时管理客户服务工单，提供在线客服支持，确保客户问题得到及时响应和解决
+                </p>
+            </div>
+            
+            <!-- 快捷操作栏 -->
+            <div class="quick-actions">
+                <button class="action-btn new-ticket">
+                    <span>📝</span>
+                    <span>新建工单</span>
+                </button>
+                <button class="action-btn knowledge-base">
+                    <span>📚</span>
+                    <span>知识库</span>
+                </button>
+                <button class="action-btn escalate">
+                    <span>⚡</span>
+                    <span>问题升级</span>
+                </button>
+            </div>
+
+            <!-- 服务概览 -->
+            <div class="service-overview">
+                <div class="overview-card pending">
+                    <div class="overview-header">
+                        <div class="overview-icon">⏳</div>
+                        <div class="overview-info">
+                            <h3>待处理工单</h3>
+                            <div class="overview-value">23</div>
+                            <div class="overview-trend trend-up">↗️ +15.2%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overview-card processing">
+                    <div class="overview-header">
+                        <div class="overview-icon">🔄</div>
+                        <div class="overview-info">
+                            <h3>处理中工单</h3>
+                            <div class="overview-value">18</div>
+                            <div class="overview-trend trend-down">↘️ -8.4%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overview-card resolved">
+                    <div class="overview-header">
+                        <div class="overview-icon">✅</div>
+                        <div class="overview-info">
+                            <h3>已解决工单</h3>
+                            <div class="overview-value">156</div>
+                            <div class="overview-trend trend-up">↗️ +22.1%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overview-card satisfaction">
+                    <div class="overview-header">
+                        <div class="overview-icon">⭐</div>
+                        <div class="overview-info">
+                            <h3>满意度评分</h3>
+                            <div class="overview-value">4.8</div>
+                            <div class="overview-trend trend-up">↗️ +0.3</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 服务队列 -->
+            <div class="service-queues">
+                <!-- 紧急工单队列 -->
+                <div class="queue-card">
+                    <div class="queue-header">
+                        <h3 class="queue-title">
+                            <span style="margin-right: 8px;">🚨</span>
+                            紧急工单处理
+                        </h3>
+                        <div class="queue-actions">
+                            <button class="btn-sm btn-primary">批量分配</button>
+                            <button class="btn-sm btn-outline">优先级排序</button>
+                        </div>
+                    </div>
+                    <div class="queue-content">
+                        <ul class="ticket-list">
+                            <li class="ticket-item">
+                                <div class="ticket-info">
+                                    <div class="ticket-avatar urgent">急</div>
+                                    <div class="ticket-details">
+                                        <h4>停水故障报修 - 张先生</h4>
+                                        <p>东城区建国路123号 | 编号: T2025080901</p>
+                                    </div>
+                                </div>
+                                <div class="ticket-meta">
+                                    <div class="ticket-status status-pending">待处理</div>
+                                    <div>15分钟前</div>
+                                </div>
+                            </li>
+                            <li class="ticket-item">
+                                <div class="ticket-info">
+                                    <div class="ticket-avatar urgent">急</div>
+                                    <div class="ticket-details">
+                                        <h4>水压异常投诉 - 李女士</h4>
+                                        <p>西城区中山路456号 | 编号: T2025080902</p>
+                                    </div>
+                                </div>
+                                <div class="ticket-meta">
+                                    <div class="ticket-status status-processing">处理中</div>
+                                    <div>32分钟前</div>
+                                </div>
+                            </li>
+                            <li class="ticket-item">
+                                <div class="ticket-info">
+                                    <div class="ticket-avatar urgent">急</div>
+                                    <div class="ticket-details">
+                                        <h4>水表损坏更换 - 王先生</h4>
+                                        <p>南城区解放路789号 | 编号: T2025080903</p>
+                                    </div>
+                                </div>
+                                <div class="ticket-meta">
+                                    <div class="ticket-status status-pending">待处理</div>
+                                    <div>1小时前</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 一般工单队列 -->
+                <div class="queue-card">
+                    <div class="queue-header">
+                        <h3 class="queue-title">
+                            <span style="margin-right: 8px;">📋</span>
+                            一般服务工单
+                        </h3>
+                        <div class="queue-actions">
+                            <button class="btn-sm btn-primary">自动分配</button>
+                            <button class="btn-sm btn-outline">筛选查看</button>
+                        </div>
+                    </div>
+                    <div class="queue-content">
+                        <ul class="ticket-list">
+                            <li class="ticket-item">
+                                <div class="ticket-info">
+                                    <div class="ticket-avatar normal">普</div>
+                                    <div class="ticket-details">
+                                        <h4>账单查询咨询 - 赵女士</h4>
+                                        <p>北城区胜利路321号 | 编号: T2025080904</p>
+                                    </div>
+                                </div>
+                                <div class="ticket-meta">
+                                    <div class="ticket-status status-processing">处理中</div>
+                                    <div>45分钟前</div>
+                                </div>
+                            </li>
+                            <li class="ticket-item">
+                                <div class="ticket-info">
+                                    <div class="ticket-avatar normal">普</div>
+                                    <div class="ticket-details">
+                                        <h4>充值记录查询 - 刘先生</h4>
+                                        <p>东城区和平路654号 | 编号: T2025080905</p>
+                                    </div>
+                                </div>
+                                <div class="ticket-meta">
+                                    <div class="ticket-status status-resolved">已解决</div>
+                                    <div>1.5小时前</div>
+                                </div>
+                            </li>
+                            <li class="ticket-item">
+                                <div class="ticket-info">
+                                    <div class="ticket-avatar low">低</div>
+                                    <div class="ticket-details">
+                                        <h4>用水建议咨询 - 陈女士</h4>
+                                        <p>西城区友谊路987号 | 编号: T2025080906</p>
+                                    </div>
+                                </div>
+                                <div class="ticket-meta">
+                                    <div class="ticket-status status-pending">待处理</div>
+                                    <div>2小时前</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 实时通信区域 -->
+            <div class="communication-section">
+                <div class="communication-header">
+                    <h3 class="comm-title">
+                        <div class="online-indicator"></div>
+                        实时客户沟通
+                    </h3>
+                    <div style="color: var(--text-secondary); font-size: 14px;">
+                        活跃会话: 12个 | 等待回复: 3个
+                    </div>
+                </div>
+                
+                <div class="communication-tabs">
+                    <button class="comm-tab active">在线咨询</button>
+                    <button class="comm-tab">电话服务</button>
+                    <button class="comm-tab">工单跟进</button>
+                </div>
+                
+                <div class="communication-content">
+                    <div class="message-list">
+                        <div class="message-item incoming">
+                            <div class="message-avatar">客</div>
+                            <div>
+                                <div class="message-content">
+                                    您好，我想咨询一下我家这个月的水费账单，感觉比平时高很多
+                                </div>
+                                <div class="message-time">14:32</div>
+                            </div>
+                        </div>
+                        
+                        <div class="message-item outgoing">
+                            <div class="message-avatar">服</div>
+                            <div>
+                                <div class="message-content">
+                                    您好！我来帮您查询一下账单详情。请提供您的用户编号或者联系电话
+                                </div>
+                                <div class="message-time">14:33</div>
+                            </div>
+                        </div>
+                        
+                        <div class="message-item incoming">
+                            <div class="message-avatar">客</div>
+                            <div>
+                                <div class="message-content">
+                                    我的用户编号是 A001234
+                                </div>
+                                <div class="message-time">14:34</div>
+                            </div>
+                        </div>
+                        
+                        <div class="message-item outgoing">
+                            <div class="message-avatar">服</div>
+                            <div>
+                                <div class="message-content">
+                                    好的，我查到了您的信息。您这个月用水量是23.5吨，比上月增加了8.2吨。可能是有漏水情况，建议您检查一下家中水管和水龙头。
+                                </div>
+                                <div class="message-time">14:36</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 实时数据更新
+        function updateServiceMetrics() {
+            const metrics = {
+                pending: Math.floor(Math.random() * 10) + 20,
+                processing: Math.floor(Math.random() * 8) + 15,
+                resolved: Math.floor(Math.random() * 20) + 150,
+                satisfaction: (4.5 + Math.random() * 0.5).toFixed(1)
+            };
+            
+            document.querySelector('.pending .overview-value').textContent = metrics.pending;
+            document.querySelector('.processing .overview-value').textContent = metrics.processing;
+            document.querySelector('.resolved .overview-value').textContent = metrics.resolved;
+            document.querySelector('.satisfaction .overview-value').textContent = metrics.satisfaction;
+        }
+        
+        // 工单状态更新
+        function updateTicketStatus() {
+            const tickets = document.querySelectorAll('.ticket-status');
+            const statuses = ['pending', 'processing', 'resolved'];
+            const statusTexts = ['待处理', '处理中', '已解决'];
+            
+            tickets.forEach(ticket => {
+                if (Math.random() < 0.1) { // 10% 概率更新状态
+                    const randomIndex = Math.floor(Math.random() * statuses.length);
+                    const newStatus = statuses[randomIndex];
+                    const newText = statusTexts[randomIndex];
+                    
+                    // 移除旧的状态类
+                    ticket.className = ticket.className.replace(/status-\w+/, '');
+                    ticket.classList.add(`status-${newStatus}`);
+                    ticket.textContent = newText;
+                }
+            });
+        }
+        
+        // 通信标签切换
+        function initCommunicationTabs() {
+            const tabs = document.querySelectorAll('.comm-tab');
+            const contents = {
+                '在线咨询': generateOnlineChat(),
+                '电话服务': generatePhoneCalls(),
+                '工单跟进': generateTicketFollowup()
+            };
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const content = contents[this.textContent];
+                    document.querySelector('.communication-content').innerHTML = content;
+                });
+            });
+        }
+        
+        // 生成在线聊天内容
+        function generateOnlineChat() {
+            return `
+                <div class="message-list">
+                    <div class="message-item incoming">
+                        <div class="message-avatar">客</div>
+                        <div>
+                            <div class="message-content">请问我的水费账单什么时候出来？</div>
+                            <div class="message-time">15:20</div>
+                        </div>
+                    </div>
+                    <div class="message-item outgoing">
+                        <div class="message-avatar">服</div>
+                        <div>
+                            <div class="message-content">每月15号会生成账单，您可以在微信小程序或者网站查看</div>
+                            <div class="message-time">15:21</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // 生成电话服务内容
+        function generatePhoneCalls() {
+            return `
+                <div style="padding: 20px; text-align: center;">
+                    <div style="font-size: 48px; margin-bottom: 16px;">📞</div>
+                    <h3>电话服务中心</h3>
+                    <p style="color: var(--text-secondary); margin: 16px 0;">当前通话队列: 3个等待</p>
+                    <button class="btn-sm btn-primary">接听下一个电话</button>
+                </div>
+            `;
+        }
+        
+        // 生成工单跟进内容  
+        function generateTicketFollowup() {
+            return `
+                <div style="padding: 20px;">
+                    <h4 style="margin-bottom: 16px;">待跟进工单</h4>
+                    <div class="ticket-list">
+                        <div class="ticket-item">
+                            <div class="ticket-info">
+                                <div class="ticket-avatar normal">T</div>
+                                <div class="ticket-details">
+                                    <h4>T2025080901 - 停水故障</h4>
+                                    <p>需要技术人员现场检修确认</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // 快捷操作按钮事件
+        function initQuickActions() {
+            document.querySelector('.new-ticket').addEventListener('click', function() {
+                alert('打开新建工单表单');
+            });
+            
+            document.querySelector('.knowledge-base').addEventListener('click', function() {
+                alert('打开知识库搜索');
+            });
+            
+            document.querySelector('.escalate').addEventListener('click', function() {
+                alert('问题升级到高级支持');
+            });
+        }
+        
+        // 初始化所有功能
+        document.addEventListener('DOMContentLoaded', function() {
+            initCommunicationTabs();
+            initQuickActions();
+            
+            // 定时更新数据
+            setInterval(updateServiceMetrics, 10000); // 10秒更新一次指标
+            setInterval(updateTicketStatus, 15000); // 15秒更新一次工单状态
+        });
+        
+        // 服务帮助功能
+        function showServiceHelp() {
+            alert('客户服务中心帮助：\n\n1. 工单管理：处理客户报修和咨询\n2. 实时沟通：在线客服和电话支持\n3. 快捷操作：新建工单、查询知识库\n4. 数据统计：服务质量和响应时间分析');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WaterMIS统一侧边栏导航组件</title>
+    <style>
+        /* WaterMIS v4.0 统一设计系统 */
+        :root {
+            /* 智慧水务品牌色彩 */
+            --primary-50: #e6f7ff;
+            --primary-100: #bae7ff;
+            --primary-200: #91d5ff;
+            --primary-300: #69c0ff;
+            --primary-400: #40a9ff;
+            --primary-500: #2196f3;
+            --primary-600: #1976d2;
+            --primary-700: #1565c0;
+            --primary-800: #0d47a1;
+            --primary-900: #01579b;
+            
+            /* 成功色 - 清澈水蓝 */
+            --success-50: #e0f7fa;
+            --success-100: #b2ebf2;
+            --success-200: #80deea;
+            --success-300: #4dd0e1;
+            --success-400: #26c6da;
+            --success-500: #00bcd4;
+            --success-600: #00acc1;
+            --success-700: #0097a7;
+            --success-800: #00838f;
+            --success-900: #006064;
+            
+            /* 警告色 - 阳光橙 */
+            --warning-50: #fff8e1;
+            --warning-100: #ffecb3;
+            --warning-200: #ffe082;
+            --warning-300: #ffd54f;
+            --warning-400: #ffca28;
+            --warning-500: #ff9800;
+            --warning-600: #fb8c00;
+            --warning-700: #f57c00;
+            --warning-800: #ef6c00;
+            --warning-900: #e65100;
+            
+            /* 错误色 - 珊瑚红 */
+            --error-50: #ffebee;
+            --error-100: #ffcdd2;
+            --error-200: #ef9a9a;
+            --error-300: #e57373;
+            --error-400: #ef5350;
+            --error-500: #f44336;
+            --error-600: #e53935;
+            --error-700: #d32f2f;
+            --error-800: #c62828;
+            --error-900: #b71c1c;
+            
+            /* 中性色系 */
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #eeeeee;
+            --gray-300: #e0e0e0;
+            --gray-400: #bdbdbd;
+            --gray-500: #9e9e9e;
+            --gray-600: #757575;
+            --gray-700: #616161;
+            --gray-800: #424242;
+            --gray-900: #212121;
+            
+            /* 语义化颜色 */
+            --text-primary: var(--gray-900);
+            --text-secondary: var(--gray-700);
+            --text-tertiary: var(--gray-600);
+            --text-inverse: #ffffff;
+            
+            --bg-primary: #ffffff;
+            --bg-secondary: var(--gray-50);
+            --bg-tertiary: var(--gray-100);
+            
+            /* 间距系统 - 4px/8px基准 */
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-5: 20px;
+            --space-6: 24px;
+            --space-8: 32px;
+            --space-10: 40px;
+            --space-12: 48px;
+            --space-16: 64px;
+            --space-20: 80px;
+            
+            /* 字体系统 */
+            --font-size-xs: 12px;
+            --font-size-sm: 14px;
+            --font-size-base: 16px;
+            --font-size-lg: 18px;
+            --font-size-xl: 20px;
+            --font-size-2xl: 24px;
+            --font-size-3xl: 30px;
+            --font-size-4xl: 36px;
+            
+            /* 字体粗细 */
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            
+            /* 行高 */
+            --line-height-tight: 1.25;
+            --line-height-snug: 1.375;
+            --line-height-normal: 1.5;
+            --line-height-relaxed: 1.625;
+            --line-height-loose: 2;
+            
+            /* 圆角系统 */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-2xl: 24px;
+            --radius-3xl: 28px;
+            --radius-full: 9999px;
+            
+            /* 阴影系统 */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            
+            /* 动画系统 */
+            --duration-fast: 150ms;
+            --duration-normal: 300ms;
+            --duration-slow: 500ms;
+            --easing: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* 全局样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", Arial, sans-serif;
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-normal);
+            color: var(--text-primary);
+            background-color: var(--bg-secondary);
+        }
+
+        /* 统一侧边栏样式 */
+        .unified-sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(180deg, 
+                var(--primary-800) 0%, 
+                var(--primary-900) 50%, 
+                var(--gray-800) 100%);
+            color: var(--text-inverse);
+            z-index: 1000;
+            overflow-y: auto;
+            transition: all var(--duration-normal) var(--easing);
+            box-shadow: var(--shadow-2xl);
+        }
+
+        /* 侧边栏头部区域 */
+        .sidebar-header {
+            padding: var(--space-6) var(--space-5);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.02), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--space-4);
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--success-400), var(--success-600));
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-inverse);
+            margin-right: var(--space-3);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .system-title {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            line-height: var(--line-height-tight);
+            background: linear-gradient(135deg, #ffffff, #e3f2fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .system-subtitle {
+            font-size: var(--font-size-sm);
+            color: rgba(255, 255, 255, 0.8);
+            line-height: var(--line-height-tight);
+        }
+
+        /* 用户信息卡片 */
+        .user-info-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--space-3);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--warning-400), var(--warning-600));
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: var(--font-weight-bold);
+            color: var(--text-inverse);
+            margin-right: var(--space-3);
+        }
+
+        .user-details h4 {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: 2px;
+        }
+
+        .user-details span {
+            font-size: var(--font-size-xs);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .permission-indicator {
+            font-size: var(--font-size-xs);
+            color: rgba(255, 255, 255, 0.7);
+            padding: var(--space-1) var(--space-2);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-sm);
+            text-align: center;
+        }
+
+        /* 导航区域 */
+        .nav-section {
+            padding: var(--space-4) 0;
+        }
+
+        /* 导航分组 */
+        .nav-group {
+            margin-bottom: var(--space-6);
+        }
+
+        .nav-group-title {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            color: rgba(255, 255, 255, 0.9);
+            padding: var(--space-2) var(--space-5);
+            margin-bottom: var(--space-2);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-group-title::after {
+            content: attr(data-count);
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--text-inverse);
+            font-size: var(--font-size-xs);
+            padding: 2px 6px;
+            border-radius: var(--radius-full);
+            font-weight: var(--font-weight-medium);
+        }
+
+        /* 导航项 */
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: var(--space-3) var(--space-5);
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: all var(--duration-fast) var(--easing);
+            position: relative;
+            margin: 1px var(--space-2);
+            border-radius: var(--radius-md);
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-inverse);
+            transform: translateX(4px);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.2), 
+                rgba(255, 255, 255, 0.1));
+            color: var(--text-inverse);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--success-400), var(--success-600));
+            border-radius: 0 2px 2px 0;
+        }
+
+        .nav-item i {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: var(--space-3);
+            font-style: normal;
+            font-size: 16px;
+        }
+
+        .nav-item-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* 状态徽章 */
+        .nav-badge {
+            background: var(--error-500);
+            color: var(--text-inverse);
+            font-size: var(--font-size-xs);
+            padding: 2px 6px;
+            border-radius: var(--radius-full);
+            font-weight: var(--font-weight-medium);
+            min-width: 18px;
+            text-align: center;
+        }
+
+        .nav-badge.warning {
+            background: var(--warning-500);
+        }
+
+        .nav-badge.success {
+            background: var(--success-500);
+        }
+
+        /* 搜索功能 */
+        .search-container {
+            padding: var(--space-4) var(--space-5);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: var(--space-3);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-md);
+            color: var(--text-inverse);
+            font-size: var(--font-size-sm);
+            backdrop-filter: blur(5px);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--success-400);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .unified-sidebar {
+                transform: translateX(-100%);
+                width: 100%;
+                max-width: 320px;
+            }
+            
+            .unified-sidebar.mobile-open {
+                transform: translateX(0);
+            }
+        }
+
+        /* 演示页面样式 */
+        .demo-container {
+            margin-left: 280px;
+            padding: var(--space-8);
+            min-height: 100vh;
+        }
+
+        .demo-header {
+            background: var(--bg-primary);
+            padding: var(--space-6);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-8);
+        }
+
+        .demo-title {
+            font-size: var(--font-size-3xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+        }
+
+        .demo-subtitle {
+            color: var(--text-secondary);
+            font-size: var(--font-size-lg);
+        }
+
+        @media (max-width: 768px) {
+            .demo-container {
+                margin-left: 0;
+                padding: var(--space-4);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- WaterMIS 统一侧边栏导航 -->
+    <nav class="unified-sidebar" id="unifiedSidebar">
+        <!-- 品牌标识区域 -->
+        <div class="sidebar-header">
+            <div class="logo-section">
+                <div class="logo">💧</div>
+                <div>
+                    <div class="system-title">WaterMIS</div>
+                    <div class="system-subtitle">智慧水务管理平台</div>
+                </div>
+            </div>
+            
+            <!-- 用户信息卡片 -->
+            <div class="user-info-card">
+                <div class="user-info">
+                    <div class="user-avatar">管</div>
+                    <div class="user-details">
+                        <h4>系统管理员</h4>
+                        <span>张三 • 在线</span>
+                    </div>
+                </div>
+                <div class="permission-indicator">
+                    <div class="permission-text">权限范围：县级管理权限</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 搜索功能 -->
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="搜索功能模块..." id="navSearch">
+        </div>
+
+        <!-- 导航分组区域 -->
+        <div class="nav-section">
+            <!-- 工作台 (1个模块) -->
+            <div class="nav-group" data-group="dashboard">
+                <div class="nav-group-title" data-count="1">
+                    🏠 工作台
+                </div>
+                <a href="admin-dashboard-redesigned.html" class="nav-item" data-page="dashboard">
+                    <i>📊</i>
+                    <div class="nav-item-content">
+                        <span>管理仪表板</span>
+                        <span class="nav-badge success">实时</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 营业管理中心 (5个模块) -->
+            <div class="nav-group" data-group="business">
+                <div class="nav-group-title" data-count="5">
+                    💼 营业管理中心
+                </div>
+                <a href="admin-meter-reading-center.html" class="nav-item" data-page="meter-reading">
+                    <i>📋</i>
+                    <div class="nav-item-content">
+                        <span>抄表管理中心</span>
+                        <span class="nav-badge warning">168</span>
+                    </div>
+                </a>
+                <a href="admin-billing-center.html" class="nav-item" data-page="billing">
+                    <i>💰</i>
+                    <div class="nav-item-content">
+                        <span>收费管理中心</span>
+                        <span class="nav-badge">23</span>
+                    </div>
+                </a>
+                <a href="admin-user-recharge.html" class="nav-item" data-page="prepaid">
+                    <i>🏦</i>
+                    <div class="nav-item-content">
+                        <span>预存水费管理</span>
+                        <span class="nav-badge warning">15</span>
+                    </div>
+                </a>
+                <a href="admin-user-management.html" class="nav-item" data-page="users">
+                    <i>👥</i>
+                    <div class="nav-item-content">
+                        <span>用户管理</span>
+                    </div>
+                </a>
+                <a href="admin-region-management.html" class="nav-item" data-page="regions">
+                    <i>🗺️</i>
+                    <div class="nav-item-content">
+                        <span>营业分区管理</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 设备运维中心 (2个模块) -->
+            <div class="nav-group" data-group="equipment">
+                <div class="nav-group-title" data-count="2">
+                    🔧 设备运维中心
+                </div>
+                <a href="admin-device-management.html" class="nav-item" data-page="devices">
+                    <i>📱</i>
+                    <div class="nav-item-content">
+                        <span>设备管理</span>
+                        <span class="nav-badge warning">5</span>
+                    </div>
+                </a>
+                <a href="admin-account-management.html" class="nav-item" data-page="meters">
+                    <i>⚡</i>
+                    <div class="nav-item-content">
+                        <span>计量管理</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 数据分析中心 (3个模块) -->
+            <div class="nav-group" data-group="analytics">
+                <div class="nav-group-title" data-count="3">
+                    📈 数据分析中心
+                </div>
+                <a href="admin-advanced-query.html" class="nav-item" data-page="query">
+                    <i>🔍</i>
+                    <div class="nav-item-content">
+                        <span>高级数据查询</span>
+                    </div>
+                </a>
+                <a href="admin-report-center.html" class="nav-item" data-page="reports">
+                    <i>📊</i>
+                    <div class="nav-item-content">
+                        <span>统计报表</span>
+                    </div>
+                </a>
+                <a href="#" class="nav-item" data-page="charts">
+                    <i>📈</i>
+                    <div class="nav-item-content">
+                        <span>分析图表</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 客户服务中心 (1个模块) -->
+            <div class="nav-group" data-group="service">
+                <div class="nav-group-title" data-count="1">
+                    🎧 客户服务中心
+                </div>
+                <a href="admin-customer-service-center.html" class="nav-item" data-page="service">
+                    <i>🎧</i>
+                    <div class="nav-item-content">
+                        <span>客户服务中心</span>
+                        <span class="nav-badge">12</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- 系统管控中心 (4个模块) -->
+            <div class="nav-group" data-group="system">
+                <div class="nav-group-title" data-count="4">
+                    ⚙️ 系统管控中心
+                </div>
+                <a href="admin-operator-management.html" class="nav-item" data-page="staff">
+                    <i>👨‍💼</i>
+                    <div class="nav-item-content">
+                        <span>人事管理</span>
+                    </div>
+                </a>
+                <a href="admin-system-settings.html" class="nav-item" data-page="settings">
+                    <i>⚙️</i>
+                    <div class="nav-item-content">
+                        <span>基本设置</span>
+                    </div>
+                </a>
+                <a href="#" class="nav-item" data-page="maintenance">
+                    <i>🔧</i>
+                    <div class="nav-item-content">
+                        <span>系统维护</span>
+                    </div>
+                </a>
+                <a href="admin-waterplant-management.html" class="nav-item" data-page="waterplant">
+                    <i>🏭</i>
+                    <div class="nav-item-content">
+                        <span>水厂管理</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 演示内容区域 -->
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1 class="demo-title">WaterMIS 统一侧边栏导航系统</h1>
+            <p class="demo-subtitle">智慧水务管理平台 - 统一设计规范 v4.0</p>
+        </div>
+        
+        <div style="background: var(--bg-primary); padding: var(--space-8); border-radius: var(--radius-xl); box-shadow: var(--shadow-md);">
+            <h2 style="margin-bottom: var(--space-4); color: var(--text-primary);">功能特性</h2>
+            <ul style="color: var(--text-secondary); line-height: var(--line-height-relaxed);">
+                <li>✅ <strong>完整的12模块覆盖</strong> - 涵盖所有WaterMIS核心功能</li>
+                <li>✅ <strong>逻辑分组设计</strong> - 6大功能中心，层次清晰</li>
+                <li>✅ <strong>状态实时显示</strong> - 待处理事项、警告信息一目了然</li>
+                <li>✅ <strong>智能搜索功能</strong> - 快速定位所需功能模块</li>
+                <li>✅ <strong>响应式设计</strong> - 适配桌面端和移动端</li>
+                <li>✅ <strong>统一视觉规范</strong> - 遵循WaterMIS v4.0设计系统</li>
+                <li>✅ <strong>权限层级显示</strong> - 清晰展示用户权限范围</li>
+                <li>✅ <strong>专业水务主题</strong> - 符合行业特色的视觉设计</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // 导航功能控制
+        class WaterMISNavigation {
+            constructor() {
+                this.init();
+            }
+
+            init() {
+                this.bindEvents();
+                this.setActiveNavItem();
+                this.initSearch();
+            }
+
+            // 绑定事件
+            bindEvents() {
+                // 导航项点击事件
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        this.setActiveItem(item);
+                    });
+                });
+            }
+
+            // 设置激活状态
+            setActiveItem(activeItem) {
+                // 移除所有激活状态
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // 设置当前激活状态
+                activeItem.classList.add('active');
+                
+                // 保存到本地存储
+                const pageName = activeItem.getAttribute('data-page');
+                if (pageName) {
+                    localStorage.setItem('activeNavItem', pageName);
+                }
+            }
+
+            // 根据当前页面设置激活项
+            setActiveNavItem() {
+                const currentPage = window.location.pathname.split('/').pop();
+                const activeNavItem = localStorage.getItem('activeNavItem');
+                
+                let targetItem = null;
+                
+                // 根据文件名匹配导航项
+                if (currentPage.includes('dashboard')) {
+                    targetItem = document.querySelector('[data-page="dashboard"]');
+                } else if (currentPage.includes('billing')) {
+                    targetItem = document.querySelector('[data-page="billing"]');
+                } else if (currentPage.includes('user-management')) {
+                    targetItem = document.querySelector('[data-page="users"]');
+                } else if (activeNavItem) {
+                    targetItem = document.querySelector(`[data-page="${activeNavItem}"]`);
+                }
+                
+                if (targetItem) {
+                    this.setActiveItem(targetItem);
+                }
+            }
+
+            // 搜索功能
+            initSearch() {
+                const searchInput = document.getElementById('navSearch');
+                const navGroups = document.querySelectorAll('.nav-group');
+                
+                searchInput.addEventListener('input', (e) => {
+                    const searchTerm = e.target.value.toLowerCase();
+                    
+                    navGroups.forEach(group => {
+                        const navItems = group.querySelectorAll('.nav-item');
+                        let hasVisibleItems = false;
+                        
+                        navItems.forEach(item => {
+                            const text = item.textContent.toLowerCase();
+                            if (text.includes(searchTerm)) {
+                                item.style.display = 'flex';
+                                hasVisibleItems = true;
+                            } else {
+                                item.style.display = 'none';
+                            }
+                        });
+                        
+                        // 显示/隐藏分组
+                        group.style.display = hasVisibleItems ? 'block' : 'none';
+                    });
+                    
+                    // 如果搜索框为空，显示所有项
+                    if (searchTerm === '') {
+                        navGroups.forEach(group => {
+                            group.style.display = 'block';
+                            group.querySelectorAll('.nav-item').forEach(item => {
+                                item.style.display = 'flex';
+                            });
+                        });
+                    }
+                });
+            }
+        }
+
+        // 初始化导航系统
+        document.addEventListener('DOMContentLoaded', () => {
+            new WaterMISNavigation();
+        });
+
+        // 移动端菜单切换
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('unifiedSidebar');
+            sidebar.classList.toggle('mobile-open');
+        }
+
+        // 导出侧边栏HTML结构（用于集成到其他页面）
+        function getUnifiedSidebarHTML() {
+            return document.querySelector('.unified-sidebar').outerHTML;
+        }
+
+        // 导出侧边栏CSS样式（用于集成到其他页面）
+        function getUnifiedSidebarCSS() {
+            const styles = document.querySelector('style').textContent;
+            return styles;
+        }
+    </script>
+</body>
+</html>

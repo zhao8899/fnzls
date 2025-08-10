@@ -1,0 +1,335 @@
+<!-- WaterMIS 统一侧边栏导航 - 用于所有管理后台页面 -->
+<nav class="unified-sidebar" id="unifiedSidebar">
+    <!-- 品牌标识区域 -->
+    <div class="sidebar-header">
+        <div class="logo-section">
+            <div class="logo">💧</div>
+            <div>
+                <div class="system-title">WaterMIS</div>
+                <div class="system-subtitle">智慧水务管理平台</div>
+            </div>
+        </div>
+        
+        <!-- 用户信息卡片 -->
+        <div class="user-info-card">
+            <div class="user-info">
+                <div class="user-avatar">管</div>
+                <div class="user-details">
+                    <h4>系统管理员</h4>
+                    <span>张三 • 在线</span>
+                </div>
+            </div>
+            <div class="permission-indicator">
+                <div class="permission-text">权限范围：县级管理权限</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 搜索功能 -->
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="搜索功能模块..." id="navSearch">
+    </div>
+
+    <!-- 导航分组区域 -->
+    <div class="nav-section">
+        <!-- 工作台 (1个模块) -->
+        <div class="nav-group" data-group="dashboard">
+            <div class="nav-group-title" data-count="1">
+                🏠 工作台
+            </div>
+            <a href="admin-dashboard-redesigned.html" class="nav-item" data-page="dashboard">
+                <i>📊</i>
+                <div class="nav-item-content">
+                    <span>管理仪表板</span>
+                    <span class="nav-badge success">实时</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- 营业管理中心 (5个模块) -->
+        <div class="nav-group" data-group="business">
+            <div class="nav-group-title" data-count="6">
+                💼 营业管理中心
+            </div>
+            <a href="admin-meter-reading-center.html" class="nav-item" data-page="meter-reading">
+                <i>📋</i>
+                <div class="nav-item-content">
+                    <span>抄表管理中心</span>
+                    <span class="nav-badge warning">168</span>
+                </div>
+            </a>
+            <a href="admin-billing-center.html" class="nav-item" data-page="billing">
+                <i>💰</i>
+                <div class="nav-item-content">
+                    <span>收费管理中心</span>
+                    <span class="nav-badge">23</span>
+                </div>
+            </a>
+            <a href="admin-user-recharge.html" class="nav-item" data-page="prepaid">
+                <i>🏦</i>
+                <div class="nav-item-content">
+                    <span>预存水费管理</span>
+                    <span class="nav-badge warning">15</span>
+                </div>
+            </a>
+            <a href="admin-user-management.html" class="nav-item" data-page="users">
+                <i>👥</i>
+                <div class="nav-item-content">
+                    <span>用户管理</span>
+                </div>
+            </a>
+            <a href="admin-region-management.html" class="nav-item" data-page="regions">
+                <i>🗺️</i>
+                <div class="nav-item-content">
+                    <span>营业分区管理</span>
+                </div>
+            </a>
+            <a href="admin-price-management.html" class="nav-item" data-page="price">
+                <i>💰</i>
+                <div class="nav-item-content">
+                    <span>价格管理</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- 设备运维中心 (2个模块) -->
+        <div class="nav-group" data-group="equipment">
+            <div class="nav-group-title" data-count="2">
+                🔧 设备运维中心
+            </div>
+            <a href="admin-device-management.html" class="nav-item" data-page="devices">
+                <i>📱</i>
+                <div class="nav-item-content">
+                    <span>设备管理</span>
+                    <span class="nav-badge warning">5</span>
+                </div>
+            </a>
+            <a href="admin-account-management.html" class="nav-item" data-page="meters">
+                <i>⚡</i>
+                <div class="nav-item-content">
+                    <span>计量管理</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- 数据分析中心 (3个模块) -->
+        <div class="nav-group" data-group="analytics">
+            <div class="nav-group-title" data-count="3">
+                📈 数据分析中心
+            </div>
+            <a href="admin-advanced-query.html" class="nav-item" data-page="query">
+                <i>🔍</i>
+                <div class="nav-item-content">
+                    <span>高级数据查询</span>
+                </div>
+            </a>
+            <a href="admin-report-center.html" class="nav-item" data-page="reports">
+                <i>📊</i>
+                <div class="nav-item-content">
+                    <span>统计报表</span>
+                </div>
+            </a>
+            <a href="#" class="nav-item" data-page="charts">
+                <i>📈</i>
+                <div class="nav-item-content">
+                    <span>分析图表</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- 客户服务中心 (1个模块) -->
+        <div class="nav-group" data-group="service">
+            <div class="nav-group-title" data-count="1">
+                🎧 客户服务中心
+            </div>
+            <a href="admin-customer-service-center.html" class="nav-item" data-page="service">
+                <i>🎧</i>
+                <div class="nav-item-content">
+                    <span>客户服务中心</span>
+                    <span class="nav-badge">12</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- 系统管控中心 (4个模块) -->
+        <div class="nav-group" data-group="system">
+            <div class="nav-group-title" data-count="5">
+                ⚙️ 系统管控中心
+            </div>
+            <a href="admin-operator-management.html" class="nav-item" data-page="staff">
+                <i>👨‍💼</i>
+                <div class="nav-item-content">
+                    <span>人事管理</span>
+                </div>
+            </a>
+            <a href="admin-system-settings.html" class="nav-item" data-page="settings">
+                <i>⚙️</i>
+                <div class="nav-item-content">
+                    <span>基本设置</span>
+                </div>
+            </a>
+            <a href="#" class="nav-item" data-page="maintenance">
+                <i>🔧</i>
+                <div class="nav-item-content">
+                    <span>系统维护</span>
+                </div>
+            </a>
+            <a href="admin-waterplant-management.html" class="nav-item" data-page="waterplant">
+                <i>🏭</i>
+                <div class="nav-item-content">
+                    <span>水厂管理</span>
+                </div>
+            </a>
+            <a href="admin-waterplant-monitor.html" class="nav-item" data-page="waterplant-monitor">
+                <i>📺</i>
+                <div class="nav-item-content">
+                    <span>水厂运营监控</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<script>
+// 导航功能控制 - 统一的JavaScript代码
+class WaterMISNavigation {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        this.bindEvents();
+        this.setActiveNavItem();
+        this.initSearch();
+    }
+
+    // 绑定事件
+    bindEvents() {
+        // 导航项点击事件
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                this.setActiveItem(item);
+            });
+        });
+    }
+
+    // 设置激活状态
+    setActiveItem(activeItem) {
+        // 移除所有激活状态
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        // 设置当前激活状态
+        activeItem.classList.add('active');
+        
+        // 保存到本地存储
+        const pageName = activeItem.getAttribute('data-page');
+        if (pageName) {
+            localStorage.setItem('activeNavItem', pageName);
+        }
+    }
+
+    // 根据当前页面设置激活项
+    setActiveNavItem() {
+        const currentPage = window.location.pathname.split('/').pop();
+        const activeNavItem = localStorage.getItem('activeNavItem');
+        
+        let targetItem = null;
+        
+        // 根据文件名匹配导航项
+        if (currentPage.includes('dashboard')) {
+            targetItem = document.querySelector('[data-page="dashboard"]');
+        } else if (currentPage.includes('billing')) {
+            targetItem = document.querySelector('[data-page="billing"]');
+        } else if (currentPage.includes('user-management')) {
+            targetItem = document.querySelector('[data-page="users"]');
+        } else if (currentPage.includes('meter-reading')) {
+            targetItem = document.querySelector('[data-page="meter-reading"]');
+        } else if (currentPage.includes('user-recharge')) {
+            targetItem = document.querySelector('[data-page="prepaid"]');
+        } else if (currentPage.includes('device-management')) {
+            targetItem = document.querySelector('[data-page="devices"]');
+        } else if (currentPage.includes('account-management')) {
+            targetItem = document.querySelector('[data-page="meters"]');
+        } else if (currentPage.includes('region-management')) {
+            targetItem = document.querySelector('[data-page="regions"]');
+        } else if (currentPage.includes('operator-management')) {
+            targetItem = document.querySelector('[data-page="staff"]');
+        } else if (currentPage.includes('system-settings')) {
+            targetItem = document.querySelector('[data-page="settings"]');
+        } else if (currentPage.includes('report-center')) {
+            targetItem = document.querySelector('[data-page="reports"]');
+        } else if (currentPage.includes('advanced-query')) {
+            targetItem = document.querySelector('[data-page="query"]');
+        } else if (currentPage.includes('customer-service')) {
+            targetItem = document.querySelector('[data-page="service"]');
+        } else if (currentPage.includes('waterplant-monitor')) {
+            targetItem = document.querySelector('[data-page="waterplant-monitor"]');
+        } else if (currentPage.includes('waterplant')) {
+            targetItem = document.querySelector('[data-page="waterplant"]');
+        } else if (currentPage.includes('price-management')) {
+            targetItem = document.querySelector('[data-page="price"]');
+        } else if (activeNavItem) {
+            targetItem = document.querySelector(`[data-page="${activeNavItem}"]`);
+        }
+        
+        if (targetItem) {
+            this.setActiveItem(targetItem);
+        }
+    }
+
+    // 搜索功能
+    initSearch() {
+        const searchInput = document.getElementById('navSearch');
+        const navGroups = document.querySelectorAll('.nav-group');
+        
+        if (!searchInput) return;
+        
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            
+            navGroups.forEach(group => {
+                const navItems = group.querySelectorAll('.nav-item');
+                let hasVisibleItems = false;
+                
+                navItems.forEach(item => {
+                    const text = item.textContent.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        item.style.display = 'flex';
+                        hasVisibleItems = true;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                // 显示/隐藏分组
+                group.style.display = hasVisibleItems ? 'block' : 'none';
+            });
+            
+            // 如果搜索框为空，显示所有项
+            if (searchTerm === '') {
+                navGroups.forEach(group => {
+                    group.style.display = 'block';
+                    group.querySelectorAll('.nav-item').forEach(item => {
+                        item.style.display = 'flex';
+                    });
+                });
+            }
+        });
+    }
+}
+
+// 初始化导航系统
+document.addEventListener('DOMContentLoaded', () => {
+    new WaterMISNavigation();
+});
+
+// 移动端菜单切换
+function toggleMobileMenu() {
+    const sidebar = document.getElementById('unifiedSidebar');
+    if (sidebar) {
+        sidebar.classList.toggle('mobile-open');
+    }
+}
+</script>

@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>智慧水务 - 消息通知</title>
+    <style>
+        :root {
+            /* WeChat Brand Colors */
+            --wechat-brand-green: #07C160;
+            --wechat-secondary-green: #38CD7F;
+            --wechat-success-feedback: #059048;
+            --wechat-light-green: #E8F5E8;
+            --wechat-extra-light-green: #F0F9FF;
+            
+            /* Primary Colors - WeChat Aligned */
+            --primary-50: #e6f4ff;
+            --primary-100: #bae0ff;
+            --primary-200: #91caff;
+            --primary-300: #69b1ff;
+            --primary-400: #4096ff;
+            --primary-500: var(--wechat-brand-green);
+            --primary-600: var(--wechat-success-feedback);
+            --primary-700: #004225;
+            --primary-800: #003018;
+            --primary-900: #001d0f;
+            
+            /* Success Colors - Green Scale */
+            --success-50: #f6ffed;
+            --success-100: #d9f7be;
+            --success-200: #b7eb8f;
+            --success-300: #95de64;
+            --success-400: #73d13d;
+            --success-500: #52c41a;
+            --success-600: #389e0d;
+            --success-700: #237804;
+            --success-800: #135200;
+            --success-900: #092b00;
+            
+            /* Warning Colors - Orange Scale */
+            --warning-50: #fffbe6;
+            --warning-100: #fff1b8;
+            --warning-200: #ffe58f;
+            --warning-300: #ffd666;
+            --warning-400: #ffc53d;
+            --warning-500: #fadb14;
+            --warning-600: #d4b106;
+            --warning-700: #ad8b00;
+            --warning-800: #876800;
+            --warning-900: #614700;
+            
+            /* Error Colors - Red Scale */
+            --error-50: #fff2f0;
+            --error-100: #ffccc7;
+            --error-200: #ffa39e;
+            --error-300: #ff7875;
+            --error-400: #ff4d4f;
+            --error-500: #f5222d;
+            --error-600: #cf1322;
+            --error-700: #a8071a;
+            --error-800: #820014;
+            --error-900: #5c0011;
+            
+            /* Info Colors - Blue Scale */
+            --info-50: #e6f7ff;
+            --info-100: #bae7ff;
+            --info-200: #91d5ff;
+            --info-300: #69c0ff;
+            --info-400: #40a9ff;
+            --info-500: #1890ff;
+            --info-600: #096dd9;
+            --info-700: #0050b3;
+            --info-800: #003a8c;
+            --info-900: #002766;
+            
+            /* Neutral Colors - Gray Scale */
+            --neutral-50: #fafafa;
+            --neutral-100: #f5f5f5;
+            --neutral-200: #f0f0f0;
+            --neutral-300: #d9d9d9;
+            --neutral-400: #bfbfbf;
+            --neutral-500: #8c8c8c;
+            --neutral-600: #595959;
+            --neutral-700: #434343;
+            --neutral-800: #262626;
+            --neutral-900: #1f1f1f;
+            
+            /* Semantic Colors - WeChat Aligned */
+            --color-primary: var(--wechat-brand-green);
+            --color-primary-hover: var(--wechat-secondary-green);
+            --color-primary-active: var(--wechat-success-feedback);
+            --color-success: var(--wechat-brand-green);
+            --color-warning: var(--warning-500);
+            --color-error: var(--error-500);
+            --color-info: var(--info-500);
+            
+            /* Primary Action Colors */
+            --primary-action-color: var(--wechat-brand-green);
+            --success-action-color: var(--wechat-success-feedback);
+            
+            /* Text Colors */
+            --text-primary: var(--neutral-800);
+            --text-secondary: var(--neutral-600);
+            --text-tertiary: var(--neutral-500);
+            --text-quaternary: var(--neutral-400);
+            
+            /* Background Colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: var(--neutral-50);
+            --bg-tertiary: var(--neutral-100);
+            --bg-quaternary: var(--neutral-200);
+            
+            /* Border Colors */
+            --border-primary: var(--neutral-300);
+            --border-secondary: var(--neutral-200);
+            --border-tertiary: var(--neutral-100);
+            
+            /* Typography Scale */
+            --font-size-xs: 0.75rem;      /* 12px */
+            --font-size-sm: 0.875rem;     /* 14px */
+            --font-size-base: 1rem;       /* 16px */
+            --font-size-lg: 1.125rem;     /* 18px */
+            --font-size-xl: 1.25rem;      /* 20px */
+            --font-size-2xl: 1.5rem;      /* 24px */
+            --font-size-3xl: 1.875rem;    /* 30px */
+            --font-size-4xl: 2.25rem;     /* 36px */
+            
+            /* Font Weights */
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            
+            /* Line Heights */
+            --line-height-tight: 1.25;
+            --line-height-normal: 1.5;
+            --line-height-relaxed: 1.75;
+            
+            /* Spacing Scale (4px base) */
+            --space-1: 0.25rem;    /* 4px */
+            --space-2: 0.5rem;     /* 8px */
+            --space-3: 0.75rem;    /* 12px */
+            --space-4: 1rem;       /* 16px */
+            --space-5: 1.25rem;    /* 20px */
+            --space-6: 1.5rem;     /* 24px */
+            --space-8: 2rem;       /* 32px */
+            --space-10: 2.5rem;    /* 40px */
+            --space-12: 3rem;      /* 48px */
+            --space-16: 4rem;      /* 64px */
+            --space-20: 5rem;      /* 80px */
+            --space-24: 6rem;      /* 96px */
+            
+            /* Border Radius */
+            --radius-xs: 0.125rem;   /* 2px */
+            --radius-sm: 0.25rem;    /* 4px */
+            --radius-base: 0.5rem;   /* 8px */
+            --radius-lg: 0.75rem;    /* 12px */
+            --radius-xl: 1rem;       /* 16px */
+            --radius-2xl: 1.5rem;    /* 24px */
+            --radius-full: 9999px;
+            
+            /* Shadows */
+            --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-base: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Z-index Scale */
+            --z-dropdown: 1000;
+            --z-sticky: 1010;
+            --z-fixed: 1020;
+            --z-modal: 1030;
+            --z-popover: 1040;
+            --z-tooltip: 1050;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-normal);
+        }
+        
+        /* 移动端容器 */
+        .mobile-container {
+            width: 100%;
+            max-width: 414px;
+            margin: 0 auto;
+            background: var(--bg-secondary);
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 80px;
+            box-shadow: var(--shadow-xl);
+        }
+        
+        /* 顶部导航栏 */
+        .header {
+            position: sticky;
+            top: 0;
+            background: var(--bg-primary);
+            padding: var(--space-4) var(--space-6);
+            box-shadow: var(--shadow-sm);
+            z-index: var(--z-sticky);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+        
+        .back-btn {
+            width: var(--space-8);
+            height: var(--space-8);
+            border: none;
+            background: var(--primary-50);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-primary);
+            font-size: var(--font-size-base);
+            cursor: pointer;
+            transition: var(--transition-base);
+        }
+        
+        .back-btn:hover {
+            background: var(--primary-100);
+            color: var(--bg-primary);
+        }
+        
+        .header-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: var(--space-4);
+        }
+        
+        .header-action {
+            color: var(--color-primary);
+            font-size: var(--font-size-sm);
+            cursor: pointer;
+        }
+        
+        /* 通知筛选标签 */
+        .filter-tabs {
+            background: var(--bg-primary);
+            padding: var(--space-4) var(--space-6);
+            display: flex;
+            gap: var(--space-3);
+            overflow-x: auto;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .filter-tab {
+            padding: var(--space-2) var(--space-4);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-xl);
+            font-size: var(--font-size-sm);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: var(--transition-base);
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+        }
+        
+        .filter-tab.active {
+            background: var(--color-primary);
+            color: var(--bg-primary);
+            border-color: var(--color-primary);
+        }
+        
+        .filter-tab:hover:not(.active) {
+            background: var(--primary-50);
+            border-color: var(--color-primary);
+        }
+        
+        /* 内容区域 */
+        .content {
+            padding: var(--space-6);
+        }
+        
+        /* 未读消息统计 */
+        .unread-summary {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-success));
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--space-6);
+            color: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .unread-info {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+        }
+        
+        .unread-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .unread-text h3 {
+            font-size: var(--font-size-xl);
+            margin-bottom: 2px;
+        }
+        
+        .unread-text p {
+            font-size: var(--font-size-sm);
+            opacity: 0.9;
+        }
+        
+        .unread-action {
+            font-size: var(--font-size-sm);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        
+        /* 通知列表 */
+        .notification-list {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+        
+        .notification-item {
+            display: flex;
+            padding: var(--space-6);
+            border-bottom: 1px solid var(--border-secondary);
+            cursor: pointer;
+            transition: background-color var(--transition-base);
+            position: relative;
+        }
+        
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+        
+        .notification-item:hover {
+            background: var(--primary-50);
+        }
+        
+        .notification-item.unread {
+            background: linear-gradient(90deg, rgba(24, 144, 255, 0.02), rgba(24, 144, 255, 0.05));
+        }
+        
+        .notification-item.unread::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--color-primary);
+        }
+        
+        .notification-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: var(--space-4);
+            font-size: var(--font-size-lg);
+            color: var(--bg-primary);
+            flex-shrink: 0;
+        }
+        
+        .notification-icon.system {
+            background: linear-gradient(135deg, var(--color-primary), var(--primary-400));
+        }
+        
+        .notification-icon.bill {
+            background: linear-gradient(135deg, var(--color-success), #73d13d);
+        }
+        
+        .notification-icon.recharge {
+            background: linear-gradient(135deg, var(--color-warning), #ffd666);
+        }
+        
+        .notification-icon.promotion {
+            background: linear-gradient(135deg, var(--color-error), #ff7875);
+        }
+        
+        .notification-icon.maintenance {
+            background: linear-gradient(135deg, var(--color-info), #36cfc9);
+        }
+        
+        .notification-content {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .notification-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: var(--space-2);
+        }
+        
+        .notification-title {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            color: var(--text-primary);
+            line-height: var(--line-height-normal);
+        }
+        
+        .notification-time {
+            font-size: var(--font-size-xs);
+            color: var(--text-tertiary);
+            white-space: nowrap;
+            margin-left: var(--space-3);
+        }
+        
+        .notification-desc {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            line-height: var(--line-height-normal);
+            margin-bottom: var(--space-2);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        
+        .notification-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+        
+        .notification-type {
+            font-size: var(--font-size-xs);
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .notification-type.system {
+            background: var(--primary-50);
+            color: var(--color-primary);
+        }
+        
+        .notification-type.bill {
+            background: var(--success-50);
+            color: var(--color-success);
+        }
+        
+        .notification-type.recharge {
+            background: var(--warning-50);
+            color: var(--color-warning);
+        }
+        
+        .notification-type.promotion {
+            background: var(--error-50);
+            color: var(--color-error);
+        }
+        
+        .notification-type.maintenance {
+            background: var(--info-50);
+            color: var(--color-info);
+        }
+        
+        .unread-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--color-primary);
+            border-radius: var(--radius-full);
+        }
+        
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-12) var(--space-6);
+            color: var(--text-tertiary);
+        }
+        
+        .empty-icon {
+            font-size: var(--font-size-4xl);
+            margin-bottom: var(--space-4);
+            opacity: 0.5;
+        }
+        
+        .empty-text {
+            font-size: var(--font-size-base);
+            margin-bottom: var(--space-2);
+        }
+        
+        .empty-desc {
+            font-size: var(--font-size-sm);
+        }
+        
+        /* 底部导航栏 - 微信风格 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 414px;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-top: 0.5px solid rgba(0, 0, 0, 0.05);
+            padding: var(--space-3) 0;
+            display: flex;
+            justify-content: space-around;
+            z-index: var(--z-fixed);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: var(--space-2);
+            transition: all var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: var(--radius-sm);
+            min-width: 60px;
+            text-decoration: none;
+            color: #999999;
+            position: relative;
+        }
+        
+        .nav-item.active {
+            color: #07c160;
+        }
+        
+        .nav-item:active {
+            transform: scale(0.95);
+        }
+        
+        .nav-icon {
+            font-size: var(--font-size-2xl);
+            margin-bottom: var(--space-1);
+            transition: transform var(--transition-slow) ease;
+        }
+        
+        .nav-item.active .nav-icon {
+            transform: scale(1.1);
+        }
+        
+        .nav-label {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.5px;
+        }
+        
+        .badge {
+            position: absolute;
+            top: -2px;
+            right: 8px;
+            background: var(--error-500);
+            color: white;
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            padding: 2px 6px;
+            border-radius: 8px;
+            min-width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(255, 77, 79, 0.3);
+            animation: badgePulse 2s infinite;
+        }
+        
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* 浮动操作按钮 */
+        .fab {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            background: var(--color-primary);
+            border: none;
+            border-radius: var(--radius-full);
+            box-shadow: var(--shadow-base);
+            color: var(--bg-primary);
+            font-size: var(--font-size-2xl);
+            cursor: pointer;
+            transition: var(--transition-base);
+            z-index: 200;
+        }
+        
+        .fab:hover {
+            background: var(--primary-600);
+            transform: scale(1.1);
+        }
+        
+        /* 模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: var(--z-modal);
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.show {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-10);
+            margin: var(--space-6);
+            max-width: 320px;
+            width: 100%;
+        }
+        
+        .modal-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-6);
+            text-align: center;
+        }
+        
+        .modal-options {
+            margin-bottom: var(--space-6);
+        }
+        
+        .modal-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-4) 0;
+            border-bottom: 1px solid var(--border-secondary);
+        }
+        
+        .modal-option:last-child {
+            border-bottom: none;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            background: var(--border-primary);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color var(--transition-base);
+        }
+        
+        .toggle-switch.active {
+            background: var(--color-success);
+        }
+        
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: var(--bg-primary);
+            border-radius: var(--radius-full);
+            transition: transform var(--transition-base);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .toggle-switch.active::after {
+            transform: translateX(20px);
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: var(--space-4);
+        }
+        
+        .modal-btn {
+            flex: 1;
+            padding: var(--space-4);
+            border: none;
+            border-radius: var(--radius-base);
+            font-size: var(--font-size-base);
+            cursor: pointer;
+            transition: var(--transition-base);
+        }
+        
+        .modal-btn-outline {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-primary);
+        }
+        
+        .modal-btn-primary {
+            background: var(--color-primary);
+            color: var(--bg-primary);
+        }
+        /* 徽章动画 */
+        .badge, .count-badge {
+            animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        /* 通知列表项动画 */
+        .notification-item {
+            animation: slideInRight 0.6s ease-out both;
+        }
+        
+        .notification-item:nth-child(1) { animation-delay: 0.1s; }
+        .notification-item:nth-child(2) { animation-delay: 0.2s; }
+        .notification-item:nth-child(3) { animation-delay: 0.3s; }
+        .notification-item:nth-child(4) { animation-delay: 0.4s; }
+        .notification-item:nth-child(5) { animation-delay: 0.5s; }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* 点击确认动画 */
+        .mark-read-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mark-read-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s, height 0.4s;
+        }
+        
+        .mark-read-btn:active::after {
+            width: 100px;
+            height: 100px;
+        }
+        
+        /* Touch Interactions - WeChat Style */
+        .touchable,
+        .nav-item,
+        .filter-tab,
+        .notification-item,
+        .unread-action,
+        .back-btn,
+        .header-action,
+        .fab,
+        .toggle-switch,
+        .modal-btn,
+        button,
+        [role="button"],
+        .clickable {
+            transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1), 
+                       box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .touchable:active,
+        .nav-item:active,
+        .filter-tab:active,
+        .notification-item:active,
+        .unread-action:active,
+        .back-btn:active,
+        .header-action:active,
+        .fab:active,
+        .toggle-switch:active,
+        .modal-btn:active,
+        button:active,
+        [role="button"]:active,
+        .clickable:active {
+            transform: scale(0.95);
+        }
+        
+        /* WeChat-style ripple effect */
+        .ripple-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ripple-effect::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 600ms, height 600ms;
+        }
+        
+        .ripple-effect:active::before {
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- 顶部导航栏 -->
+        <div class="header">
+            <div class="header-left">
+                <button class="back-btn" onclick="history.back()">←</button>
+                <div class="header-title">消息通知</div>
+            </div>
+            <div class="header-actions">
+                <div class="header-action" onclick="markAllRead()">全部已读</div>
+                <div class="header-action" onclick="showSettingsModal()">设置</div>
+            </div>
+        </div>
+        
+        <!-- 通知筛选标签 -->
+        <div class="filter-tabs">
+            <div class="filter-tab active" onclick="filterNotifications('all')">全部</div>
+            <div class="filter-tab" onclick="filterNotifications('system')">系统通知</div>
+            <div class="filter-tab" onclick="filterNotifications('bill')">账单提醒</div>
+            <div class="filter-tab" onclick="filterNotifications('recharge')">充值通知</div>
+            <div class="filter-tab" onclick="filterNotifications('promotion')">优惠活动</div>
+            <div class="filter-tab" onclick="filterNotifications('maintenance')">维护公告</div>
+        </div>
+        
+        <!-- 内容区域 -->
+        <div class="content">
+            <!-- 未读消息统计 -->
+            <div class="unread-summary">
+                <div class="unread-info">
+                    <div class="unread-icon">📬</div>
+                    <div class="unread-text">
+                        <h3>5条未读消息</h3>
+                        <p>您有新的重要通知</p>
+                    </div>
+                </div>
+                <div class="unread-action" onclick="showUnreadOnly()">查看</div>
+            </div>
+            
+            <!-- 通知列表 -->
+            <div class="notification-list" id="notificationList">
+                <div class="notification-item unread" data-type="system" onclick="markAsRead(this)">
+                    <div class="notification-icon system">🔧</div>
+                    <div class="notification-content">
+                        <div class="notification-header">
+                            <div class="notification-title">系统维护通知</div>
+                            <div class="notification-time">10分钟前</div>
+                        </div>
+                        <div class="notification-desc">
+                            系统将于今晚23:00-次日02:00进行维护升级，期间可能影响部分功能使用，请您提前做好准备。维护完成后系统将自动恢复正常。
+                        </div>
+                        <div class="notification-meta">
+                            <span class="notification-type system">系统通知</span>
+                            <div class="unread-dot"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="notification-item unread" data-type="bill" onclick="markAsRead(this)">
+                    <div class="notification-icon bill">💰</div>
+                    <div class="notification-content">
+                        <div class="notification-header">
+                            <div class="notification-title">余额不足提醒</div>
+                            <div class="notification-time">2小时前</div>
+                        </div>
+                        <div class="notification-desc">
+                            您的账户余额仅剩¥15.50，建议及时充值以免影响正常用水。点击这里立即充值。
+                        </div>
+                        <div class="notification-meta">
+                            <span class="notification-type bill">账单提醒</span>
+                            <div class="unread-dot"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="notification-item unread" data-type="recharge" onclick="markAsRead(this)">
+                    <div class="notification-icon recharge">💳</div>
+                    <div class="notification-content">
+                        <div class="notification-header">
+                            <div class="notification-title">充值成功通知</div>
+                            <div class="notification-time">今天 14:30</div>
+                        </div>
+                        <div class="notification-desc">
+                            您已成功充值¥100.00，当前账户余额¥128.50。感谢您的使用！
+                        </div>
+                        <div class="notification-meta">
+                            <span class="notification-type recharge">充值通知</span>
+                            <div class="unread-dot"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="notification-item" data-type="promotion" onclick="markAsRead(this)">
+                    <div class="notification-icon promotion">🎁</div>
+                    <div class="notification-content">
+                        <div class="notification-header">
+                            <div class="notification-title">新年充值优惠活动</div>
+                            <div class="notification-time">今天 09:15</div>
+                        </div>
+                        <div class="notification-desc">
+                            新年期间充值满100元送20元，活动期间有效。快来参与吧！
+                        </div>
+                        <div class="notification-meta">
+                            <span class="notification-type promotion">优惠活动</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="notification-item unread" data-type="maintenance" onclick="markAsRead(this)">
+                    <div class="notification-icon maintenance">🛠️</div>
+                    <div class="notification-content">
+                        <div class="notification-header">
+                            <div class="notification-title">设备检修完成</div>
+                            <div class="notification-time">昨天 16:20</div>
+                        </div>
+                        <div class="notification-desc">
+                            您所在区域的供水设备检修已完成，供水已恢复正常。给您带来的不便深表歉意。
+                        </div>
+                        <div class="notification-meta">
+                            <span class="notification-type maintenance">维护公告</span>
+                            <div class="unread-dot"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="notification-item" data-type="system" onclick="markAsRead(this)">
+                    <div class="notification-icon system">📱</div>
+                    <div class="notification-content">
+                        <div class="notification-header">
+                            <div class="notification-title">应用更新提醒</div>
+                            <div class="notification-time">昨天 10:30</div>
+                        </div>
+                        <div class="notification-desc">
+                            智慧水务APP有新版本可用，建议您及时更新以获得更好的使用体验。
+                        </div>
+                        <div class="notification-meta">
+                            <span class="notification-type system">系统通知</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="notification-item" data-type="bill" onclick="markAsRead(this)">
+                    <div class="notification-icon bill">📊</div>
+                    <div class="notification-content">
+                        <div class="notification-header">
+                            <div class="notification-title">月度用水报告</div>
+                            <div class="notification-time">3天前</div>
+                        </div>
+                        <div class="notification-desc">
+                            您的12月用水报告已生成，本月用水15.6立方米，费用¥48.50。
+                        </div>
+                        <div class="notification-meta">
+                            <span class="notification-type bill">账单提醒</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 浮动操作按钮 -->
+        <button class="fab" onclick="showSettingsModal()">⚙️</button>
+        
+        <!-- 底部导航栏 -->
+        <div class="bottom-nav">
+            <a href="wechat-home.html" class="nav-item">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">首页</div>
+            </a>
+            <a href="wechat-recharge.html" class="nav-item">
+                <div class="nav-icon">💰</div>
+                <div class="nav-label">充值</div>
+            </a>
+            <a href="wechat-account-details.html" class="nav-item">
+                <div class="nav-icon">💳</div>
+                <div class="nav-label">账户</div>
+            </a>
+            <a href="wechat-notifications.html" class="nav-item active">
+                <div class="nav-icon">🔔</div>
+                <div class="nav-label">消息</div>
+                <div class="badge">5</div>
+            </a>
+            <a href="wechat-user-profile.html" class="nav-item">
+                <div class="nav-icon">👤</div>
+                <div class="nav-label">我的</div>
+            </a>
+        </div>
+    </div>
+    
+    <!-- 通知设置模态框 -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-title">通知设置</div>
+            <div class="modal-options">
+                <div class="modal-option">
+                    <span>系统通知</span>
+                    <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                </div>
+                <div class="modal-option">
+                    <span>账单提醒</span>
+                    <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                </div>
+                <div class="modal-option">
+                    <span>充值通知</span>
+                    <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                </div>
+                <div class="modal-option">
+                    <span>优惠活动</span>
+                    <div class="toggle-switch" onclick="toggleSwitch(this)"></div>
+                </div>
+                <div class="modal-option">
+                    <span>维护公告</span>
+                    <div class="toggle-switch active" onclick="toggleSwitch(this)"></div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-outline" onclick="closeModal('settingsModal')">取消</button>
+                <button class="modal-btn modal-btn-primary" onclick="saveSettings()">保存</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Touch Feedback System - WeChat Style
+        class TouchFeedback {
+            constructor() {
+                this.bindTouchEvents();
+            }
+            
+            bindTouchEvents() {
+                // Add touch feedback to all interactive elements
+                const touchableElements = document.querySelectorAll(
+                    '.touchable, .nav-item, .filter-tab, .notification-item, .unread-action, .back-btn, .header-action, .fab, .toggle-switch, .modal-btn, button, [role="button"], .clickable'
+                );
+                
+                touchableElements.forEach(element => {
+                    // Skip if already has touch feedback
+                    if (element.dataset.touchFeedback) return;
+                    
+                    element.dataset.touchFeedback = 'true';
+                    
+                    // Touch start - scale down
+                    element.addEventListener('touchstart', (e) => {
+                        element.style.transform = 'scale(0.95)';
+                        element.style.transition = 'transform 150ms cubic-bezier(0.4, 0, 0.2, 1)';
+                    }, { passive: true });
+                    
+                    // Touch end - scale back
+                    element.addEventListener('touchend', (e) => {
+                        setTimeout(() => {
+                            element.style.transform = '';
+                        }, 100);
+                    }, { passive: true });
+                    
+                    // Touch cancel - scale back
+                    element.addEventListener('touchcancel', (e) => {
+                        element.style.transform = '';
+                    }, { passive: true });
+                    
+                    // Mouse events for desktop testing
+                    element.addEventListener('mousedown', (e) => {
+                        element.style.transform = 'scale(0.95)';
+                    });
+                    
+                    element.addEventListener('mouseup', (e) => {
+                        setTimeout(() => {
+                            element.style.transform = '';
+                        }, 100);
+                    });
+                    
+                    element.addEventListener('mouseleave', (e) => {
+                        element.style.transform = '';
+                    });
+                });
+            }
+        }
+        
+        // Initialize touch feedback system
+        document.addEventListener('DOMContentLoaded', () => {
+            new TouchFeedback();
+        });
+        
+        // 切换筛选标签
+        function filterNotifications(type) {
+            // 更新标签状态
+            document.querySelectorAll('.filter-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // 筛选通知
+            const notifications = document.querySelectorAll('.notification-item');
+            notifications.forEach(item => {
+                if (type === 'all' || item.dataset.type === type) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+        
+        // 标记消息为已读
+        function markAsRead(element) {
+            element.classList.remove('unread');
+            updateUnreadCount();
+        }
+        
+        // 标记所有消息为已读
+        function markAllRead() {
+            document.querySelectorAll('.notification-item.unread').forEach(item => {
+                item.classList.remove('unread');
+            });
+            updateUnreadCount();
+        }
+        
+        // 只显示未读消息
+        function showUnreadOnly() {
+            filterNotifications('all');
+            document.querySelectorAll('.notification-item').forEach(item => {
+                if (!item.classList.contains('unread')) {
+                    item.style.display = 'none';
+                }
+            });
+        }
+        
+        // 更新未读消息数量
+        function updateUnreadCount() {
+            const unreadCount = document.querySelectorAll('.notification-item.unread').length;
+            const badge = document.querySelector('.badge');
+            const unreadSummary = document.querySelector('.unread-summary');
+            const unreadText = document.querySelector('.unread-text h3');
+            
+            if (unreadCount > 0) {
+                badge.textContent = unreadCount;
+                badge.style.display = 'flex';
+                unreadText.textContent = `${unreadCount}条未读消息`;
+                unreadSummary.style.display = 'flex';
+            } else {
+                badge.style.display = 'none';
+                unreadSummary.style.display = 'none';
+            }
+        }
+        
+        // 显示设置模态框
+        function showSettingsModal() {
+            document.getElementById('settingsModal').classList.add('show');
+        }
+        
+        // 关闭模态框
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+        
+        // 切换开关
+        function toggleSwitch(element) {
+            element.classList.toggle('active');
+        }
+        
+        // 保存设置
+        function saveSettings() {
+            alert('设置保存成功！');
+            closeModal('settingsModal');
+        }
+        
+        // 点击模态框外部关闭
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('show');
+            }
+        });
+        
+        // 初始化未读数量
+        updateUnreadCount();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智慧水务管理平台 - 系统设置</title>
+    <style>
+        :root {
+            /* 主品牌色 - 智慧水蓝 */
+            --primary-50: #e8f4fd;
+            --primary-100: #c3e2fb;
+            --primary-200: #9acef8;
+            --primary-300: #6eb9f5;
+            --primary-400: #4aa8f2;
+            --primary-500: #2196f3;  /* 主色 - 清澈水蓝 */
+            --primary-600: #1e88e5;
+            --primary-700: #1976d2;
+            --primary-800: #1565c0;
+            --primary-900: #0d47a1;
+            
+            /* 成功色 - 生命绿 */
+            --success-50: #e8f5e8;
+            --success-100: #c8e6c8;
+            --success-200: #a5d6a5;
+            --success-300: #81c784;
+            --success-400: #66bb6a;
+            --success-500: #4caf50;  /* 主成功色 */
+            --success-600: #43a047;
+            --success-700: #388e3c;
+            --success-800: #2e7d32;
+            --success-900: #1b5e20;
+            
+            /* 警告色 - 阳光橙 */
+            --warning-50: #fff8e1;
+            --warning-100: #ffecb3;
+            --warning-200: #ffe082;
+            --warning-300: #ffd54f;
+            --warning-400: #ffca28;
+            --warning-500: #ffc107;  /* 主警告色 */
+            --warning-600: #ffb300;
+            --warning-700: #ffa000;
+            --warning-800: #ff8f00;
+            --warning-900: #ff6f00;
+            
+            /* 错误色 - 珊瑚红 */
+            --error-50: #ffebee;
+            --error-100: #ffcdd2;
+            --error-200: #ef9a9a;
+            --error-300: #e57373;
+            --error-400: #ef5350;
+            --error-500: #f44336;   /* 主错误色 */
+            --error-600: #e53935;
+            --error-700: #d32f2f;
+            --error-800: #c62828;
+            --error-900: #b71c1c;
+            
+            /* 信息色 - 科技青 */
+            --info-50: #e0f2f1;
+            --info-100: #b2dfdb;
+            --info-200: #80cbc4;
+            --info-300: #4db6ac;
+            --info-400: #26a69a;
+            --info-500: #009688;   /* 主信息色 */
+            --info-600: #00897b;
+            --info-700: #00796b;
+            --info-800: #00695c;
+            --info-900: #004d40;
+            
+            /* 灰度色彩 - 现代中性色 */
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #eeeeee;
+            --gray-300: #e0e0e0;
+            --gray-400: #bdbdbd;
+            --gray-500: #9e9e9e;
+            --gray-600: #757575;
+            --gray-700: #616161;
+            --gray-800: #424242;
+            --gray-900: #212121;
+            
+            /* 语义化文字色彩 */
+            --text-primary: var(--gray-900);
+            --text-secondary: var(--gray-700);
+            --text-tertiary: var(--gray-600);
+            --text-disabled: var(--gray-400);
+            --text-inverse: #ffffff;
+            
+            /* 背景色彩 */
+            --bg-primary: #ffffff;
+            --bg-secondary: var(--gray-50);
+            --bg-tertiary: var(--gray-100);
+            --bg-inverse: var(--gray-900);
+            
+            /* 边框色彩 */
+            --border-light: var(--gray-200);
+            --border-medium: var(--gray-300);
+            --border-strong: var(--gray-400);
+            
+            /* 字体系统 */
+            --font-family-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            --font-family-mono: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', 'Courier New', monospace;
+            
+            /* 字体大小系统 */
+            --font-size-display-xl: 48px;
+            --font-size-display-lg: 36px;
+            --font-size-display-md: 30px;
+            --font-size-display-sm: 24px;
+            --font-size-heading-xl: 20px;
+            --font-size-heading-lg: 18px;
+            --font-size-heading-md: 16px;
+            --font-size-heading-sm: 14px;
+            --font-size-body-lg: 16px;
+            --font-size-body-md: 14px;
+            --font-size-body-sm: 12px;
+            --font-size-body-xs: 11px;
+            --font-size-label-lg: 14px;
+            --font-size-label-md: 12px;
+            --font-size-label-sm: 11px;
+            
+            /* 字重系统 */
+            --font-weight-light: 300;
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            --font-weight-heavy: 800;
+            
+            /* 基础间距单位 (4px基准) */
+            --spacing-0: 0;
+            --spacing-1: 4px;
+            --spacing-2: 8px;
+            --spacing-3: 12px;
+            --spacing-4: 16px;
+            --spacing-5: 20px;
+            --spacing-6: 24px;
+            --spacing-8: 32px;
+            --spacing-10: 40px;
+            --spacing-12: 48px;
+            --spacing-16: 64px;
+            --spacing-20: 80px;
+            --spacing-24: 96px;
+            
+            /* 圆角系统 */
+            --radius-none: 0;
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-2xl: 20px;
+            --radius-3xl: 24px;
+            --radius-full: 9999px;
+            
+            /* 层级阴影 */
+            --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            
+            /* 彩色阴影 */
+            --shadow-primary: 0 4px 14px 0 rgba(33, 150, 243, 0.15);
+            --shadow-success: 0 4px 14px 0 rgba(76, 175, 80, 0.15);
+            --shadow-warning: 0 4px 14px 0 rgba(255, 193, 7, 0.15);
+            --shadow-error: 0 4px 14px 0 rgba(244, 67, 54, 0.15);
+            
+            /* 缓动函数 */
+            --easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* 动画时长 */
+            --duration-fast: 150ms;
+            --duration-normal: 300ms;
+            --duration-slow: 500ms;
+            
+            /* 补充变量 */
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-6: 24px;
+            --font-size-sm: 14px;
+            --duration-base: 300ms;
+            --easing: cubic-bezier(0.4, 0, 0.2, 1);
+            --gray-200: #eeeeee;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        /* 顶部导航栏 */
+        .top-bar {
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-sm);
+            padding: 0 var(--spacing-6);
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        /* 面包屑导航 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-2);
+        }
+        
+        .breadcrumb-item {
+            color: var(--text-tertiary);
+            font-size: var(--font-size-body-md);
+            text-decoration: none;
+        }
+        
+        .breadcrumb-item.active {
+            color: var(--text-primary);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .breadcrumb-separator {
+            color: var(--text-tertiary);
+        }
+        
+        /* 智能自适应侧边栏 */
+        .unified-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 320px;
+            height: 100vh;
+            background: linear-gradient(180deg, #1a1d29 0%, #232940 50%, #1a1d29 100%);
+            box-shadow: var(--shadow-xl);
+            z-index: 1000;
+            overflow-y: auto;
+            transition: all 300ms var(--easing-smooth);
+        }
+        
+        .unified-sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .unified-sidebar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .unified-sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-full);
+        }
+        
+        /* 水务品牌标识区域 */
+        .sidebar-header {
+            padding: var(--spacing-6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--spacing-4);
+        }
+        
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-weight: var(--font-weight-bold);
+            margin-right: var(--spacing-4);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(33, 150, 243, 0.3);
+        }
+        
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transform: rotate(-45deg);
+            animation: logoShine 3s infinite;
+        }
+        
+        @keyframes logoShine {
+            0% { transform: translateX(-100%) rotate(-45deg); }
+            50% { transform: translateX(100%) rotate(-45deg); }
+            100% { transform: translateX(-100%) rotate(-45deg); }
+        }
+        
+        .system-title {
+            color: var(--text-inverse);
+            font-size: var(--font-size-heading-lg);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--spacing-1);
+        }
+        
+        .system-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: var(--font-size-body-md);
+        }
+        
+        /* 用户信息卡片 */
+        .user-info-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 300ms var(--easing-smooth);
+        }
+        
+        .user-info-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-1px);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--success-500), var(--success-600));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-weight: var(--font-weight-semibold);
+            margin-right: var(--spacing-3);
+        }
+        
+        .user-details h4 {
+            color: var(--text-inverse);
+            font-size: var(--font-size-body-md);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: 2px;
+        }
+        
+        .user-details span {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: var(--font-size-body-sm);
+        }
+        
+        /* 权限层级指示器 */
+        .permission-indicator {
+            margin-top: var(--spacing-3);
+            padding: var(--spacing-2) var(--spacing-3);
+            background: rgba(33, 150, 243, 0.2);
+            border-radius: var(--radius-md);
+            border-left: 3px solid var(--primary-500);
+        }
+        
+        .permission-text {
+            color: var(--text-inverse);
+            font-size: var(--font-size-body-sm);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        /* 智能导航分组 */
+        .nav-section {
+            padding: var(--spacing-6) 0;
+        }
+        
+        .nav-group {
+            margin-bottom: var(--spacing-6);
+        }
+        
+        .nav-group-title {
+            padding: 0 var(--spacing-6) var(--spacing-3);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: var(--font-size-body-sm);
+            font-weight: var(--font-weight-semibold);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: var(--spacing-4) var(--spacing-6);
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            border-left: 3px solid transparent;
+        }
+        
+        .nav-item i {
+            width: 20px;
+            margin-right: var(--spacing-3);
+            font-size: 16px;
+        }
+        
+        .nav-item:hover {
+            background: linear-gradient(90deg, rgba(33, 150, 243, 0.15), transparent);
+            color: var(--text-inverse);
+            border-left-color: var(--primary-400);
+            transform: translateX(4px);
+        }
+        
+        .nav-item.active {
+            background: linear-gradient(90deg, rgba(33, 150, 243, 0.3), rgba(33, 150, 243, 0.1));
+            color: var(--text-inverse);
+            border-left-color: var(--primary-500);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            right: var(--spacing-4);
+            width: 6px;
+            height: 6px;
+            background: var(--primary-500);
+            border-radius: var(--radius-full);
+            box-shadow: 0 0 8px var(--primary-500);
+        }
+        
+        /* 主内容区域 */
+        .main-content {
+            margin-left: 320px;
+            min-height: 100vh;
+        }
+        
+        /* 内容区域 */
+        .content-area {
+            padding: var(--spacing-6);
+        }
+        
+        .page-header {
+            background: var(--bg-primary);
+            border-radius: var(--radius-2xl);
+            padding: var(--spacing-6) var(--spacing-8);
+            margin-bottom: var(--spacing-8);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+        }
+        
+        .page-title {
+            font-size: var(--font-size-display-sm);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-3);
+        }
+        
+        .page-title i {
+            color: var(--primary-600);
+            font-size: 28px;
+        }
+        
+        /* 设置导航标签 */
+        .settings-nav {
+            margin-bottom: var(--spacing-8);
+            border-bottom: 2px solid var(--border-light);
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: var(--spacing-8);
+        }
+        
+        .nav-tab {
+            padding: var(--spacing-4) 0;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all var(--duration-fast) var(--easing-smooth);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-2);
+            position: relative;
+        }
+        
+        .nav-tab:hover {
+            color: var(--primary-600);
+        }
+        
+        .nav-tab.active {
+            color: var(--primary-600);
+            border-bottom-color: var(--primary-600);
+        }
+        
+        .nav-tab.active i {
+            color: var(--primary-600);
+        }
+        
+        /* 设置内容区 */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s var(--easing-smooth);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* 表单样式 */
+        .form-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            margin-bottom: var(--spacing-8);
+            overflow: hidden;
+        }
+        
+        .form-header {
+            padding: var(--spacing-6);
+            border-bottom: 1px solid var(--border-light);
+            background: linear-gradient(135deg, var(--primary-50), var(--info-50));
+        }
+        
+        .section-title {
+            font-size: var(--font-size-heading-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-3);
+        }
+        
+        .section-title i {
+            font-size: 20px;
+            color: var(--primary-600);
+        }
+        
+        .form-body {
+            padding: var(--spacing-8);
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-6);
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-2);
+        }
+        
+        .form-label {
+            font-weight: var(--font-weight-medium);
+            color: var(--text-secondary);
+        }
+        
+        .form-input, .form-select {
+            width: 100%;
+            padding: var(--spacing-3) var(--spacing-4);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-body-md);
+            background: var(--bg-primary);
+            transition: all var(--duration-normal) var(--easing-smooth);
+        }
+        
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.1);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-6);
+            padding-top: var(--spacing-2);
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-2);
+            cursor: pointer;
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-600);
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: var(--spacing-4);
+            margin-top: var(--spacing-8);
+            padding-top: var(--spacing-6);
+            border-top: 1px solid var(--border-light);
+        }
+        
+        /* 按钮样式 */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-2);
+            padding: var(--spacing-3) var(--spacing-6);
+            border: 1px solid transparent;
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-body-md);
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--easing-smooth);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            color: var(--text-inverse);
+            box-shadow: var(--shadow-primary);
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--success-500), var(--success-600));
+            color: var(--text-inverse);
+            box-shadow: var(--shadow-success);
+        }
+        
+        .btn-success:hover {
+            background: linear-gradient(135deg, var(--success-600), var(--success-700));
+            transform: translateY(-2px);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, var(--error-500), var(--error-600));
+            color: var(--text-inverse);
+            box-shadow: var(--shadow-error);
+        }
+        
+        .btn-danger:hover {
+            background: linear-gradient(135deg, var(--error-600), var(--error-700));
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: var(--bg-primary);
+            color: var(--primary-600);
+            border: 2px solid var(--primary-500);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary-50);
+            border-color: var(--primary-600);
+            transform: translateY(-2px);
+        }
+        
+        /* 操作员管理表格 */
+        .operators-table-wrapper {
+            overflow-x: auto;
+        }
+        
+        .operators-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: var(--spacing-6);
+        }
+        
+        .operators-table th {
+            background: var(--bg-tertiary);
+            padding: var(--spacing-4);
+            text-align: left;
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-secondary);
+            font-size: var(--font-size-body-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .operators-table td {
+            padding: var(--spacing-4);
+            border-bottom: 1px solid var(--border-light);
+            font-size: var(--font-size-body-md);
+        }
+        
+        .operators-table tbody tr:hover {
+            background: var(--primary-50);
+        }
+        
+        .role-badge {
+            padding: var(--spacing-1) var(--spacing-3);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-body-xs);
+            font-weight: var(--font-weight-medium);
+            text-transform: capitalize;
+        }
+        
+        .role-badge.admin {
+            background: var(--error-50);
+            color: var(--error-700);
+        }
+        
+        .role-badge.operator {
+            background: var(--success-50);
+            color: var(--success-700);
+        }
+        
+        .role-badge.viewer {
+            background: var(--info-50);
+            color: var(--info-700);
+        }
+        
+        .action-btns {
+            display: flex;
+            gap: var(--spacing-2);
+        }
+        
+        .action-btn {
+            background: transparent;
+            border: none;
+            padding: var(--spacing-2);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--easing-smooth);
+            display: flex;
+            align-items: center;
+        }
+        
+        .action-btn:hover {
+            background: var(--gray-200);
+        }
+        
+        .action-btn.edit {
+            color: var(--primary-600);
+        }
+        
+        .action-btn.delete {
+            color: var(--error-600);
+        }
+        
+        /* 系统状态卡片 */
+        .status-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-8);
+            margin-bottom: var(--spacing-8);
+        }
+        
+        .status-card {
+            background: var(--bg-primary);
+            padding: var(--spacing-6);
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-6);
+            transition: all var(--duration-normal) var(--easing-smooth);
+        }
+        
+        .status-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-200);
+        }
+        
+        .status-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+        
+        .status-icon.time { background: linear-gradient(135deg, var(--info-400), var(--info-600)); }
+        .status-icon.db { background: linear-gradient(135deg, var(--success-400), var(--success-600)); }
+        .status-icon.load { background: linear-gradient(135deg, var(--warning-400), var(--warning-600)); }
+        .status-icon.memory { background: linear-gradient(135deg, var(--primary-400), var(--primary-600)); }
+        
+        .status-info .status-title {
+            font-size: var(--font-size-body-sm);
+            color: var(--text-tertiary);
+            font-weight: var(--font-weight-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--spacing-2);
+        }
+        
+        .status-info .status-value {
+            font-size: var(--font-size-heading-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+            font-family: var(--font-family-mono);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform var(--duration-normal) var(--easing-smooth);
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: var(--spacing-4);
+            }
+            
+            .nav-tabs {
+                flex-wrap: wrap;
+                gap: var(--spacing-4);
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .status-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+        /* 搜索功能样式 */
+        .search-container {
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: var(--space-3) var(--space-4);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-lg);
+            color: var(--text-inverse);
+            font-size: var(--font-size-sm);
+            backdrop-filter: blur(10px);
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--primary-400);
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- 智能自适应侧边栏 -->
+    <nav class="unified-sidebar">
+        <!-- 水务品牌标识区域 -->
+        <div class="sidebar-header">
+            <div class="logo-section">
+                <div class="logo">水</div>
+                <div>
+                    <div class="system-title">WaterMIS</div>
+                    <div class="system-subtitle">智慧水务管理平台</div>
+                </div>
+            </div>
+            
+            <!-- 用户信息卡片 -->
+            <div class="user-info-card">
+                <div class="user-info">
+                    <div class="user-avatar">管</div>
+                    <div class="user-details">
+                        <h4>系统管理员</h4>
+                        <span>张三 • 在线</span>
+                    </div>
+                </div>
+                <!-- 权限层级指示器 -->
+                <div class="permission-indicator">
+                    <div class="permission-text">权限范围：县级管理权限</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 搜索功能 -->
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="搜索功能模块..." id="navSearch">
+        </div>
+
+        <!-- 智能导航分组 -->
+        <div class="nav-section">
+            <!-- 营业管理中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">📊 营业管理中心</div>
+                <a href="admin-dashboard-redesigned.html" class="nav-item">
+                    <i>🏠</i>
+                    工作台
+                </a>
+                <a href="admin-user-management.html" class="nav-item">
+                    <i>👥</i>
+                    用户管理
+                </a>
+                <a href="admin-account-management.html" class="nav-item">
+                    <i>💰</i>
+                    账户管理
+                </a>
+                <a href="admin-meter-reading-center.html" class="nav-item">
+                    <i>📊</i>
+                    抄表管理
+                </a>
+                <a href="admin-billing-center.html" class="nav-item">
+                    <i>💳</i>
+                    收费管理
+                </a>
+                <a href="admin-user-recharge.html" class="nav-item">
+                    <i>🏦</i>
+                    预存水费管理
+                </a>
+            </div>
+            
+            <!-- 设备运维中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">⚙️ 设备运维中心</div>
+                <a href="admin-device-management.html" class="nav-item">
+                    <i>🔧</i>
+                    设备管理
+                </a>
+                <a href="#" class="nav-item">
+                    <i>⚖️</i>
+                    计量管理
+                </a>
+            </div>
+            
+            <!-- 数据分析中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">📈 数据分析中心</div>
+                <a href="admin-advanced-query.html" class="nav-item">
+                    <i>🔍</i>
+                    数据查询
+                </a>
+                <a href="admin-report-center.html" class="nav-item">
+                    <i>📋</i>
+                    统计报表
+                </a>
+                <a href="#" class="nav-item">
+                    <i>📊</i>
+                    分析图表
+                </a>
+            </div>
+            
+            <!-- 系统管控中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">🏛️ 系统管控中心</div>
+                <a href="admin-region-management.html" class="nav-item">
+                    <i>🌏</i>
+                    营业分区管理
+                </a>
+                <a href="admin-operator-management.html" class="nav-item">
+                    <i>👨‍💼</i>
+                    人事管理
+                </a>
+                <a href="#" class="nav-item active">
+                    <i>⚙️</i>
+                    基本设置
+                </a>
+                <a href="#" class="nav-item">
+                    <i>🔧</i>
+                    系统维护
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 主内容区域 -->
+    <main class="main-content">
+        <!-- 顶部导航栏 -->
+        <header class="top-bar">
+            <div style="display: flex; align-items: center;">
+                <nav class="breadcrumb">
+                    <a href="admin-dashboard-redesigned.html" class="breadcrumb-item">首页</a>
+                    <span class="breadcrumb-separator">›</span>
+                    <span class="breadcrumb-item active">基本设置</span>
+                </nav>
+            </div>
+        </header>
+
+        <!-- 内容区域 -->
+        <div class="content-area">
+        
+        <!-- 设置导航标签 -->
+        <div class="settings-nav">
+            <div class="nav-tabs">
+                <div class="nav-tab active" onclick="switchTab(event, 'operators')">
+                    <i>👥</i>操作员管理
+                </div>
+                <div class="nav-tab" onclick="switchTab(event, 'system')">
+                    <i>🔧</i>系统参数
+                </div>
+                <div class="nav-tab" onclick="switchTab(event, 'security')">
+                    <i>🔒</i>安全设置
+                </div>
+                <div class="nav-tab" onclick="switchTab(event, 'notification')">
+                    <i>📢</i>通知设置
+                </div>
+                <div class="nav-tab" onclick="switchTab(event, 'maintenance')">
+                    <i>🛠️</i>系统维护
+                </div>
+            </div>
+        </div>
+        
+        <!-- 设置内容区 -->
+        <div class="settings-content">
+            <!-- 操作员管理 -->
+            <div class="tab-content active" id="operators">
+                <div class="form-card">
+                    <div class="form-header">
+                        <div class="section-title">
+                            <i>👥</i>操作员管理
+                        </div>
+                    </div>
+                    
+                    <div class="form-body">
+                        <div class="form-actions" style="border-top: none; padding-top: 0; margin-top: 0;">
+                            <button class="btn btn-primary">
+                                <i>➕</i>添加操作员
+                            </button>
+                            <button class="btn btn-outline">
+                                <i>📤</i>导出列表
+                            </button>
+                        </div>
+                        
+                        <div class="operators-table-wrapper">
+                            <table class="operators-table">
+                                <thead>
+                                    <tr>
+                                        <th>用户名</th>
+                                        <th>姓名</th>
+                                        <th>角色</th>
+                                        <th>部门</th>
+                                        <th>最后登录</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>admin</td>
+                                        <td>李管理员</td>
+                                        <td><span class="role-badge admin">系统管理员</span></td>
+                                        <td>信息中心</td>
+                                        <td>2024-01-15 15:30:25</td>
+                                        <td>正常</td>
+                                        <td>
+                                            <div class="action-btns">
+                                                <button class="action-btn edit" title="编辑">✏️</button>
+                                                <button class="action-btn delete" title="禁用">🚫</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>operator01</td>
+                                        <td>张操作员</td>
+                                        <td><span class="role-badge operator">业务操作员</span></td>
+                                        <td>客户服务部</td>
+                                        <td>2024-01-15 14:25:10</td>
+                                        <td>正常</td>
+                                        <td>
+                                            <div class="action-btns">
+                                                <button class="action-btn edit" title="编辑">✏️</button>
+                                                <button class="action-btn delete" title="删除">🗑️</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>viewer01</td>
+                                        <td>王查看员</td>
+                                        <td><span class="role-badge viewer">只读用户</span></td>
+                                        <td>财务部</td>
+                                        <td>2024-01-15 13:45:30</td>
+                                        <td>正常</td>
+                                        <td>
+                                            <div class="action-btns">
+                                                <button class="action-btn edit" title="编辑">✏️</button>
+                                                <button class="action-btn delete" title="删除">🗑️</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 系统参数 -->
+            <div class="tab-content" id="system">
+                <div class="form-card">
+                    <div class="form-header">
+                        <div class="section-title">
+                            <i>🔧</i>系统基础参数
+                        </div>
+                    </div>
+                    
+                    <div class="form-body">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">系统名称</label>
+                                <input type="text" class="form-input" value="智慧水务管理平台">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">系统版本</label>
+                                <input type="text" class="form-input" value="v3.0.0" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">公司名称</label>
+                                <input type="text" class="form-input" value="智慧水务科技有限公司">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">联系电话</label>
+                                <input type="text" class="form-input" value="400-888-9999">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-card">
+                    <div class="form-header">
+                        <div class="section-title">
+                            <i>💾</i>数据库配置
+                        </div>
+                    </div>
+                    
+                    <div class="form-body">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">数据库类型</label>
+                                <select class="form-select">
+                                    <option value="access">Microsoft Access</option>
+                                    <option value="sqlserver" selected>SQL Server</option>
+                                    <option value="mysql">MySQL</option>
+                                    <option value="postgresql">PostgreSQL</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">服务器地址</label>
+                                <input type="text" class="form-input" value="localhost">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">数据库名称</label>
+                                <input type="text" class="form-input" value="SXCCMS_DB_v3">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">连接超时(秒)</label>
+                                <input type="number" class="form-input" value="30">
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button class="btn btn-outline"><i>🔌</i>测试连接</button>
+                            <button class="btn btn-success"><i>💾</i>保存配置</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 安全设置 -->
+            <div class="tab-content" id="security">
+                <div class="form-card">
+                    <div class="form-header">
+                        <div class="section-title">
+                            <i>🔒</i>密码安全策略
+                        </div>
+                    </div>
+                    
+                    <div class="form-body">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">密码最小长度</label>
+                                <input type="number" class="form-input" value="8" min="6" max="20">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">密码有效期(天)</label>
+                                <input type="number" class="form-input" value="90">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">登录失败锁定次数</label>
+                                <input type="number" class="form-input" value="5">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">账户锁定时间(分钟)</label>
+                                <input type="number" class="form-input" value="30">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" style="margin-top: var(--spacing-6);">
+                            <label class="form-label">密码复杂度要求</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="uppercase" checked>
+                                    <label for="uppercase">包含大写字母</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="lowercase" checked>
+                                    <label for="lowercase">包含小写字母</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="numbers" checked>
+                                    <label for="numbers">包含数字</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="symbols" checked>
+                                    <label for="symbols">包含特殊字符</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-card">
+                    <div class="form-header">
+                        <div class="section-title">
+                            <i>📋</i>审计日志设置
+                        </div>
+                    </div>
+                    
+                    <div class="form-body">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">日志保留期(天)</label>
+                                <input type="number" class="form-input" value="180">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">日志级别</label>
+                                <select class="form-select">
+                                    <option value="info">信息</option>
+                                    <option value="warning">警告</option>
+                                    <option value="error" selected>错误</option>
+                                    <option value="debug">调试</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button class="btn btn-success"><i>💾</i>保存设置</button>
+                            <button class="btn btn-outline"><i>📄</i>查看日志</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 通知设置 -->
+            <div class="tab-content" id="notification">
+                <div class="form-card">
+                    <div class="form-header">
+                        <div class="section-title">
+                            <i>📧</i>邮件通知设置
+                        </div>
+                    </div>
+                    
+                    <div class="form-body">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">SMTP服务器</label>
+                                <input type="text" class="form-input" value="smtp.example.com">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">端口号</label>
+                                <input type="number" class="form-input" value="465">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">发送邮箱</label>
+                                <input type="email" class="form-input" value="system@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">邮箱密码</label>
+                                <input type="password" class="form-input" value="************">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" style="margin-top: var(--spacing-6);">
+                            <label class="form-label">启用SSL加密</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="ssl" checked>
+                                    <label for="ssl">使用SSL安全连接</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-card">
+                    <div class="form-header">
+                        <div class="section-title">
+                            <i>📱</i>短信通知设置
+                        </div>
+                    </div>
+                    
+                    <div class="form-body">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">短信服务商</label>
+                                <select class="form-select">
+                                    <option value="aliyun" selected>阿里云短信</option>
+                                    <option value="tencent">腾讯云短信</option>
+                                    <option value="huawei">华为云短信</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">AccessKey ID</label>
+                                <input type="text" class="form-input" value="LTAI5t************">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">AccessKey Secret</label>
+                                <input type="password" class="form-input" value="****************">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">短信签名</label>
+                                <input type="text" class="form-input" value="智慧水务平台">
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button class="btn btn-outline"><i>📧</i>测试邮件</button>
+                            <button class="btn btn-outline"><i>📱</i>测试短信</button>
+                            <button class="btn btn-success"><i>💾</i>保存设置</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 系统维护 -->
+            <div class="tab-content" id="maintenance">
+                <div class="status-cards">
+                    <div class="status-card">
+                        <div class="status-icon time">⏰</div>
+                        <div class="status-info">
+                            <div class="status-title">系统运行时间</div>
+                            <div class="status-value">25天 8小时</div>
+                        </div>
+                    </div>
+                    
+                    <div class="status-card">
+                        <div class="status-icon db">💾</div>
+                        <div class="status-info">
+                            <div class="status-title">数据库大小</div>
+                            <div class="status-value">2.5 GB</div>
+                        </div>
+                    </div>
+                    
+                    <div class="status-card">
+                        <div class="status-icon load">📊</div>
+                        <div class="status-info">
+                            <div class="status-title">系统负载</div>
+                            <div class="status-value">23.5%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="status-card">
+                        <div class="status-icon memory">🧠</div>
+                        <div class="status-info">
+                            <div class="status-title">内存使用</div>
+                            <div class="status-value">1.8 GB / 8 GB</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-card">
+                    <div class="form-header">
+                        <div class="section-title">
+                            <i>💾</i>数据备份与恢复
+                        </div>
+                    </div>
+                    
+                    <div class="form-body">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">自动备份</label>
+                                <select class="form-select">
+                                    <option value="daily" selected>每日备份</option>
+                                    <option value="weekly">每周备份</option>
+                                    <option value="monthly">每月备份</option>
+                                    <option value="manual">手动备份</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">备份保留期(天)</label>
+                                <input type="number" class="form-input" value="30">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">备份时间</label>
+                                <input type="time" class="form-input" value="02:00">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">备份路径</label>
+                                <input type="text" class="form-input" value="D:\Backup\WaterUtility_V3">
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button class="btn btn-primary"><i>⚡</i>立即备份</button>
+                            <button class="btn btn-outline"><i>📂</i>查看备份</button>
+                            <button class="btn btn-success"><i>💾</i>保存设置</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-card">
+                    <div class="form-header">
+                        <div class="section-title">
+                            <i>🧹</i>系统清理与优化
+                        </div>
+                    </div>
+                    
+                    <div class="form-body">
+                        <div class="form-actions">
+                            <button class="btn btn-outline"><i>🧹</i>清理临时文件</button>
+                            <button class="btn btn-outline"><i>🗑️</i>清理日志文件</button>
+                            <button class="btn btn-outline"><i>⚡</i>数据库优化</button>
+                            <button class="btn btn-danger"><i>🔄</i>重启系统服务</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        // 切换设置标签
+        function switchTab(event, tabName) {
+            // 隐藏所有标签内容
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            
+            // 移除所有导航标签的激活状态
+            document.querySelectorAll('.nav-tab').forEach(navTab => navTab.classList.remove('active'));
+            
+            // 显示选中的标签内容
+            document.getElementById(tabName).classList.add('active');
+            
+            // 激活对应的导航标签
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>

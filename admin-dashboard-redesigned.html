@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WaterMIS智慧水务管理平台 - 重新设计版</title>
+    <style>
+        :root {
+            /* 智慧水务品牌色彩 */
+            --primary-50: #e6f7ff;
+            --primary-100: #bae7ff;
+            --primary-200: #91d5ff;
+            --primary-300: #69c0ff;
+            --primary-400: #40a9ff;
+            --primary-500: #2196f3;
+            --primary-600: #1976d2;
+            --primary-700: #1565c0;
+            --primary-800: #0d47a1;
+            --primary-900: #01579b;
+            
+            /* 成功色 - 清澈水蓝 */
+            --success-50: #e0f7fa;
+            --success-100: #b2ebf2;
+            --success-200: #80deea;
+            --success-300: #4dd0e1;
+            --success-400: #26c6da;
+            --success-500: #00bcd4;
+            --success-600: #00acc1;
+            --success-700: #0097a7;
+            --success-800: #00838f;
+            --success-900: #006064;
+            
+            /* 警告色 - 阳光橙 */
+            --warning-50: #fff8e1;
+            --warning-100: #ffecb3;
+            --warning-200: #ffe082;
+            --warning-300: #ffd54f;
+            --warning-400: #ffca28;
+            --warning-500: #ff9800;
+            --warning-600: #fb8c00;
+            --warning-700: #f57c00;
+            --warning-800: #ef6c00;
+            --warning-900: #e65100;
+            
+            /* 错误色 - 珊瑚红 */
+            --danger-50: #ffebee;
+            --danger-100: #ffcdd2;
+            --danger-200: #ef9a9a;
+            --danger-300: #e57373;
+            --danger-400: #ef5350;
+            --danger-500: #f44336;
+            --danger-600: #e53935;
+            --danger-700: #d32f2f;
+            --danger-800: #c62828;
+            --danger-900: #b71c1c;
+            
+            /* 中性色系 */
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #eeeeee;
+            --gray-300: #e0e0e0;
+            --gray-400: #bdbdbd;
+            --gray-500: #9e9e9e;
+            --gray-600: #757575;
+            --gray-700: #616161;
+            --gray-800: #424242;
+            --gray-900: #212121;
+            
+            /* 语义化颜色 */
+            --text-primary: var(--gray-900);
+            --text-secondary: var(--gray-700);
+            --text-tertiary: var(--gray-600);
+            --text-inverse: #ffffff;
+            
+            --bg-primary: #ffffff;
+            --bg-secondary: var(--gray-50);
+            --bg-tertiary: var(--gray-100);
+            
+            /* 间距系统 - 8px基准 */
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-5: 20px;
+            --space-6: 24px;
+            --space-8: 32px;
+            --space-10: 40px;
+            --space-12: 48px;
+            --space-16: 64px;
+            --space-20: 80px;
+            
+            /* 圆角系统 */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-2xl: 24px;
+            --radius-3xl: 28px;
+            --radius-full: 9999px;
+            
+            /* 阴影系统 */
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.12);
+            --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+            
+            /* 动画系统 */
+            --duration-fast: 150ms;
+            --duration-base: 300ms;
+            --duration-slow: 500ms;
+            --easing: cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* 字体系统 */
+            --font-size-xs: 12px;
+            --font-size-sm: 14px;
+            --font-size-base: 16px;
+            --font-size-lg: 18px;
+            --font-size-xl: 20px;
+            --font-size-2xl: 24px;
+            --font-size-3xl: 30px;
+            --font-size-4xl: 36px;
+            
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* 智能自适应侧边栏 */
+        .unified-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 320px;
+            height: 100vh;
+            background: linear-gradient(180deg, #1a1d29 0%, #232940 50%, #1a1d29 100%);
+            box-shadow: var(--shadow-xl);
+            z-index: 1000;
+            overflow-y: auto;
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-full);
+        }
+        
+        /* 智慧水务标识区域 */
+        .sidebar-header {
+            padding: var(--space-6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--space-4);
+        }
+        
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-weight: var(--font-weight-bold);
+            margin-right: var(--space-4);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(33, 150, 243, 0.3);
+        }
+        
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transform: rotate(-45deg);
+            animation: logoShine 3s infinite;
+        }
+        
+        @keyframes logoShine {
+            0% { transform: translateX(-100%) rotate(-45deg); }
+            50% { transform: translateX(100%) rotate(-45deg); }
+            100% { transform: translateX(-100%) rotate(-45deg); }
+        }
+        
+        .system-title {
+            color: var(--text-inverse);
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-1);
+        }
+        
+        .system-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: var(--font-size-sm);
+        }
+        
+        /* 用户信息卡片 */
+        .user-info-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .user-info-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-1px);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--success-500), var(--success-600));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-weight: var(--font-weight-semibold);
+            margin-right: var(--space-3);
+        }
+        
+        .user-details h4 {
+            color: var(--text-inverse);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: 2px;
+        }
+        
+        .user-details span {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: var(--font-size-xs);
+        }
+        
+        /* 权限层级指示器 */
+        .permission-indicator {
+            margin-top: var(--space-3);
+            padding: var(--space-2) var(--space-3);
+            background: rgba(33, 150, 243, 0.2);
+            border-radius: var(--radius-md);
+            border-left: 3px solid var(--primary-500);
+        }
+        
+        .permission-text {
+            color: var(--text-inverse);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        /* 智能导航分组 */
+        .nav-section {
+            padding: var(--space-6) 0;
+        }
+        
+        .nav-group {
+            margin-bottom: var(--space-6);
+        }
+        
+        .nav-group-title {
+            padding: 0 var(--space-6) var(--space-3);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: var(--space-4) var(--space-6);
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all var(--duration-fast) var(--easing);
+            position: relative;
+            border-left: 3px solid transparent;
+        }
+        
+        .nav-item i {
+            width: 20px;
+            margin-right: var(--space-3);
+            font-size: 16px;
+        }
+        
+        .nav-item:hover {
+            background: linear-gradient(90deg, rgba(33, 150, 243, 0.15), transparent);
+            color: var(--text-inverse);
+            border-left-color: var(--primary-400);
+            transform: translateX(4px);
+        }
+        
+        .nav-item.active {
+            background: linear-gradient(90deg, rgba(33, 150, 243, 0.3), rgba(33, 150, 243, 0.1));
+            color: var(--text-inverse);
+            border-left-color: var(--primary-500);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            right: var(--space-4);
+            width: 6px;
+            height: 6px;
+            background: var(--primary-500);
+            border-radius: var(--radius-full);
+            box-shadow: 0 0 8px var(--primary-500);
+        }
+        
+        /* 搜索功能样式 */
+        .search-container {
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: var(--space-3) var(--space-4);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-lg);
+            color: var(--text-inverse);
+            font-size: var(--font-size-sm);
+            backdrop-filter: blur(10px);
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--primary-400);
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+        
+        /* 主内容区域 */
+        .main-content {
+            margin-left: 320px;
+            min-height: 100vh;
+            background: var(--bg-secondary);
+            transition: margin-left var(--duration-base) var(--easing);
+        }
+        
+        /* 现代化顶部栏 */
+        .top-bar {
+            background: var(--bg-primary);
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        /* 面包屑导航 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .breadcrumb-item {
+            color: var(--text-tertiary);
+            font-size: var(--font-size-sm);
+            text-decoration: none;
+        }
+        
+        .breadcrumb-item.active {
+            color: var(--text-primary);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .breadcrumb-separator {
+            color: var(--text-tertiary);
+        }
+        
+        /* 快速操作区域 */
+        .quick-actions {
+            display: flex;
+            gap: var(--space-3);
+        }
+        
+        .quick-action-btn {
+            padding: var(--space-2) var(--space-4);
+            background: var(--primary-500);
+            color: var(--text-inverse);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--easing);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .quick-action-btn:hover {
+            background: var(--primary-600);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+        
+        /* 仪表板内容区域 */
+        .dashboard-content {
+            padding: var(--space-8) var(--space-6);
+        }
+        
+        /* 现代化指标卡片网格 */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-10);
+        }
+        
+        .metric-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8);
+            box-shadow: var(--shadow-md);
+            transition: all var(--duration-base) var(--easing);
+            position: relative;
+            overflow: hidden;
+            border-left: 4px solid var(--primary-500);
+        }
+        
+        .metric-card.success {
+            border-left-color: var(--success-500);
+        }
+        
+        .metric-card.warning {
+            border-left-color: var(--warning-500);
+        }
+        
+        .metric-card.danger {
+            border-left-color: var(--danger-500);
+        }
+        
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, transparent, rgba(33, 150, 243, 0.05));
+            border-radius: 50%;
+            transform: translate(40%, -40%);
+        }
+        
+        .metric-card:hover {
+            box-shadow: var(--shadow-xl);
+            transform: translateY(-4px);
+        }
+        
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-4);
+        }
+        
+        .metric-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-size: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .metric-icon.success {
+            background: linear-gradient(135deg, var(--success-500), var(--success-600));
+        }
+        
+        .metric-icon.warning {
+            background: linear-gradient(135deg, var(--warning-500), var(--warning-600));
+        }
+        
+        .metric-icon.danger {
+            background: linear-gradient(135deg, var(--danger-500), var(--danger-600));
+        }
+        
+        .trend-indicator {
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+        }
+        
+        .trend-indicator.up {
+            color: var(--success-600);
+        }
+        
+        .trend-indicator.down {
+            color: var(--danger-600);
+        }
+        
+        .metric-value {
+            font-size: var(--font-size-3xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+            letter-spacing: -0.5px;
+        }
+        
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .metric-subtitle {
+            color: var(--text-tertiary);
+            font-size: var(--font-size-xs);
+            margin-top: var(--space-1);
+        }
+        
+        /* 图表区域 2:1 布局 */
+        .charts-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--space-6);
+            margin-bottom: var(--space-10);
+        }
+        
+        .chart-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-md);
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .chart-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-6);
+        }
+        
+        .chart-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+        }
+        
+        .chart-controls {
+            display: flex;
+            gap: var(--space-2);
+        }
+        
+        .chart-control-btn {
+            padding: var(--space-1) var(--space-3);
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-xs);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--easing);
+        }
+        
+        .chart-control-btn.active {
+            background: var(--primary-500);
+            color: var(--text-inverse);
+        }
+        
+        .chart-placeholder {
+            height: 300px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-tertiary);
+            font-size: var(--font-size-sm);
+            border: 2px dashed var(--gray-300);
+        }
+        
+        /* 快速操作面板 */
+        .quick-actions-panel {
+            background: var(--bg-primary);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .quick-actions-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-6);
+        }
+        
+        .action-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+        
+        .action-item {
+            display: flex;
+            align-items: center;
+            padding: var(--space-4);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all var(--duration-fast) var(--easing);
+        }
+        
+        .action-item:hover {
+            background: var(--primary-50);
+            transform: translateX(4px);
+        }
+        
+        .action-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-md);
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-size: 14px;
+            margin-right: var(--space-3);
+        }
+        
+        .action-content {
+            flex: 1;
+        }
+        
+        .action-title {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: 2px;
+        }
+        
+        .action-desc {
+            font-size: var(--font-size-xs);
+            color: var(--text-tertiary);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .unified-sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-content {
+                padding: var(--space-6) var(--space-4);
+            }
+        }
+        
+        /* 加载动画 */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .loading {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- 智能自适应侧边栏 -->
+    <nav class="unified-sidebar">
+        <!-- 水务品牌标识区域 -->
+        <div class="sidebar-header">
+            <div class="logo-section">
+                <div class="logo">水</div>
+                <div>
+                    <div class="system-title">WaterMIS</div>
+                    <div class="system-subtitle">智慧水务管理平台</div>
+                </div>
+            </div>
+            
+            <!-- 用户信息卡片 -->
+            <div class="user-info-card">
+                <div class="user-info">
+                    <div class="user-avatar">管</div>
+                    <div class="user-details">
+                        <h4>系统管理员</h4>
+                        <span>张三 • 在线</span>
+                    </div>
+                </div>
+                <!-- 权限层级指示器 -->
+                <div class="permission-indicator">
+                    <div class="permission-text">权限范围：县级管理权限</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 搜索功能 -->
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="搜索功能模块..." id="navSearch">
+        </div>
+
+        <!-- 智能导航分组 -->
+        <div class="nav-section">
+            <!-- 营业管理中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">📊 营业管理中心</div>
+                <a href="admin-dashboard-redesigned.html" class="nav-item active">
+                    <i>🏠</i>
+                    工作台
+                </a>
+                <a href="admin-user-management.html" class="nav-item">
+                    <i>👥</i>
+                    用户管理
+                </a>
+                <a href="admin-account-management.html" class="nav-item">
+                    <i>💰</i>
+                    账户管理
+                </a>
+                <a href="admin-meter-reading-center.html" class="nav-item">
+                    <i>📊</i>
+                    抄表管理
+                </a>
+                <a href="admin-billing-center.html" class="nav-item">
+                    <i>💳</i>
+                    收费管理
+                </a>
+                <a href="admin-user-recharge.html" class="nav-item">
+                    <i>🏦</i>
+                    预存水费管理
+                </a>
+            </div>
+            
+            <!-- 设备运维中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">⚙️ 设备运维中心</div>
+                <a href="admin-device-management.html" class="nav-item">
+                    <i>🔧</i>
+                    设备管理
+                </a>
+                <a href="#" class="nav-item">
+                    <i>⚖️</i>
+                    计量管理
+                </a>
+            </div>
+            
+            <!-- 数据分析中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">📈 数据分析中心</div>
+                <a href="admin-advanced-query.html" class="nav-item">
+                    <i>🔍</i>
+                    数据查询
+                </a>
+                <a href="admin-report-center.html" class="nav-item">
+                    <i>📋</i>
+                    统计报表
+                </a>
+                <a href="#" class="nav-item">
+                    <i>📊</i>
+                    分析图表
+                </a>
+            </div>
+            
+            <!-- 系统管控中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">🏛️ 系统管控中心</div>
+                <a href="admin-region-management.html" class="nav-item">
+                    <i>🌏</i>
+                    营业分区管理
+                </a>
+                <a href="admin-operator-management.html" class="nav-item">
+                    <i>👨‍💼</i>
+                    人事管理
+                </a>
+                <a href="admin-system-settings.html" class="nav-item">
+                    <i>⚙️</i>
+                    基本设置
+                </a>
+                <a href="#" class="nav-item">
+                    <i>🔧</i>
+                    系统维护
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 主内容区域 -->
+    <main class="main-content">
+        <!-- 现代化顶部栏 -->
+        <div class="top-bar">
+            <!-- 面包屑导航 -->
+            <div class="breadcrumb">
+                <a href="#" class="breadcrumb-item">首页</a>
+                <span class="breadcrumb-separator">></span>
+                <span class="breadcrumb-item active">工作台</span>
+            </div>
+            
+            <!-- 快速操作区域 -->
+            <div class="quick-actions">
+                <button class="quick-action-btn">开始抄表</button>
+                <button class="quick-action-btn">用户缴费</button>
+                <button class="quick-action-btn">生成报表</button>
+            </div>
+        </div>
+        
+        <!-- 仪表板内容区域 -->
+        <div class="dashboard-content">
+            <!-- 现代化指标卡片网格 -->
+            <div class="metrics-grid">
+                <!-- 总用户数 - 业务规模指标 -->
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <div class="metric-icon">
+                            👥
+                        </div>
+                        <div class="trend-indicator up">
+                            ↗ +8.2%
+                        </div>
+                    </div>
+                    <div class="metric-value">15,248</div>
+                    <div class="metric-label">总用户数</div>
+                    <div class="metric-subtitle">较上月新增1,156户</div>
+                </div>
+                
+                <!-- 本月收费 - 财务核心指标 -->
+                <div class="metric-card success">
+                    <div class="metric-header">
+                        <div class="metric-icon success">
+                            💰
+                        </div>
+                        <div class="trend-indicator up">
+                            ↗ +12.5%
+                        </div>
+                    </div>
+                    <div class="metric-value">¥2,456,789</div>
+                    <div class="metric-label">本月收费</div>
+                    <div class="metric-subtitle">回收率96.8%</div>
+                </div>
+                
+                <!-- 待处理工单 - 运营效率指标 -->
+                <div class="metric-card warning">
+                    <div class="metric-header">
+                        <div class="metric-icon warning">
+                            📋
+                        </div>
+                        <div class="trend-indicator down">
+                            ↘ -5.3%
+                        </div>
+                    </div>
+                    <div class="metric-value">127</div>
+                    <div class="metric-label">待处理工单</div>
+                    <div class="metric-subtitle">平均处理时长2.3天</div>
+                </div>
+                
+                <!-- 欠费用户 - 风险控制指标 -->
+                <div class="metric-card danger">
+                    <div class="metric-header">
+                        <div class="metric-icon danger">
+                            ⚠️
+                        </div>
+                        <div class="trend-indicator up">
+                            ↗ +3.1%
+                        </div>
+                    </div>
+                    <div class="metric-value">892</div>
+                    <div class="metric-label">欠费用户</div>
+                    <div class="metric-subtitle">欠费金额¥234,567</div>
+                </div>
+            </div>
+            
+            <!-- 图表区域 2:1 布局 -->
+            <div class="charts-section">
+                <!-- 主图表区域 -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">月度收费趋势分析</h3>
+                        <div class="chart-controls">
+                            <button class="chart-control-btn active">7天</button>
+                            <button class="chart-control-btn">30天</button>
+                            <button class="chart-control-btn">90天</button>
+                            <button class="chart-control-btn">1年</button>
+                        </div>
+                    </div>
+                    <div class="chart-placeholder">
+                        📈 收费趋势图表区域<br>
+                        <small>集成ECharts或Chart.js进行数据可视化</small>
+                    </div>
+                </div>
+                
+                <!-- 快速操作面板 -->
+                <div class="quick-actions-panel">
+                    <h3 class="quick-actions-title">快速操作</h3>
+                    <div class="action-list">
+                        <a href="#" class="action-item">
+                            <div class="action-icon">📊</div>
+                            <div class="action-content">
+                                <div class="action-title">开始抄表</div>
+                                <div class="action-desc">新建抄表任务</div>
+                            </div>
+                        </a>
+                        
+                        <a href="#" class="action-item">
+                            <div class="action-icon">💳</div>
+                            <div class="action-content">
+                                <div class="action-title">用户缴费</div>
+                                <div class="action-desc">处理缴费业务</div>
+                            </div>
+                        </a>
+                        
+                        <a href="#" class="action-item">
+                            <div class="action-icon">👤</div>
+                            <div class="action-content">
+                                <div class="action-title">新增用户</div>
+                                <div class="action-desc">用户开户建档</div>
+                            </div>
+                        </a>
+                        
+                        <a href="#" class="action-item">
+                            <div class="action-icon">🔧</div>
+                            <div class="action-content">
+                                <div class="action-title">设备维护</div>
+                                <div class="action-desc">设备检修记录</div>
+                            </div>
+                        </a>
+                        
+                        <a href="#" class="action-item">
+                            <div class="action-icon">📋</div>
+                            <div class="action-content">
+                                <div class="action-title">生成报表</div>
+                                <div class="action-desc">统计报表导出</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 模拟数据更新
+        function updateMetrics() {
+            const metrics = document.querySelectorAll('.metric-value');
+            metrics.forEach(metric => {
+                const currentValue = parseInt(metric.textContent.replace(/[^0-9]/g, ''));
+                const change = Math.floor(Math.random() * 10) - 5;
+                metric.style.transition = 'all 0.3s ease';
+                metric.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    metric.style.transform = 'scale(1)';
+                }, 300);
+            });
+        }
+
+        // 每30秒更新一次指标（模拟实时数据）
+        setInterval(updateMetrics, 30000);
+
+        // 添加交互动画
+        document.querySelectorAll('.metric-card, .chart-card, .action-item').forEach(el => {
+            el.addEventListener('mouseenter', function() {
+                this.style.transform = this.classList.contains('metric-card') ? 'translateY(-4px)' : 'translateX(4px)';
+            });
+            
+            el.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+            });
+        });
+
+        // 图表控制按钮切换
+        document.querySelectorAll('.chart-control-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.chart-control-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

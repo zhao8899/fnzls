@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>页面测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .nav-test {
+            background: linear-gradient(180deg, #1a1d29 0%, #232940 50%, #1a1d29 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .content-test {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-left: 320px;
+        }
+        .sidebar-test {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 300px;
+            height: 100vh;
+            background: linear-gradient(180deg, #1a1d29 0%, #232940 50%, #1a1d29 100%);
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .main-test {
+            margin-left: 320px;
+            padding: 20px;
+            min-height: 100vh;
+            background: #fafafa;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar-test">
+        <h3>侧边栏测试</h3>
+        <p>如果能看到这个侧边栏，说明CSS样式正常工作</p>
+    </div>
+    
+    <div class="main-test">
+        <div class="test-container">
+            <h1>页面布局测试</h1>
+            <p>这是一个简单的测试页面，用来验证CSS样式是否正常工作。</p>
+            
+            <div class="nav-test">
+                <h3>导航栏样式测试</h3>
+                <p>背景渐变是否正常显示</p>
+            </div>
+            
+            <div class="content-test">
+                <h3>内容区域测试</h3>
+                <p>布局是否正确</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        console.log('测试页面加载完成');
+        document.body.addEventListener('load', function() {
+            console.log('页面完全加载');
+        });
+    </script>
+</body>
+</html>

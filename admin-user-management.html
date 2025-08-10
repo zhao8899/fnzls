@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户管理 - 智慧水务管理平台</title>
+    <style>
+        :root {
+            /* WaterMIS v4.0 统一设计系统 */
+            --primary-50: #e6f7ff;
+            --primary-100: #bae7ff;
+            --primary-200: #91d5ff;
+            --primary-300: #69c0ff;
+            --primary-400: #40a9ff;
+            --primary-500: #2196f3;
+            --primary-600: #1976d2;
+            --primary-700: #1565c0;
+            --primary-800: #0d47a1;
+            --primary-900: #01579b;
+            
+            /* 成功色 - 清澈水蓝 */
+            --success-50: #e0f7fa;
+            --success-100: #b2ebf2;
+            --success-200: #80deea;
+            --success-300: #4dd0e1;
+            --success-400: #26c6da;
+            --success-500: #00bcd4;
+            --success-600: #00acc1;
+            --success-700: #0097a7;
+            --success-800: #00838f;
+            --success-900: #006064;
+            
+            /* 警告色 - 阳光橙 */
+            --warning-50: #fff8e1;
+            --warning-100: #ffecb3;
+            --warning-200: #ffe082;
+            --warning-300: #ffd54f;
+            --warning-400: #ffca28;
+            --warning-500: #ff9800;
+            --warning-600: #fb8c00;
+            --warning-700: #f57c00;
+            --warning-800: #ef6c00;
+            --warning-900: #e65100;
+            
+            /* 错误色 - 珊瑚红 */
+            --error-50: #ffebee;
+            --error-100: #ffcdd2;
+            --error-200: #ef9a9a;
+            --error-300: #e57373;
+            --error-400: #ef5350;
+            --error-500: #f44336;
+            --error-600: #e53935;
+            --error-700: #d32f2f;
+            --error-800: #c62828;
+            --error-900: #b71c1c;
+            
+            /* 中性色系 */
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #eeeeee;
+            --gray-300: #e0e0e0;
+            --gray-400: #bdbdbd;
+            --gray-500: #9e9e9e;
+            --gray-600: #757575;
+            --gray-700: #616161;
+            --gray-800: #424242;
+            --gray-900: #212121;
+            
+            /* 语义化颜色 */
+            --text-primary: var(--gray-900);
+            --text-secondary: var(--gray-700);
+            --text-tertiary: var(--gray-600);
+            --text-inverse: #ffffff;
+            
+            --bg-primary: #ffffff;
+            --bg-secondary: var(--gray-50);
+            --bg-tertiary: var(--gray-100);
+            
+            --border-primary: var(--gray-300);
+            --border-secondary: var(--gray-200);
+            
+            /* 间距系统 - 4px/8px基准 */
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-5: 20px;
+            --space-6: 24px;
+            --space-8: 32px;
+            --space-10: 40px;
+            --space-12: 48px;
+            --space-16: 64px;
+            --space-20: 80px;
+            
+            /* 字体系统 */
+            --font-size-xs: 12px;
+            --font-size-sm: 14px;
+            --font-size-base: 16px;
+            --font-size-lg: 18px;
+            --font-size-xl: 20px;
+            --font-size-2xl: 24px;
+            --font-size-3xl: 30px;
+            --font-size-4xl: 36px;
+            
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            
+            /* 行高系统 */
+            --line-height-tight: 1.25;
+            --line-height-snug: 1.375;
+            --line-height-normal: 1.5;
+            --line-height-relaxed: 1.625;
+            
+            /* 圆角系统 */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-2xl: 24px;
+            --radius-full: 9999px;
+            
+            /* Shadows */
+            --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-base: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Z-index Scale */
+            --z-dropdown: 1000;
+            --z-sticky: 1010;
+            --z-fixed: 1020;
+            --z-modal: 1030;
+            --z-popover: 1040;
+            --z-tooltip: 1050;
+            
+            /* 动画系统 */
+            --duration-fast: 150ms;
+            --duration-base: 300ms;
+            --duration-slow: 500ms;
+            --easing: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        /* 现代化顶部导航栏 */
+        .header {
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-sm);
+            padding: 0 var(--space-6);
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-secondary);
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-weight: var(--font-weight-bold);
+            margin-right: var(--space-4);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(33, 150, 243, 0.3);
+        }
+        
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transform: rotate(-45deg);
+            animation: logoShine 3s infinite;
+        }
+        
+        @keyframes logoShine {
+            0% { transform: translateX(-100%) rotate(-45deg); }
+            50% { transform: translateX(100%) rotate(-45deg); }
+            100% { transform: translateX(-100%) rotate(-45deg); }
+        }
+        
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-right: 24px;
+        }
+        
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #1890ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 8px;
+        }
+        
+        /* 现代化侧边栏 */
+        .unified-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 320px;
+            height: 100vh;
+            background: linear-gradient(180deg, #1a1d29 0%, #232940 50%, #1a1d29 100%);
+            box-shadow: var(--shadow-xl);
+            z-index: 1000;
+            overflow-y: auto;
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        /* 侧边栏头部区域 */
+        .sidebar-header {
+            padding: var(--space-6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--space-4);
+        }
+        
+        .system-title {
+            color: var(--text-inverse);
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-1);
+        }
+
+        .system-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: var(--font-size-sm);
+        }
+        
+        /* 用户信息卡片 */
+        .user-info-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .user-info-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-1px);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--success-500), var(--success-600));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-weight: var(--font-weight-semibold);
+            margin-right: var(--space-3);
+        }
+        
+        .user-details h4 {
+            color: var(--text-inverse);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: 2px;
+        }
+        
+        .user-details span {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: var(--font-size-xs);
+        }
+        
+        /* 权限层级指示器 */
+        .permission-indicator {
+            margin-top: var(--space-3);
+            padding: var(--space-2) var(--space-3);
+            background: rgba(33, 150, 243, 0.2);
+            border-radius: var(--radius-md);
+            border-left: 3px solid var(--primary-500);
+        }
+        
+        .permission-text {
+            color: var(--text-inverse);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        /* 智能导航分组 */
+        .nav-section {
+            padding: var(--space-6) 0;
+        }
+        
+        .nav-group {
+            margin-bottom: var(--space-6);
+        }
+        
+        .nav-group-title {
+            padding: 0 var(--space-6) var(--space-3);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .unified-sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .unified-sidebar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .unified-sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-full);
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: var(--space-4) var(--space-6);
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all var(--duration-fast) var(--easing);
+            position: relative;
+            border-left: 3px solid transparent;
+        }
+        
+        .nav-item i {
+            width: 20px;
+            margin-right: var(--space-3);
+            font-size: 16px;
+        }
+        
+        .nav-item:hover {
+            background: linear-gradient(90deg, rgba(33, 150, 243, 0.15), transparent);
+            color: var(--text-inverse);
+            border-left-color: var(--primary-400);
+            transform: translateX(4px);
+        }
+        
+        .nav-item.active {
+            background: linear-gradient(90deg, rgba(33, 150, 243, 0.3), rgba(33, 150, 243, 0.1));
+            color: var(--text-inverse);
+            border-left-color: var(--primary-500);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            right: var(--space-4);
+            width: 6px;
+            height: 6px;
+            background: var(--primary-500);
+            border-radius: var(--radius-full);
+            box-shadow: 0 0 8px var(--primary-500);
+        }
+        
+        /* 搜索功能样式 */
+        .search-container {
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: var(--space-3) var(--space-4);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-lg);
+            color: var(--text-inverse);
+            font-size: var(--font-size-sm);
+            backdrop-filter: blur(10px);
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--primary-400);
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+        
+        /* 现代化主内容区 */
+        .main-content {
+            margin-left: 320px;
+            min-height: 100vh;
+            background: var(--bg-secondary);
+            position: relative;
+        }
+        
+        .main-content::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 320px;
+            background: radial-gradient(circle at 30% 20%, rgba(33, 150, 243, 0.03) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(0, 150, 136, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* 现代化顶部栏 */
+        .top-bar {
+            background: var(--bg-primary);
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        /* 面包屑导航 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .breadcrumb-item {
+            color: var(--text-tertiary);
+            font-size: var(--font-size-sm);
+            text-decoration: none;
+        }
+        
+        .breadcrumb-item.active {
+            color: var(--text-primary);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .breadcrumb-separator {
+            color: var(--text-tertiary);
+        }
+        
+        /* 快速操作区域 */
+        .quick-actions {
+            display: flex;
+            gap: var(--space-3);
+        }
+        
+        .quick-action-btn {
+            padding: var(--space-2) var(--space-4);
+            background: var(--primary-500);
+            color: var(--text-inverse);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--easing);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .quick-action-btn:hover {
+            background: var(--primary-600);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+        
+        .quick-action-btn.warning {
+            background: var(--warning-500);
+        }
+        
+        .quick-action-btn.warning:hover {
+            background: var(--warning-600);
+        }
+        
+        .quick-action-btn.danger {
+            background: var(--error-500);
+        }
+        
+        .quick-action-btn.danger:hover {
+            background: var(--error-600);
+        }
+        
+        .page-title {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .title-icon {
+            margin-right: var(--space-2);
+            padding: var(--space-2);
+            background: var(--primary-100);
+            color: var(--primary-600);
+            border-radius: var(--radius-md);
+        }
+        
+        /* 内容区域 */
+        .content-area {
+            padding: var(--space-6);
+        }
+        
+        .page-header {
+            background: var(--bg-primary);
+            padding: var(--space-6);
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--space-6);
+            border: 1px solid var(--border-secondary);
+        }
+        
+        .page-title {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--space-2);
+            color: var(--text-primary);
+        }
+        
+        .page-description {
+            color: var(--text-tertiary);
+            font-size: var(--font-size-sm);
+        }
+        
+        /* 现代化搜索和操作区 */
+        .search-section {
+            background: var(--bg-primary);
+            padding: var(--space-6);
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--space-6);
+            border: 1px solid var(--border-secondary);
+        }
+        
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-4);
+            margin-bottom: var(--space-4);
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-label {
+            margin-bottom: var(--space-2);
+            font-weight: var(--font-weight-medium);
+            color: var(--text-primary);
+            font-size: var(--font-size-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .form-input, .form-select {
+            padding: var(--space-3) var(--space-4);
+            border: 1px solid var(--border-primary);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-sm);
+            background: var(--bg-primary);
+            transition: all var(--duration-base) var(--easing);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+        }
+        
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+            background: var(--primary-50);
+            transform: translateY(-1px);
+        }
+        
+        .button-group {
+            display: flex;
+            gap: var(--space-3);
+        }
+        
+        .btn {
+            padding: var(--space-3) var(--space-4);
+            border: none;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            transition: all var(--duration-base) var(--easing);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            box-shadow: var(--shadow-xs);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left var(--duration-slow);
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-default {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-primary);
+        }
+        
+        .btn-default:hover {
+            border-color: var(--primary-500);
+            color: var(--primary-500);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--success-500), var(--success-600));
+            color: white;
+            box-shadow: var(--shadow-success);
+        }
+        
+        .btn-success:hover {
+            background: linear-gradient(135deg, var(--success-600), var(--success-700));
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        /* 现代化用户列表 */
+        .user-list {
+            background: var(--bg-primary);
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-secondary);
+            overflow: hidden;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .table th,
+        .table td {
+            padding: var(--space-4);
+            text-align: left;
+            border-bottom: 1px solid var(--border-secondary);
+        }
+        
+        .table th {
+            background: var(--bg-secondary);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            font-size: var(--font-size-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+        
+        .table th::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-500), var(--info-500));
+            opacity: 0.3;
+        }
+        
+        .table tr {
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .table tr:hover {
+            background: var(--bg-secondary);
+            transform: scale(1.005);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .table td {
+            font-size: var(--font-size-sm);
+            color: var(--text-primary);
+        }
+        
+        .status-badge {
+            padding: var(--space-1) var(--space-3);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-1);
+            box-shadow: var(--shadow-xs);
+        }
+        
+        .status-active {
+            background: var(--success-50);
+            color: var(--success-600);
+            border: 1px solid var(--success-200);
+        }
+        
+        .status-active::before {
+            content: '●';
+            color: var(--success-500);
+        }
+        
+        .status-inactive {
+            background: var(--gray-50);
+            color: var(--gray-600);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .status-inactive::before {
+            content: '●';
+            color: var(--gray-400);
+        }
+        
+        .status-suspended {
+            background: var(--error-50);
+            color: var(--error-600);
+            border: 1px solid var(--error-200);
+        }
+        
+        .status-suspended::before {
+            content: '●';
+            color: var(--error-500);
+        }
+        
+        /* 页面加载动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* 页面元素动画 */
+        .main-content {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .page-header, .search-section, .user-list {
+            animation: slideInRight 0.6s ease-out;
+        }
+        
+        .page-header {
+            animation-delay: 0.1s;
+        }
+        
+        .search-section {
+            animation-delay: 0.2s;
+        }
+        
+        .user-list {
+            animation-delay: 0.3s;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .main-content {
+                margin-left: 0;
+                padding: var(--space-4);
+            }
+            
+            .main-content::before {
+                left: 0;
+            }
+            
+            .unified-sidebar {
+                transform: translateX(-100%);
+            transition: transform var(--duration-base) var(--easing);
+            }
+            
+            .search-form {
+                grid-template-columns: 1fr;
+                gap: var(--space-3);
+            }
+            
+            .table {
+                font-size: var(--font-size-xs);
+            }
+            
+            .table th,
+            .table td {
+                padding: var(--space-3);
+            }
+        }
+        
+        .status-inactive {
+            background: #fff2e8;
+            color: #fa8c16;
+            border: 1px solid #ffd591;
+        }
+        
+        .status-suspended {
+            background: #fff1f0;
+            color: #ff4d4f;
+            border: 1px solid #ffccc7;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .btn-sm {
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+        
+        /* 分页 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            gap: 8px;
+        }
+        
+        .pagination button {
+            padding: 8px 12px;
+            border: 1px solid #d9d9d9;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        .pagination button.active {
+            background: #1890ff;
+            color: white;
+            border-color: #1890ff;
+        }
+        
+        .pagination button:hover:not(.active) {
+            border-color: #1890ff;
+            color: #1890ff;
+        }
+        /* 搜索功能样式 */
+        .search-container {
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: var(--space-3) var(--space-4);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-lg);
+            color: var(--text-inverse);
+            font-size: var(--font-size-sm);
+            backdrop-filter: blur(10px);
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--primary-400);
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    
+    <!-- 智能自适应侧边栏 -->
+    <nav class="unified-sidebar">
+        <!-- 水务品牌标识区域 -->
+        <div class="sidebar-header">
+            <div class="logo-section">
+                <div class="logo">水</div>
+                <div>
+                    <div class="system-title">WaterMIS</div>
+                    <div class="system-subtitle">智慧水务管理平台</div>
+                </div>
+            </div>
+            
+            <!-- 用户信息卡片 -->
+            <div class="user-info-card">
+                <div class="user-info">
+                    <div class="user-avatar">管</div>
+                    <div class="user-details">
+                        <h4>系统管理员</h4>
+                        <span>张三 • 在线</span>
+                    </div>
+                </div>
+                <!-- 权限层级指示器 -->
+                <div class="permission-indicator">
+                    <div class="permission-text">权限范围：县级管理权限</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 搜索功能 -->
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="搜索功能模块..." id="navSearch">
+        </div>
+
+        <!-- 智能导航分组 -->
+        <div class="nav-section">
+            <!-- 营业管理中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">📊 营业管理中心</div>
+                <a href="admin-dashboard-redesigned.html" class="nav-item">
+                    <i>🏠</i>
+                    工作台
+                </a>
+                <a href="admin-user-management.html" class="nav-item active">
+                    <i>👥</i>
+                    用户管理
+                </a>
+                <a href="admin-account-management.html" class="nav-item">
+                    <i>💰</i>
+                    账户管理
+                </a>
+                <a href="admin-meter-reading-center.html" class="nav-item">
+                    <i>📊</i>
+                    抄表管理
+                </a>
+                <a href="admin-billing-center.html" class="nav-item">
+                    <i>💳</i>
+                    收费管理
+                </a>
+                <a href="admin-user-recharge.html" class="nav-item">
+                    <i>🏦</i>
+                    预存水费管理
+                </a>
+            </div>
+            
+            <!-- 设备运维中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">⚙️ 设备运维中心</div>
+                <a href="admin-device-management.html" class="nav-item">
+                    <i>🔧</i>
+                    设备管理
+                </a>
+                <a href="#" class="nav-item">
+                    <i>⚖️</i>
+                    计量管理
+                </a>
+            </div>
+            
+            <!-- 数据分析中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">📈 数据分析中心</div>
+                <a href="admin-advanced-query.html" class="nav-item">
+                    <i>🔍</i>
+                    数据查询
+                </a>
+                <a href="admin-report-center.html" class="nav-item">
+                    <i>📋</i>
+                    统计报表
+                </a>
+                <a href="#" class="nav-item">
+                    <i>📊</i>
+                    分析图表
+                </a>
+            </div>
+            
+            <!-- 系统管控中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">🏛️ 系统管控中心</div>
+                <a href="admin-region-management.html" class="nav-item">
+                    <i>🌏</i>
+                    营业分区管理
+                </a>
+                <a href="admin-operator-management.html" class="nav-item">
+                    <i>👨‍💼</i>
+                    人事管理
+                </a>
+                <a href="admin-system-settings.html" class="nav-item">
+                    <i>⚙️</i>
+                    基本设置
+                </a>
+                <a href="#" class="nav-item">
+                    <i>🔧</i>
+                    系统维护
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 主内容区 -->
+    <div class="main-content">
+        <!-- 现代化顶部栏 -->
+        <header class="top-bar">
+            <div style="display: flex; align-items: center;">
+                <nav class="breadcrumb">
+                    <a href="admin-dashboard-redesigned.html" class="breadcrumb-item">首页</a>
+                    <span class="breadcrumb-separator">›</span>
+                    <span class="breadcrumb-item active">用户管理</span>
+                </nav>
+            </div>
+            
+            <!-- 快速操作区域 -->
+            <div class="quick-actions">
+                <button class="quick-action-btn">
+                    👤 新增用户
+                </button>
+                <button class="quick-action-btn warning">
+                    📥 批量导入
+                </button>
+                <button class="quick-action-btn danger">
+                    📤 导出数据
+                </button>
+            </div>
+        </header>
+
+        <!-- 内容区域 -->
+        <div class="content-area">
+        <!-- 页面标题 -->
+        <div class="page-header">
+            <h1 class="page-title">用户管理</h1>
+            <p class="page-description">管理系统中的所有用户信息，包括新增、编辑、查询和状态管理</p>
+        </div>
+        
+        <!-- 搜索和操作区 -->
+        <div class="search-section">
+            <div class="search-form">
+                <div class="form-group">
+                    <label class="form-label">用户编号</label>
+                    <input type="text" class="form-input" placeholder="请输入用户编号">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">用户姓名</label>
+                    <input type="text" class="form-input" placeholder="请输入用户姓名">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">手机号码</label>
+                    <input type="text" class="form-input" placeholder="请输入手机号码">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">所属区域</label>
+                    <select class="form-select">
+                        <option value="">全部区域</option>
+                        <option value="1">东城区</option>
+                        <option value="2">西城区</option>
+                        <option value="3">朝阳区</option>
+                        <option value="4">海淀区</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">用户状态</label>
+                    <select class="form-select">
+                        <option value="">全部状态</option>
+                        <option value="1">正常</option>
+                        <option value="2">停用</option>
+                        <option value="3">销户</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn btn-primary">🔍 查询</button>
+                <button class="btn btn-default">🔄 重置</button>
+                <button class="btn btn-success">➕ 新增用户</button>
+                <button class="btn btn-default">📥 批量导入</button>
+                <button class="btn btn-default">📤 导出数据</button>
+            </div>
+        </div>
+        
+        <!-- 用户列表 -->
+        <div class="user-list">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>用户编号</th>
+                        <th>用户姓名</th>
+                        <th>身份证号</th>
+                        <th>手机号码</th>
+                        <th>地址</th>
+                        <th>所属区域</th>
+                        <th>状态</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>10001</td>
+                        <td>张三</td>
+                        <td>110101199001011234</td>
+                        <td>13800138001</td>
+                        <td>北京市东城区XX街道XX号</td>
+                        <td>东城区</td>
+                        <td><span class="status-badge status-active">正常</span></td>
+                        <td>2024-01-10 09:30:15</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary btn-sm">编辑</button>
+                                <button class="btn btn-default btn-sm">查看账户</button>
+                                <button class="btn btn-default btn-sm">更多</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>10002</td>
+                        <td>李四</td>
+                        <td>110101199002021234</td>
+                        <td>13800138002</td>
+                        <td>北京市西城区XX街道XX号</td>
+                        <td>西城区</td>
+                        <td><span class="status-badge status-active">正常</span></td>
+                        <td>2024-01-10 10:15:30</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary btn-sm">编辑</button>
+                                <button class="btn btn-default btn-sm">查看账户</button>
+                                <button class="btn btn-default btn-sm">更多</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>10003</td>
+                        <td>王五</td>
+                        <td>110101199003031234</td>
+                        <td>13800138003</td>
+                        <td>北京市朝阳区XX街道XX号</td>
+                        <td>朝阳区</td>
+                        <td><span class="status-badge status-inactive">停用</span></td>
+                        <td>2024-01-09 14:20:45</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary btn-sm">编辑</button>
+                                <button class="btn btn-default btn-sm">查看账户</button>
+                                <button class="btn btn-default btn-sm">更多</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>10004</td>
+                        <td>赵六</td>
+                        <td>110101199004041234</td>
+                        <td>13800138004</td>
+                        <td>北京市海淀区XX街道XX号</td>
+                        <td>海淀区</td>
+                        <td><span class="status-badge status-active">正常</span></td>
+                        <td>2024-01-09 16:45:20</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary btn-sm">编辑</button>
+                                <button class="btn btn-default btn-sm">查看账户</button>
+                                <button class="btn btn-default btn-sm">更多</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>10005</td>
+                        <td>孙七</td>
+                        <td>110101199005051234</td>
+                        <td>13800138005</td>
+                        <td>北京市东城区XX街道XX号</td>
+                        <td>东城区</td>
+                        <td><span class="status-badge status-suspended">销户</span></td>
+                        <td>2024-01-08 11:30:10</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-primary btn-sm">编辑</button>
+                                <button class="btn btn-default btn-sm">查看账户</button>
+                                <button class="btn btn-default btn-sm">更多</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <!-- 分页 -->
+            <div class="pagination">
+                <button>上一页</button>
+                <button class="active">1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>4</button>
+                <button>5</button>
+                <button>下一页</button>
+                <span style="margin-left: 16px; color: #8c8c8c;">共 1,258 条记录，第 1/126 页</span>
+            </div>
+        </div>
+        </div>
+    </div>
+</body>
+</html>

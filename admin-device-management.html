@@ -1,0 +1,1999 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智慧水务管理平台 - 设备管理</title>
+    <style>
+        :root {
+            /* 主品牌色 - 智慧水蓝 */
+            --primary-50: #e8f4fd;
+            --primary-100: #c3e2fb;
+            --primary-200: #9acef8;
+            --primary-300: #6eb9f5;
+            --primary-400: #4aa8f2;
+            --primary-500: #2196f3;  /* 主色 - 清澈水蓝 */
+            --primary-600: #1e88e5;
+            --primary-700: #1976d2;
+            --primary-800: #1565c0;
+            --primary-900: #0d47a1;
+            
+            /* 成功色 - 生命绿 */
+            --success-50: #e8f5e8;
+            --success-100: #c8e6c8;
+            --success-200: #a5d6a5;
+            --success-300: #81c784;
+            --success-400: #66bb6a;
+            --success-500: #4caf50;  /* 主成功色 */
+            --success-600: #43a047;
+            --success-700: #388e3c;
+            --success-800: #2e7d32;
+            --success-900: #1b5e20;
+            
+            /* 警告色 - 阳光橙 */
+            --warning-50: #fff8e1;
+            --warning-100: #ffecb3;
+            --warning-200: #ffe082;
+            --warning-300: #ffd54f;
+            --warning-400: #ffca28;
+            --warning-500: #ffc107;  /* 主警告色 */
+            --warning-600: #ffb300;
+            --warning-700: #ffa000;
+            --warning-800: #ff8f00;
+            --warning-900: #ff6f00;
+            
+            /* 错误色 - 珊瑚红 */
+            --error-50: #ffebee;
+            --error-100: #ffcdd2;
+            --error-200: #ef9a9a;
+            --error-300: #e57373;
+            --error-400: #ef5350;
+            --error-500: #f44336;   /* 主错误色 */
+            --error-600: #e53935;
+            --error-700: #d32f2f;
+            --error-800: #c62828;
+            --error-900: #b71c1c;
+            
+            /* 信息色 - 科技青 */
+            --info-50: #e0f2f1;
+            --info-100: #b2dfdb;
+            --info-200: #80cbc4;
+            --info-300: #4db6ac;
+            --info-400: #26a69a;
+            --info-500: #009688;   /* 主信息色 */
+            --info-600: #00897b;
+            --info-700: #00796b;
+            --info-800: #00695c;
+            --info-900: #004d40;
+            
+            /* 灰度色彩 - 现代中性色 */
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #eeeeee;
+            --gray-300: #e0e0e0;
+            --gray-400: #bdbdbd;
+            --gray-500: #9e9e9e;
+            --gray-600: #757575;
+            --gray-700: #616161;
+            --gray-800: #424242;
+            --gray-900: #212121;
+            
+            /* 语义化文字色彩 */
+            --text-primary: var(--gray-900);
+            --text-secondary: var(--gray-700);
+            --text-tertiary: var(--gray-600);
+            --text-disabled: var(--gray-400);
+            --text-inverse: #ffffff;
+            
+            /* 背景色彩 */
+            --bg-primary: #ffffff;
+            --bg-secondary: var(--gray-50);
+            --bg-tertiary: var(--gray-100);
+            --bg-inverse: var(--gray-900);
+            
+            /* 边框色彩 */
+            --border-light: var(--gray-200);
+            --border-medium: var(--gray-300);
+            --border-strong: var(--gray-400);
+            --border-secondary: var(--gray-200);
+            
+            /* 间距系统 - 4px/8px基准 */
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-5: 20px;
+            --space-6: 24px;
+            --space-8: 32px;
+            --space-10: 40px;
+            --space-12: 48px;
+            --space-16: 64px;
+            --space-20: 80px;
+            
+            /* 字体系统 */
+            --font-size-xs: 12px;
+            --font-size-sm: 14px;
+            --font-size-base: 16px;
+            --font-size-lg: 18px;
+            --font-size-xl: 20px;
+            --font-size-2xl: 24px;
+            --font-size-3xl: 30px;
+            --font-size-4xl: 36px;
+            
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            
+            /* 圆角系统 */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-2xl: 24px;
+            --radius-full: 9999px;
+            
+            /* Shadows */
+            --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-base: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            
+            /* Transitions */
+            --duration-fast: 150ms;
+            --duration-base: 300ms;
+            --duration-slow: 500ms;
+            --easing: cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* 字体系统 */
+            --font-family-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            --font-family-mono: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', 'Courier New', monospace;
+            
+            /* 字体大小系统 */
+            --font-size-display-xl: 48px;
+            --font-size-display-lg: 36px;
+            --font-size-display-md: 30px;
+            --font-size-display-sm: 24px;
+            --font-size-heading-xl: 20px;
+            --font-size-heading-lg: 18px;
+            --font-size-heading-md: 16px;
+            --font-size-heading-sm: 14px;
+            --font-size-body-lg: 16px;
+            --font-size-body-md: 14px;
+            --font-size-body-sm: 12px;
+            --font-size-body-xs: 11px;
+            --font-size-label-lg: 14px;
+            --font-size-label-md: 12px;
+            --font-size-label-sm: 11px;
+            
+            /* 字重系统 */
+            --font-weight-light: 300;
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            --font-weight-heavy: 800;
+            
+            /* 基础间距单位 (4px基准) */
+            --spacing-0: 0;
+            --spacing-1: 4px;
+            --spacing-2: 8px;
+            --spacing-3: 12px;
+            --spacing-4: 16px;
+            --spacing-5: 20px;
+            --spacing-6: 24px;
+            --spacing-8: 32px;
+            --spacing-10: 40px;
+            --spacing-12: 48px;
+            --spacing-16: 64px;
+            --spacing-20: 80px;
+            --spacing-24: 96px;
+            
+            /* 组件间距 */
+            --space-component-padding-sm: var(--spacing-2);
+            --space-component-padding-md: var(--spacing-4);
+            --space-component-padding-lg: var(--spacing-6);
+            --space-component-margin-sm: var(--spacing-4);
+            --space-component-margin-md: var(--spacing-6);
+            --space-component-margin-lg: var(--spacing-8);
+            
+            /* 页面布局间距 */
+            --space-layout-xs: var(--spacing-4);
+            --space-layout-sm: var(--spacing-6);
+            --space-layout-md: var(--spacing-8);
+            --space-layout-lg: var(--spacing-12);
+            --space-layout-xl: var(--spacing-16);
+            
+            /* 圆角系统 */
+            --radius-none: 0;
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-2xl: 20px;
+            --radius-3xl: 24px;
+            --radius-full: 9999px;
+            
+            /* 层级阴影 */
+            --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            
+            /* 彩色阴影 */
+            --shadow-primary: 0 4px 14px 0 rgba(33, 150, 243, 0.15);
+            --shadow-success: 0 4px 14px 0 rgba(76, 175, 80, 0.15);
+            --shadow-warning: 0 4px 14px 0 rgba(255, 193, 7, 0.15);
+            --shadow-error: 0 4px 14px 0 rgba(244, 67, 54, 0.15);
+            --shadow-info: 0 4px 14px 0 rgba(0, 150, 136, 0.15);
+            
+            /* 缓动函数 */
+            --easing-linear: linear;
+            --easing-ease: ease;
+            --easing-ease-in: ease-in;
+            --easing-ease-out: ease-out;
+            --easing-ease-in-out: ease-in-out;
+            --easing-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* 动画时长 */
+            --duration-fast: 150ms;
+            --duration-normal: 300ms;
+            --duration-slow: 500ms;
+            --duration-slower: 750ms;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        /* 现代化侧边栏 */
+        .unified-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 320px;
+            height: 100vh;
+            background: linear-gradient(180deg, #1a1d29 0%, #232940 50%, #1a1d29 100%);
+            box-shadow: var(--shadow-xl);
+            z-index: 1000;
+            overflow-y: auto;
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        /* 侧边栏头部区域 */
+        .sidebar-header {
+            padding: var(--space-6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--space-4);
+        }
+        
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-weight: var(--font-weight-bold);
+            margin-right: var(--space-4);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(33, 150, 243, 0.3);
+        }
+        
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transform: rotate(-45deg);
+            animation: logoShine 3s infinite;
+        }
+        
+        @keyframes logoShine {
+            0% { transform: translateX(-100%) rotate(-45deg); }
+            50% { transform: translateX(100%) rotate(-45deg); }
+            100% { transform: translateX(-100%) rotate(-45deg); }
+        }
+        
+        .system-title {
+            color: var(--text-inverse);
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-1);
+        }
+
+        .system-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: var(--font-size-sm);
+        }
+        
+        /* 用户信息卡片 */
+        .user-info-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .user-info-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-1px);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--success-500), var(--success-600));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-weight: var(--font-weight-semibold);
+            margin-right: var(--space-3);
+        }
+        
+        .user-details h4 {
+            color: var(--text-inverse);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: 2px;
+        }
+        
+        .user-details span {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: var(--font-size-xs);
+        }
+        
+        /* 权限层级指示器 */
+        .permission-indicator {
+            margin-top: var(--space-3);
+            padding: var(--space-2) var(--space-3);
+            background: rgba(33, 150, 243, 0.2);
+            border-radius: var(--radius-md);
+            border-left: 3px solid var(--primary-500);
+        }
+        
+        .permission-text {
+            color: var(--text-inverse);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        /* 智能导航分组 */
+        .nav-section {
+            padding: var(--space-6) 0;
+        }
+        
+        .nav-group {
+            margin-bottom: var(--space-6);
+        }
+        
+        .nav-group-title {
+            padding: 0 var(--space-6) var(--space-3);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .unified-sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .unified-sidebar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .unified-sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-full);
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: var(--space-4) var(--space-6);
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all var(--duration-fast) var(--easing);
+            position: relative;
+            border-left: 3px solid transparent;
+        }
+        
+        .nav-item i {
+            width: 20px;
+            margin-right: var(--space-3);
+            font-size: 16px;
+        }
+        
+        .nav-item:hover {
+            background: linear-gradient(90deg, rgba(33, 150, 243, 0.15), transparent);
+            color: var(--text-inverse);
+            border-left-color: var(--primary-400);
+            transform: translateX(4px);
+        }
+        
+        .nav-item.active {
+            background: linear-gradient(90deg, rgba(33, 150, 243, 0.3), rgba(33, 150, 243, 0.1));
+            color: var(--text-inverse);
+            border-left-color: var(--primary-500);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            right: var(--space-4);
+            width: 6px;
+            height: 6px;
+            background: var(--primary-500);
+            border-radius: var(--radius-full);
+            box-shadow: 0 0 8px var(--primary-500);
+        }
+        
+        /* 搜索功能样式 */
+        .search-container {
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: var(--space-3) var(--space-4);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-lg);
+            color: var(--text-inverse);
+            font-size: var(--font-size-sm);
+            backdrop-filter: blur(10px);
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--primary-400);
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+        
+        /* 现代化主内容区 */
+        .main-content {
+            margin-left: 320px;
+            min-height: 100vh;
+            background: var(--bg-secondary);
+            position: relative;
+        }
+        
+        .main-content::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 320px;
+            background: radial-gradient(circle at 30% 20%, rgba(33, 150, 243, 0.03) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(0, 150, 136, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* 现代化顶部栏 */
+        .top-bar {
+            background: var(--bg-primary);
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 1px solid var(--border-secondary);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        /* 面包屑导航 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .breadcrumb-item {
+            color: var(--text-tertiary);
+            font-size: var(--font-size-sm);
+            text-decoration: none;
+        }
+        
+        .breadcrumb-item.active {
+            color: var(--text-primary);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .breadcrumb-separator {
+            color: var(--text-tertiary);
+        }
+        
+        /* 快速操作区域 */
+        .quick-actions {
+            display: flex;
+            gap: var(--space-3);
+        }
+        
+        .quick-action-btn {
+            padding: var(--space-2) var(--space-4);
+            background: var(--primary-500);
+            color: var(--text-inverse);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--easing);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .quick-action-btn:hover {
+            background: var(--primary-600);
+            box-shadow: var(--shadow-base);
+            transform: translateY(-1px);
+        }
+        
+        .quick-action-btn.warning {
+            background: var(--warning-500);
+        }
+        
+        .quick-action-btn.warning:hover {
+            background: var(--warning-600);
+        }
+        
+        .quick-action-btn.danger {
+            background: var(--error-500);
+        }
+        
+        .quick-action-btn.danger:hover {
+            background: var(--error-600);
+        }
+        
+        /* 内容区域 */
+        .content-area {
+            padding: var(--space-6);
+        }
+        
+        /* 页面标题 */
+        .page-header {
+            background: var(--bg-primary);
+            border-radius: var(--radius-2xl);
+            padding: var(--spacing-8);
+            margin-bottom: var(--spacing-8);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, transparent, rgba(33, 150, 243, 0.03));
+            border-radius: 50%;
+            transform: translate(50%, -50%);
+        }
+        
+        .page-title {
+            font-size: var(--font-size-display-sm);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-4); /* Increased gap for better spacing */
+            position: relative;
+            z-index: 1;
+        }
+        
+        .page-title i {
+            color: var(--primary-600);
+            font-size: 24px; /* Consistent icon size */
+        }
+        
+        .page-actions {
+            display: flex;
+            gap: var(--spacing-3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* 按钮组件 */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-3); /* Increased gap for better spacing */
+            padding: var(--spacing-3) var(--spacing-6);
+            border: 1px solid transparent;
+            border-radius: var(--radius-lg);
+            font-family: var(--font-family-primary);
+            font-size: var(--font-size-body-md);
+            font-weight: var(--font-weight-medium);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--easing-smooth);
+        }
+        
+        .btn i {
+            font-size: 16px; /* Consistent icon size */
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            color: var(--text-inverse);
+            box-shadow: var(--shadow-primary);
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: var(--bg-primary);
+            color: var(--primary-600);
+            border: 2px solid var(--primary-500);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary-50);
+            border-color: var(--primary-600);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-medium);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--primary-500);
+            color: var(--primary-600);
+            background: var(--primary-50);
+        }
+        
+        /* 设备状态概览 */
+        .device-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-8);
+            margin-bottom: var(--spacing-8);
+        }
+        
+        .overview-card {
+            background: var(--bg-primary);
+            padding: var(--spacing-6);
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+            transition: all var(--duration-normal) var(--easing-smooth);
+        }
+        
+        .overview-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, transparent, rgba(33, 150, 243, 0.05));
+            border-radius: 50%;
+            transform: translate(40px, -40px);
+        }
+        
+        .overview-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-200);
+        }
+        
+        .overview-card.online::before {
+            background: linear-gradient(135deg, transparent, rgba(76, 175, 80, 0.08));
+        }
+        
+        .overview-card.warning::before {
+            background: linear-gradient(135deg, transparent, rgba(255, 193, 7, 0.08));
+        }
+        
+        .overview-card.offline::before {
+            background: linear-gradient(135deg, transparent, rgba(244, 67, 54, 0.08));
+        }
+        
+        .overview-card.total::before {
+            background: linear-gradient(135deg, transparent, rgba(33, 150, 243, 0.08));
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-6);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .card-title {
+            font-size: var(--font-size-body-sm);
+            color: var(--text-tertiary);
+            font-weight: var(--font-weight-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-size: 24px; /* Consistent icon size */
+            box-shadow: var(--shadow-md);
+        }
+        
+        .card-icon.online { 
+            background: linear-gradient(135deg, var(--success-500), var(--success-400));
+        }
+        .card-icon.warning { 
+            background: linear-gradient(135deg, var(--warning-500), var(--warning-400));
+        }
+        .card-icon.offline { 
+            background: linear-gradient(135deg, var(--error-500), var(--error-400));
+        }
+        .card-icon.total { 
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-400));
+        }
+        
+        .card-value {
+            font-size: var(--font-size-display-lg);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-2);
+            line-height: 1.1;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .card-description {
+            font-size: var(--font-size-body-sm);
+            color: var(--text-tertiary);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-2);
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* 设备列表 */
+        .device-list {
+            background: var(--bg-primary);
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-sm);
+            padding: var(--spacing-6);
+            border: 1px solid var(--border-light);
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-primary);
+            margin-top: var(--spacing-4);
+        }
+        
+        .list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-6);
+            flex-wrap: wrap;
+            gap: var(--spacing-4);
+        }
+        
+        .section-title {
+            font-size: var(--font-size-heading-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-3);
+            flex-grow: 1;
+        }
+        
+        .section-title i {
+            color: var(--primary-600);
+            font-size: 18px; /* Consistent icon size */
+        }
+        
+        .filter-controls {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-3);
+        }
+
+
+ /* 搜索功能样式 */
+        .search-container {
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .search-container .search-input {
+            width: 100%;
+            padding: var(--space-3) var(--space-4);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-lg);
+            color: var(--text-inverse);
+            font-size: var(--font-size-sm);
+            backdrop-filter: blur(10px);
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .search-container .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-filter {
+            display: flex;
+            gap: var(--spacing-3);
+            align-items: center;
+            flex-wrap: nowrap; /* 防止筛选项换行 */
+            min-width: fit-content; /* 确保筛选区域有足够宽度 */
+        }
+        
+        .search-input, .filter-select {
+            padding: var(--spacing-3) var(--spacing-4);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-body-md);
+            background: var(--bg-primary);
+            transition: all var(--duration-normal) var(--easing-smooth);
+            height: 44px;
+            line-height: 1.2; /* 改善文本行高 */
+        }
+        
+        
+        .search-input {
+            min-width: 220px; /* 增加搜索框宽度 */
+            width: 220px; /* 固定宽度防止变形 */
+        }
+        
+        .filter-select {
+            min-width: 120px; /* 确保下拉框有足够宽度 */
+            width: 120px; /* 固定宽度 */
+        }
+        
+        .search-input:focus, .filter-select:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.1);
+        }
+        
+        /* 现代化顶部栏 */
+        .top-bar {
+            background: var(--bg-primary);
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 1px solid var(--border-secondary);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        /* 面包屑导航 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .breadcrumb-item {
+            color: var(--text-tertiary);
+            font-size: var(--font-size-sm);
+            text-decoration: none;
+        }
+        
+        .breadcrumb-item.active {
+            color: var(--text-primary);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .breadcrumb-separator {
+            color: var(--text-tertiary);
+        }
+        
+        /* 快速操作区域 */
+        .quick-actions {
+            display: flex;
+            gap: var(--space-3);
+        }
+        
+        .quick-action-btn {
+            padding: var(--space-2) var(--space-4);
+            background: var(--primary-500);
+            color: var(--text-inverse);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--easing);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .quick-action-btn:hover {
+            background: var(--primary-600);
+            box-shadow: var(--shadow-base);
+            transform: translateY(-1px);
+        }
+        
+        .quick-action-btn.warning {
+            background: var(--warning-500);
+        }
+        
+        .quick-action-btn.warning:hover {
+            background: var(--warning-600);
+        }
+        
+        .quick-action-btn.danger {
+            background: var(--error-500);
+        }
+        
+        .quick-action-btn.danger:hover {
+            background: var(--error-600);
+        }
+        
+        /* 内容区域 */
+        .content-area {
+            padding: var(--space-6);
+        }
+        
+        .device-table {
+            width: 100%;
+            min-width: 920px;
+            border-collapse: collapse;
+            background: var(--bg-primary);
+            table-layout: fixed;
+        }
+        
+        .device-table thead {
+            background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-quaternary));
+        }
+        
+        .device-table th {
+            padding: var(--spacing-4);
+            text-align: left;
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            font-size: var(--font-size-body-md);
+            border-bottom: 2px solid var(--border-medium);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-quaternary));
+            white-space: nowrap;
+        }
+
+        /* 设置各列的固定宽度 */
+        .device-table th:nth-child(1) { width: 130px; } /* 设备编号 */
+        .device-table th:nth-child(2) { width: 100px; } /* 设备型号 */
+        .device-table th:nth-child(3) { width: 150px; } /* 安装位置 */
+        .device-table th:nth-child(4) { width: 90px; } /* 运行状态 */
+        .device-table th:nth-child(5) { width: 150px; } /* 最后通信时间 */
+        .device-table th:nth-child(6) { width: 100px; } /* 信号强度 */
+        .device-table th:nth-child(7) { width: 180px; } /* 操作 */
+        
+        .device-table td:nth-child(1) { width: 130px; }
+        .device-table td:nth-child(2) { width: 100px; }
+        .device-table td:nth-child(3) { width: 150px; }
+        .device-table td:nth-child(4) { width: 90px; }
+        .device-table td:nth-child(5) { width: 150px; }
+        .device-table td:nth-child(6) { width: 100px; }
+        .device-table td:nth-child(7) { width: 180px; min-width: 180px; background-color: #f9f9f9; }
+
+        .device-table td {
+            padding: var(--spacing-3) var(--spacing-4);
+            border-bottom: 1px solid var(--border-light);
+            font-size: var(--font-size-body-md);
+            transition: background-color var(--duration-normal);
+            vertical-align: middle;
+        }
+        
+        .device-table tbody tr {
+            transition: background-color var(--duration-normal);
+        }
+        
+        .device-table tbody tr:hover td {
+            background-color: var(--primary-50);
+        }
+        
+        .status-badge {
+            padding: 4px var(--spacing-2);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            text-align: center;
+            min-width: 60px;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            vertical-align: middle;
+        }
+        
+        .status-badge.online {
+            background: var(--success-50);
+            color: var(--color-success);
+            border: 1px solid var(--success-200);
+        }
+        
+        .status-badge.online::before {
+            content: '●';
+            margin-right: 4px;
+            display: inline-block;
+            font-size: 10px;
+        }
+        
+        .status-badge.offline {
+            background: var(--error-50);
+            color: var(--color-error);
+            border: 1px solid var(--error-200);
+        }
+        
+        .status-badge.offline::before {
+            content: '●';
+            margin-right: 4px;
+            display: inline-block;
+            font-size: 10px;
+        }
+
+        .status-badge.warning {
+            background: var(--warning-50);
+            color: var(--color-warning);
+            border: 1px solid var(--warning-200);
+        }
+        
+        .status-badge.warning::before {
+            content: '⚠';
+            margin-right: 4px;
+            display: inline-block;
+            font-size: 10px;
+        }
+        
+        @keyframes statusPulse {
+            0%, 100% { 
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.6;
+                transform: scale(1.2);
+            }
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: var(--space-2);
+            align-items: center;
+            justify-content: center;
+            flex-wrap: nowrap;
+            padding: 4px 0;
+        }
+        
+        /* 保留device-actions向后兼容 */
+        .device-actions {
+            display: flex;
+            gap: var(--space-2);
+            align-items: center;
+            justify-content: center;
+            flex-wrap: nowrap;
+            padding: 4px 0;
+        }
+        
+        .btn {
+            padding: var(--spacing-2) var(--spacing-5);
+            border: none;
+            border-radius: var(--radius-base);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            color: white;
+            box-sizing: border-box;
+            white-space: nowrap;
+        }
+        
+        .action-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .btn-small {
+            padding: 6px 10px;
+            font-size: var(--font-size-body-sm);
+            font-weight: var(--font-weight-semibold);
+            border-radius: var(--radius-md);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            min-width: 52px;
+            text-align: center;
+        }
+        
+        .btn-info {
+            background: #1890ff;
+            color: white;
+            border: 1px solid #096dd9;
+        }
+        
+        .btn-info:hover {
+            background: #096dd9;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(24, 144, 255, 0.3);
+        }
+        
+        .btn-warning {
+            background: #fa8c16;
+            color: white;
+            border: 1px solid #d46b08;
+        }
+        
+        .btn-warning:hover {
+            background: #d46b08;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(250, 140, 22, 0.3);
+        }
+        
+        .btn-primary {
+            background: #52c41a;
+            color: white;
+            border: 1px solid #389e0d;
+        }
+        
+        .btn-primary:hover {
+            background: #389e0d;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(82, 196, 26, 0.3);
+        }
+        
+        /* 设备诊断模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            backdrop-filter: blur(8px);
+            animation: fadeIn var(--duration-normal) var(--easing-smooth);
+        }
+        
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: var(--bg-primary);
+            border-radius: var(--radius-2xl);
+            padding: var(--spacing-8);
+            max-width: 700px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-2xl);
+            border: 1px solid var(--border-light);
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all var(--duration-normal) var(--easing-spring);
+        }
+        
+        .modal.show .modal-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-6);
+            padding-bottom: var(--spacing-4);
+            border-bottom: 2px solid var(--border-light);
+        }
+        
+        .modal-title {
+            font-size: var(--font-size-heading-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-tertiary);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--duration-fast) var(--easing-smooth);
+        }
+        
+        .close-btn:hover {
+            background: var(--error-500);
+            color: var(--text-inverse);
+            transform: rotate(90deg);
+        }
+        
+        .diagnostic-info {
+            display: grid;
+            gap: var(--spacing-4);
+        }
+        
+        .info-group {
+            background: var(--bg-secondary);
+            padding: var(--spacing-4);
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--primary-500);
+            transition: all var(--duration-normal) var(--easing-smooth);
+        }
+        
+        .info-group:hover {
+            background: var(--primary-50);
+            border-left-color: var(--primary-600);
+            transform: translateX(2px);
+        }
+        
+        .info-label {
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-2);
+            font-size: var(--font-size-body-md);
+        }
+        
+        .info-value {
+            color: var(--text-primary);
+            font-size: var(--font-size-body-md);
+        }
+        
+        .info-value p {
+            margin-bottom: var(--spacing-1);
+        }
+        
+        .info-value strong {
+            color: var(--text-secondary);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        /* 页面加载动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        /* 页面元素动画 */
+        .main-content {
+            animation: fadeInUp 0.6s var(--easing-smooth);
+        }
+        
+        .device-overview .overview-card {
+            animation: slideInRight 0.6s var(--easing-smooth);
+        }
+        
+        .device-overview .overview-card:nth-child(1) { animation-delay: 0.1s; }
+        .device-overview .overview-card:nth-child(2) { animation-delay: 0.2s; }
+        .device-overview .overview-card:nth-child(3) { animation-delay: 0.3s; }
+        .device-overview .overview-card:nth-child(4) { animation-delay: 0.4s; }
+        
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .main-content::before {
+                left: 0;
+            }
+            
+            .unified-sidebar {
+                transform: translateX(-100%);
+                transition: transform var(--duration-base) var(--easing);
+            }
+            
+            .content-area {
+                padding: var(--space-4);
+            }
+            
+            .device-overview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .search-filter {
+                flex-wrap: wrap; /* 允许筛选项在中等屏幕上换行 */
+                gap: var(--spacing-2);
+            }
+            
+            .search-input {
+                width: 180px; /* 在中等屏幕上缩小搜索框 */
+                min-width: 180px;
+            }
+            
+            .filter-select {
+                width: 100px;
+                min-width: 100px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .unified-sidebar {
+                transform: translateX(-100%);
+                transition: transform var(--duration-base) var(--easing);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .content-area {
+                padding: var(--space-4);
+            }
+            
+            .page-header {
+                flex-direction: column;
+                gap: var(--spacing-4);
+                align-items: stretch;
+            }
+            
+            .page-actions {
+                justify-content: center;
+            }
+            
+            .device-overview {
+                grid-template-columns: 1fr;
+            }
+            
+            .list-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: var(--spacing-4);
+            }
+            
+            .search-filter {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .search-input {
+                flex: 1;
+                width: auto;
+                min-width: 150px;
+            }
+            
+            .filter-select {
+                width: auto;
+                min-width: 80px;
+            }
+            
+            /* 移动设备上的表格布局 */
+            .device-table {
+                font-size: var(--font-size-body-sm);
+            }
+            
+            .device-table th,
+            .device-table td {
+                padding: var(--spacing-2) var(--spacing-3);
+            }
+            
+            .device-actions {
+                flex-direction: column;
+                gap: var(--spacing-1);
+                min-height: auto;
+            }
+            
+            .action-btn {
+                width: 100%;
+                min-width: auto;
+                height: 28px;
+                font-size: var(--font-size-body-xs);
+                padding: var(--spacing-1) var(--spacing-2);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .content-area {
+                padding: var(--spacing-2);
+            }
+            
+            .page-header {
+                padding: var(--spacing-4);
+            }
+            
+            .device-overview {
+                gap: var(--spacing-3);
+            }
+            
+            .overview-card {
+                padding: var(--spacing-3);
+            }
+            
+            .card-value {
+                font-size: var(--font-size-display-md);
+            }
+            
+            /* 超小屏幕的表格处理 */
+            .device-table-wrapper {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .table-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .device-table {
+                min-width: 920px;
+            }
+            
+            .search-filter {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-input,
+            .filter-select {
+                width: 100%;
+            }
+        }
+
+        .device-table td span.signal-strength {
+            font-weight: var(--font-weight-medium);
+            color: var(--text-secondary);
+        }
+
+        .device-table td span.signal-strength::after {
+            content: attr(data-quality);
+            font-size: var(--font-size-body-xs);
+            color: var(--text-tertiary);
+            margin-left: var(--spacing-1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="unified-sidebar">
+        <!-- 水务品牌标识区域 -->
+        <div class="sidebar-header">
+            <div class="logo-section">
+                <div class="logo">水</div>
+                <div>
+                    <div class="system-title">WaterMIS</div>
+                    <div class="system-subtitle">智慧水务管理平台</div>
+                </div>
+            </div>
+            
+            <!-- 用户信息卡片 -->
+            <div class="user-info-card">
+                <div class="user-info">
+                    <div class="user-avatar">管</div>
+                    <div class="user-details">
+                        <h4>系统管理员</h4>
+                        <span>李管理员 • 在线</span>
+                    </div>
+                </div>
+                <!-- 权限层级指示器 -->
+                <div class="permission-indicator">
+                    <div class="permission-text">权限范围：县级管理权限</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 搜索功能 -->
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="搜索功能模块..." id="navSearch">
+        </div>
+        
+        <!-- 导航菜单 -->
+        <div class="nav-section">
+            <!-- 营业管理中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">📊 营业管理中心</div>
+                <a href="admin-dashboard-redesigned.html" class="nav-item">
+                    <i>🏠</i>
+                    工作台
+                </a>
+                <a href="admin-user-management.html" class="nav-item">
+                    <i>👥</i>
+                    用户管理
+                </a>
+                <a href="admin-account-management.html" class="nav-item">
+                    <i>💰</i>
+                    账户管理
+                </a>
+                <a href="admin-meter-reading-center.html" class="nav-item">
+                    <i>📊</i>
+                    抄表管理
+                </a>
+                <a href="admin-billing-center.html" class="nav-item">
+                    <i>💳</i>
+                    收费管理
+                </a>
+                <a href="admin-user-recharge.html" class="nav-item">
+                    <i>🏦</i>
+                    预存水费管理
+                </a>
+            </div>
+            
+            <!-- 设备运维中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">⚙️ 设备运维中心</div>
+                <a href="admin-device-management.html" class="nav-item active">
+                    <i>🔧</i>
+                    设备管理
+                </a>
+                <a href="#" class="nav-item">
+                    <i>⚖️</i>
+                    计量管理
+                </a>
+            </div>
+            
+            <!-- 数据分析中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">📈 数据分析中心</div>
+                <a href="admin-advanced-query.html" class="nav-item">
+                    <i>🔍</i>
+                    数据查询
+                </a>
+                <a href="admin-report-center.html" class="nav-item">
+                    <i>📋</i>
+                    统计报表
+                </a>
+                <a href="#" class="nav-item">
+                    <i>📊</i>
+                    分析图表
+                </a>
+            </div>
+            
+            <!-- 系统管控中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">🏛️ 系统管控中心</div>
+                <a href="admin-region-management.html" class="nav-item">
+                    <i>🌏</i>
+                    营业分区管理
+                </a>
+                <a href="admin-operator-management.html" class="nav-item">
+                    <i>👨‍💼</i>
+                    人事管理
+                </a>
+                <a href="admin-system-settings.html" class="nav-item">
+                    <i>⚙️</i>
+                    基本设置
+                </a>
+                <a href="#" class="nav-item">
+                    <i>🔧</i>
+                    系统维护
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 主内容区 -->
+    <div class="main-content">
+        <!-- 现代化顶部栏 -->
+        <header class="top-bar">
+            <div style="display: flex; align-items: center;">
+                <nav class="breadcrumb">
+                    <a href="admin-dashboard-redesigned.html" class="breadcrumb-item">首页</a>
+                    <span class="breadcrumb-separator">›</span>
+                    <span class="breadcrumb-item active">设备管理</span>
+                </nav>
+            </div>
+            
+            <!-- 快速操作区域 -->
+            <div class="quick-actions">
+                <button class="quick-action-btn">
+                    刷新状态
+                </button>
+                <button class="quick-action-btn warning">
+                    添加设备
+                </button>
+
+            </div>
+        </header>
+
+        <!-- 内容区域 -->
+        <div class="content-area">
+                    
+        <!-- 设备状态概览 -->
+        <div class="device-overview">
+            <div class="overview-card total">
+                <div class="card-header">
+                    <div class="card-title">总数</div>
+                    <div class="card-icon total">&#128241;</div>
+                </div>
+                <div class="card-value">128</div>
+                <div class="card-description">
+                    智能卡读卡器
+                </div>
+            </div>
+            
+            <div class="overview-card online">
+                <div class="card-header">
+                    <div class="card-title">在线</div>
+                    <div class="card-icon online">&#10004;</div>
+                </div>
+                <div class="card-value">115</div>
+                <div class="card-description">
+                    正常运行
+                </div>
+            </div>
+            
+            <div class="overview-card warning">
+                <div class="card-header">
+                    <div class="card-title">告警</div>
+                    <div class="card-icon warning">&#9888;</div>
+                </div>
+                <div class="card-value">8</div>
+                <div class="card-description">
+                    需要关注
+                </div>
+            </div>
+            
+            <div class="overview-card offline">
+                <div class="card-header">
+                    <div class="card-title">离线</div>
+                    <div class="card-icon offline">&#10060;</div>
+                </div>
+                <div class="card-value">5</div>
+                <div class="card-description">
+                    无法连接
+                </div>
+            </div>
+        </div>
+        
+        <!-- 设备列表 -->
+        <div class="device-list">
+            <div class="list-header">
+                <div class="section-title">
+                    <i>&#128220;</i>设备列表
+                </div>
+                <div class="search-filter">
+                    <input type="text" class="search-input" placeholder="搜索设备编号或位置">
+                    <select class="filter-select">
+                        <option value="">所有状态</option>
+                        <option value="online">在线</option>
+                        <option value="offline">离线</option>
+                        <option value="warning">告警</option>
+                    </select>
+                    <select class="filter-select">
+                        <option value="">所有型号</option>
+                        <option value="T5557">T5557系列</option>
+                        <option value="DK">DK系列</option>
+                        <option value="MH">MH系列</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <table class="device-table">
+                <thead>
+                    <tr>
+                        <th>设备编号</th>
+                        <th>设备型号</th>
+                        <th>安装位置</th>
+                        <th>运行状态</th>
+                        <th>最后通信时间</th>
+                        <th>信号强度</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>DEV-T5557-001</td>
+                        <td>T5557Card1</td>
+                        <td>东区水表房A001</td>
+                        <td><span class="status-badge online">在线</span></td>
+                        <td>2024-01-15 15:30:25</td>
+                        <td><span class="signal-strength" data-quality="(优)">-65dBm</span></td>
+                        <td>
+                            <div class="device-actions">
+                                <button class="btn btn-small btn-info" onclick="showDiagnostic('DEV-T5557-001')">配置</button>
+                                <button class="btn btn-small btn-warning">重启</button>
+                                <button class="btn btn-small btn-primary">日志</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>DEV-DK-002</td>
+                        <td>DkCard16</td>
+                        <td>西区水表房B012</td>
+                        <td><span class="status-badge online">在线</span></td>
+                        <td>2024-01-15 15:29:10</td>
+                        <td><span class="signal-strength" data-quality="(良)">-72dBm</span></td>
+                        <td>
+                            <div class="device-actions">
+                                <button class="btn btn-small btn-info" onclick="showDiagnostic('DEV-DK-002')">配置</button>
+                                <button class="btn btn-small btn-warning">重启</button>
+                                <button class="btn btn-small btn-primary">日志</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>DEV-MH-003</td>
+                        <td>MhCard22</td>
+                        <td>南区水表房C025</td>
+                        <td><span class="status-badge warning">告警</span></td>
+                        <td>2024-01-15 15:15:45</td>
+                        <td><span class="signal-strength" data-quality="(差)">-85dBm</span></td>
+                        <td>
+                            <div class="device-actions">
+                                <button class="btn btn-small btn-info" onclick="showDiagnostic('DEV-MH-003')">配置</button>
+                                <button class="btn btn-small btn-warning">重启</button>
+                                <button class="btn btn-small btn-primary">日志</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>DEV-T5557-004</td>
+                        <td>T5557Card35</td>
+                        <td>北区水表房D038</td>
+                        <td><span class="status-badge offline">离线</span></td>
+                        <td>2024-01-15 12:45:20</td>
+                        <td><span class="signal-strength">无信号</span></td>
+                        <td>
+                            <div class="device-actions">
+                                <button class="btn btn-small btn-info" onclick="showDiagnostic('DEV-T5557-004')">配置</button>
+                                <button class="btn btn-small btn-warning">重启</button>
+                                <button class="btn btn-small btn-primary">日志</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>DEV-DK-005</td>
+                        <td>DkCard18</td>
+                        <td>中心区水表房E102</td>
+                        <td><span class="status-badge online">在线</span></td>
+                        <td>2024-01-15 15:31:15</td>
+                        <td><span class="signal-strength" data-quality="(优)">-58dBm</span></td>
+                        <td>
+                            <div class="device-actions">
+                                <button class="btn btn-small btn-info" onclick="showDiagnostic('DEV-DK-005')">配置</button>
+                                <button class="btn btn-small btn-warning">重启</button>
+                                <button class="btn btn-small btn-primary">日志</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>DEV-MH-006</td>
+                        <td>MhCard17</td>
+                        <td>东南区水表房F089</td>
+                        <td><span class="status-badge warning">告警</span></td>
+                        <td>2024-01-15 15:20:30</td>
+                        <td><span class="signal-strength" data-quality="(一般)">-80dBm</span></td>
+                        <td>
+                            <div class="device-actions">
+                                <button class="btn btn-small btn-info" onclick="showDiagnostic('DEV-MH-006')">配置</button>
+                                <button class="btn btn-small btn-warning">重启</button>
+                                <button class="btn btn-small btn-primary">日志</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+    <!-- 设备诊断模态框 -->
+    <div class="modal" id="diagnosticModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">设备诊断信息</div>
+                <button class="close-btn" onclick="closeDiagnostic()">&times;</button>
+            </div>
+            <div class="diagnostic-info" id="diagnosticInfo">
+                <!-- 动态加载设备诊断信息 -->
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 显示设备诊断信息
+        function showDiagnostic(deviceId) {
+            const modal = document.getElementById('diagnosticModal');
+            const info = document.getElementById('diagnosticInfo');
+            
+            // 模拟设备诊断数据
+            const diagnosticData = {
+                'DEV-T5557-001': {
+                    deviceId: 'DEV-T5557-001',
+                    model: 'T5557Card1',
+                    location: '东区水表房A001',
+                    status: '在线',
+                    lastHeartbeat: '2024-01-15 15:30:25',
+                    uptime: '15天 8小时 32分钟',
+                    firmware: 'v2.1.5',
+                    hardware: 'v1.3.2',
+                    temperature: '23.5°C',
+                    voltage: '3.6V',
+                    signalStrength: '-65dBm',
+                    cardReadCount: '15,847',
+                    errorCount: '2',
+                    lastError: '卡片读取超时 <br>(2024-01-12 09:15:30)'
+                },
+                'DEV-DK-002': {
+                    deviceId: 'DEV-DK-002',
+                    model: 'DkCard16',
+                    location: '西区水表房B012',
+                    status: '在线',
+                    lastHeartbeat: '2024-01-15 15:29:10',
+                    uptime: '22天 12小时 15分钟',
+                    firmware: 'v1.8.9',
+                    hardware: 'v1.2.1',
+                    temperature: '25.2°C',
+                    voltage: '3.7V',
+                    signalStrength: '-72dBm',
+                    cardReadCount: '23,156',
+                    errorCount: '0',
+                    lastError: '无'
+                }
+            };
+            
+            const data = diagnosticData[deviceId] || diagnosticData['DEV-T5557-001'];
+            
+            info.innerHTML = `
+                <div class="info-group">
+                    <div class="info-label">设备基本信息</div>
+                    <div class="info-value">
+                        <p><strong>设备编号:</strong> ${data.deviceId}</p>
+                        <p><strong>设备型号:</strong> ${data.model}</p>
+                        <p><strong>安装位置:</strong> ${data.location}</p>
+                        <p><strong>运行状态:</strong> ${data.status}</p>
+                    </div>
+                </div>
+                
+                <div class="info-group">
+                    <div class="info-label">连接状态</div>
+                    <div class="info-value">
+                        <p><strong>最后心跳:</strong> ${data.lastHeartbeat}</p>
+                        <p><strong>在线时长:</strong> ${data.uptime}</p>
+                        <p><strong>信号强度:</strong> ${data.signalStrength}</p>
+                    </div>
+                </div>
+                
+                <div class="info-group">
+                    <div class="info-label">硬件信息</div>
+                    <div class="info-value">
+                        <p><strong>固件版本:</strong> ${data.firmware}</p>
+                        <p><strong>硬件版本:</strong> ${data.hardware}</p>
+                        <p><strong>设备温度:</strong> ${data.temperature}</p>
+                        <p><strong>工作电压:</strong> ${data.voltage}</p>
+                    </div>
+                </div>
+                
+                <div class="info-group">
+                    <div class="info-label">运行统计</div>
+                    <div class="info-value">
+                        <p><strong>读卡次数:</strong> ${data.cardReadCount}</p>
+                        <p><strong>错误次数:</strong> ${data.errorCount}</p>
+                        <p><strong>最近错误:</strong> ${data.lastError}</p>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.add('show');
+        }
+        
+        // 关闭诊断模态框
+        function closeDiagnostic() {
+            const modal = document.getElementById('diagnosticModal');
+            modal.classList.remove('show');
+        }
+        
+        // 点击模态框外部关闭
+        document.getElementById('diagnosticModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeDiagnostic();
+            }
+        });
+    </script>
+</body>
+</html>

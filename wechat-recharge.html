@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>智慧水务 - 在线充值</title>
+    <style>
+        :root {
+            /* WaterMIS v4.0 统一设计系统 - 移动端水务主题 */
+            
+            /* Primary Colors - 智慧水务品牌蓝 */
+            --primary-50: #e6f7ff;
+            --primary-100: #bae7ff;
+            --primary-200: #91d5ff;
+            --primary-300: #69c0ff;
+            --primary-400: #40a9ff;
+            --primary-500: #2196f3;
+            --primary-600: #1976d2;
+            --primary-700: #1565c0;
+            --primary-800: #0d47a1;
+            --primary-900: #01579b;
+            
+            /* Success Colors - 清澈水蓝 */
+            --success-50: #e0f7fa;
+            --success-100: #b2ebf2;
+            --success-200: #80deea;
+            --success-300: #4dd0e1;
+            --success-400: #26c6da;
+            --success-500: #00bcd4;
+            --success-600: #00acc1;
+            --success-700: #0097a7;
+            --success-800: #00838f;
+            --success-900: #006064;
+            
+            /* Warning Colors - 阳光橙 */
+            --warning-50: #fff8e1;
+            --warning-100: #ffecb3;
+            --warning-200: #ffe082;
+            --warning-300: #ffd54f;
+            --warning-400: #ffca28;
+            --warning-500: #ff9800;
+            --warning-600: #fb8c00;
+            --warning-700: #f57c00;
+            --warning-800: #ef6c00;
+            --warning-900: #e65100;
+            
+            /* Error Colors - 珊瑚红 */
+            --error-50: #ffebee;
+            --error-100: #ffcdd2;
+            --error-200: #ef9a9a;
+            --error-300: #e57373;
+            --error-400: #ef5350;
+            --error-500: #f44336;
+            --error-600: #e53935;
+            --error-700: #d32f2f;
+            --error-800: #c62828;
+            --error-900: #b71c1c;
+            
+            /* Info Colors - 智慧蓝调 */
+            --info-50: #e6f7ff;
+            --info-100: #bae7ff;
+            --info-200: #91d5ff;
+            --info-300: #69c0ff;
+            --info-400: #40a9ff;
+            --info-500: #2196f3;
+            --info-600: #1976d2;
+            --info-700: #1565c0;
+            --info-800: #0d47a1;
+            --info-900: #01579b;
+            
+            /* Neutral Colors - 中性色系 */
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #eeeeee;
+            --gray-300: #e0e0e0;
+            --gray-400: #bdbdbd;
+            --gray-500: #9e9e9e;
+            --gray-600: #757575;
+            --gray-700: #616161;
+            --gray-800: #424242;
+            --gray-900: #212121;
+            
+            /* Semantic Colors - 水务主题语义化 */
+            --color-primary: var(--primary-500);
+            --color-primary-hover: var(--primary-400);
+            --color-primary-active: var(--primary-600);
+            --color-success: var(--success-500);
+            --color-warning: var(--warning-500);
+            --color-error: var(--error-500);
+            --color-info: var(--info-500);
+            
+            /* Primary Action Colors */
+            --primary-action-color: var(--primary-500);
+            --success-action-color: var(--success-500);
+            
+            /* Text Colors - 语义化颜色 */
+            --text-primary: var(--gray-900);
+            --text-secondary: var(--gray-700);
+            --text-tertiary: var(--gray-600);
+            --text-inverse: #ffffff;
+            
+            /* Background Colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: var(--gray-50);
+            --bg-tertiary: var(--gray-100);
+            
+            /* Border Colors */
+            --border-primary: var(--gray-300);
+            --border-secondary: var(--gray-200);
+            --border-tertiary: var(--gray-100);
+            
+            /* Typography Scale */
+            --font-size-xs: 0.75rem;      /* 12px */
+            --font-size-sm: 0.875rem;     /* 14px */
+            --font-size-base: 1rem;       /* 16px */
+            --font-size-lg: 1.125rem;     /* 18px */
+            --font-size-xl: 1.25rem;      /* 20px */
+            --font-size-2xl: 1.5rem;      /* 24px */
+            --font-size-3xl: 1.875rem;    /* 30px */
+            --font-size-4xl: 2.25rem;     /* 36px */
+            
+            /* Font Weights */
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            
+            /* Line Heights */
+            --line-height-tight: 1.25;
+            --line-height-normal: 1.5;
+            --line-height-relaxed: 1.75;
+            
+            /* Spacing Scale (4px base) */
+            --space-1: 0.25rem;    /* 4px */
+            --space-2: 0.5rem;     /* 8px */
+            --space-3: 0.75rem;    /* 12px */
+            --space-4: 1rem;       /* 16px */
+            --space-5: 1.25rem;    /* 20px */
+            --space-6: 1.5rem;     /* 24px */
+            --space-8: 2rem;       /* 32px */
+            --space-10: 2.5rem;    /* 40px */
+            --space-12: 3rem;      /* 48px */
+            --space-16: 4rem;      /* 64px */
+            --space-20: 5rem;      /* 80px */
+            --space-24: 6rem;      /* 96px */
+            
+            /* Border Radius */
+            --radius-xs: 0.125rem;   /* 2px */
+            --radius-sm: 0.25rem;    /* 4px */
+            --radius-base: 0.5rem;   /* 8px */
+            --radius-lg: 0.75rem;    /* 12px */
+            --radius-xl: 1rem;       /* 16px */
+            --radius-2xl: 1.5rem;    /* 24px */
+            --radius-full: 9999px;
+            
+            /* Shadows */
+            --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-base: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Z-index Scale */
+            --z-dropdown: 1000;
+            --z-sticky: 1010;
+            --z-fixed: 1020;
+            --z-modal: 1030;
+            --z-popover: 1040;
+            --z-tooltip: 1050;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+            background: var(--background-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        /* 移动端容器 */
+        .mobile-container {
+            width: 100%;
+            max-width: 414px;
+            margin: 0 auto;
+            background: #f5f5f5;
+            min-height: 100vh;
+            padding-bottom: 60px;
+        }
+        
+        /* 顶部导航栏 */
+        .navbar {
+            background: white;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-back {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            margin-right: 12px;
+            padding: 4px;
+        }
+        
+        .nav-title {
+            font-size: 18px;
+            font-weight: 600;
+            flex: 1;
+        }
+        
+        /* 账户信息卡片 */
+        .account-card {
+            margin: 16px 20px;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+        
+        .account-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .account-user {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--success-500), var(--success-400));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 12px;
+            box-shadow: 0 2px 8px rgba(0, 188, 212, 0.2);
+        }
+        
+        .user-info h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .user-info p {
+            font-size: 12px;
+            color: #8c8c8c;
+        }
+        
+        .account-balance {
+            text-align: right;
+        }
+        
+        .balance-label {
+            font-size: 12px;
+            color: #8c8c8c;
+            margin-bottom: 4px;
+        }
+        
+        .balance-amount {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--success-500);
+        }
+        
+        /* 智能推荐卡片 */
+        .smart-recommend {
+            margin: 12px 20px;
+            background: linear-gradient(135deg, var(--success-50), var(--success-100));
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid var(--success-500);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .smart-recommend::before {
+            content: '智能推荐';
+            position: absolute;
+            top: 8px;
+            right: -20px;
+            background: var(--success-500);
+            color: white;
+            padding: 4px 24px;
+            font-size: 10px;
+            font-weight: 600;
+            transform: rotate(45deg);
+            box-shadow: 0 2px 8px rgba(0, 188, 212, 0.3);
+        }
+        
+        .recommend-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .recommend-info {
+            flex: 1;
+        }
+        
+        .recommend-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--success-600);
+            margin-bottom: 4px;
+        }
+        
+        .recommend-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+        
+        .recommend-amount {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--success-500);
+            text-shadow: 0 1px 3px rgba(0, 188, 212, 0.2);
+        }
+        
+        .recommend-btn {
+            background: var(--success-500);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 188, 212, 0.3);
+        }
+        
+        .recommend-btn:active {
+            transform: scale(0.95);
+        }
+        .recharge-section {
+            margin: 16px 20px;
+            background: var(--bg-primary);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(33, 150, 243, 0.1);
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+            position: relative;
+            padding-left: var(--space-4);
+        }
+        
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 18px;
+            background: linear-gradient(135deg, var(--primary-500), var(--success-500));
+            border-radius: 2px;
+        }
+        
+        .amount-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-3);
+            margin-bottom: var(--space-6);
+        }
+        
+        .amount-option {
+            padding: var(--space-5) var(--space-3);
+            border: 2px solid var(--border-primary);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--bg-primary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .amount-option::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(33, 150, 243, 0.05), transparent);
+            transform: rotate(-45deg);
+            transition: transform 0.6s;
+            opacity: 0;
+        }
+        
+        .amount-option:hover::before {
+            opacity: 1;
+            transform: rotate(-45deg) translate(50%, 50%);
+        }
+        
+        .amount-option:active {
+            transform: scale(0.98);
+        }
+        
+        .amount-option:hover {
+            border-color: var(--primary-400);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.15);
+        }
+        
+        .amount-option.selected {
+            border-color: var(--primary-500);
+            background: var(--primary-50);
+            color: var(--primary-500);
+            box-shadow: 0 4px 16px rgba(33, 150, 243, 0.2);
+        }
+        
+        .amount-value {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .amount-desc {
+            font-size: 10px;
+            color: #8c8c8c;
+        }
+        
+        /* 智能推荐金额选项样式 */
+        .amount-option.smart-recommended {
+            border-color: var(--success-500);
+            background: linear-gradient(135deg, var(--success-50), #ffffff);
+            position: relative;
+            box-shadow: 0 4px 16px rgba(0, 188, 212, 0.15);
+        }
+        
+        .recommend-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--success-500);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            box-shadow: 0 2px 8px rgba(0, 188, 212, 0.3);
+            animation: smartBadgePulse 2s infinite;
+        }
+        
+        @keyframes smartBadgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); box-shadow: 0 4px 16px rgba(0, 188, 212, 0.5); }
+        }
+        
+        /* 自定义金额输入样式优化 */
+        .custom-amount {
+            margin-bottom: 20px;
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+        
+        .custom-amount.show {
+            display: block;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .custom-input {
+            background: var(--success-50);
+            border: 2px solid var(--success-500);
+        }
+        
+        /* 自定义金额输入 */
+        .custom-amount {
+            margin-bottom: 20px;
+        }
+        
+        .custom-input-wrapper {
+            position: relative;
+        }
+        
+        .custom-input {
+            width: 100%;
+            padding: 16px 20px 16px 40px;
+            border: 2px solid #f0f0f0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .custom-input:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            background: var(--primary-50);
+        }
+        
+        .currency-symbol {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8c8c8c;
+            font-size: 16px;
+        }
+        
+        .amount-limit {
+            font-size: 12px;
+            color: #8c8c8c;
+            margin-top: 8px;
+        }
+        
+        /* 支付方式选择 */
+        .payment-section {
+            margin: 16px 20px;
+            background: var(--bg-primary);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(33, 150, 243, 0.1);
+        }
+        
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+        
+        .payment-option {
+            padding: var(--space-5);
+            border: 2px solid var(--border-primary);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .payment-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(33, 150, 243, 0.05), transparent);
+            transition: left 0.6s;
+        }
+        
+        .payment-option:hover::before {
+            left: 100%;
+        }
+        
+        .payment-option:hover {
+            border-color: var(--primary-400);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.15);
+        }
+        
+        .payment-option:active {
+            transform: translateY(0) scale(0.98);
+        }
+        
+        .payment-option.selected {
+            border-color: var(--primary-500);
+            background: var(--primary-50);
+            box-shadow: 0 4px 16px rgba(33, 150, 243, 0.2);
+        }
+        
+        /* 提交按钮动画 */
+        .recharge-btn {
+            width: 100%;
+            padding: var(--space-5);
+            background: linear-gradient(135deg, var(--success-500), var(--success-400));
+            color: var(--text-inverse);
+            border: none;
+            border-radius: var(--radius-lg);
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 6px 20px rgba(0, 188, 212, 0.3);
+        }
+        
+        .recharge-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .recharge-btn:hover {
+            background: linear-gradient(135deg, var(--success-400), var(--success-600));
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 188, 212, 0.4);
+        }
+        
+        .recharge-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .recharge-btn:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+        
+        .recharge-btn:disabled {
+            background: var(--gray-400);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* 输入框交互动画 */
+        .custom-input {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .custom-input:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            background: var(--primary-50);
+            transform: scale(1.02);
+            box-shadow: 0 4px 16px rgba(33, 150, 243, 0.15);
+        }
+        
+        .payment-left {
+            display: flex;
+            align-items: center;
+        }
+        
+        .payment-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        
+        .wechat-icon {
+            background: #09bb07;
+            color: white;
+        }
+        
+        .alipay-icon {
+            background: #1677ff;
+            color: white;
+        }
+        
+        .bank-icon {
+            background: #fa8c16;
+            color: white;
+        }
+        
+        .payment-info h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .payment-info p {
+            font-size: 12px;
+            color: #8c8c8c;
+        }
+        
+        .payment-radio {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #d9d9d9;
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .payment-option.selected .payment-radio {
+            border-color: var(--primary-500);
+            background: var(--primary-500);
+        }
+        
+        .payment-option.selected .payment-radio::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: white;
+        }
+        
+        /* 充值按钮 */
+        .recharge-button-section {
+            margin: 24px 20px;
+        }
+        
+        .recharge-summary {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .summary-row:last-child {
+            margin-bottom: 0;
+            font-weight: 600;
+            font-size: 16px;
+            color: #1890ff;
+            border-top: 1px solid #e6e6e6;
+            padding-top: 8px;
+        }
+        
+        .recharge-btn {
+            width: 100%;
+            padding: 16px;
+            background: #52c41a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .recharge-btn:hover {
+            background: #73d13d;
+        }
+        
+        .recharge-btn:active {
+            background: #389e0d;
+            transform: scale(0.98);
+        }
+        
+        .recharge-btn:disabled {
+            background: #d9d9d9;
+            cursor: not-allowed;
+        }
+        
+        /* 底部导航栏 - 微信风格 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 414px;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-top: 0.5px solid rgba(0, 0, 0, 0.05);
+            padding: 8px 0;
+            display: flex;
+            justify-content: space-around;
+            z-index: 1000;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 4px;
+            transition: all 0.3s ease;
+            min-width: 60px;
+            text-decoration: none;
+            color: #999999;
+            position: relative;
+        }
+        
+        .nav-item.active {
+            color: var(--success-500);
+        }
+        
+        .nav-item:active {
+            transform: scale(0.95);
+        }
+        
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-item.active .nav-icon {
+            transform: scale(1.1);
+        }
+        
+        .nav-label {
+            font-size: 10px;
+            font-weight: 600;
+        }
+        
+        .badge {
+            position: absolute;
+            top: -2px;
+            right: 8px;
+            background: #ff4d4f;
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 8px;
+            min-width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(255, 77, 79, 0.3);
+            animation: badgePulse 2s infinite;
+        }
+        
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* 安全区域适配 */
+        @supports (padding: max(0px)) {
+            .bottom-nav {
+                padding-bottom: max(8px, env(safe-area-inset-bottom));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- 顶部导航栏 -->
+        <div class="navbar">
+            <button class="nav-back" onclick="history.back()">←</button>
+            <h1 class="nav-title">在线充值</h1>
+        </div>
+        
+        <!-- 账户信息卡片 -->
+        <div class="account-card">
+            <div class="account-header">
+                <div class="account-user">
+                    <div class="user-avatar">张</div>
+                    <div class="user-info">
+                        <h3>张三</h3>
+                        <p>用户编号: 10001</p>
+                    </div>
+                </div>
+                <div class="account-balance">
+                    <div class="balance-label">当前余额</div>
+                    <div class="balance-amount">¥156.80</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 智能推荐卡片 -->
+        <div class="smart-recommend">
+            <div class="recommend-content">
+                <div class="recommend-info">
+                    <div class="recommend-title">🧠 智能推荐充值</div>
+                    <div class="recommend-desc">基于您的用水习惯，建议充值金额可用约2个月</div>
+                </div>
+                <div style="text-align: center;">
+                    <div class="recommend-amount">¥120</div>
+                    <button class="recommend-btn" onclick="selectSmartAmount()">一键选择</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 充值金额选择 -->
+        <div class="recharge-section">
+            <h3 class="section-title">选择充值金额</h3>
+            <div class="amount-grid">
+                <div class="amount-option" data-amount="50" data-desc="日常使用">
+                    <div class="amount-value">¥50</div>
+                    <div class="amount-desc">日常使用</div>
+                </div>
+                <div class="amount-option smart-recommended" data-amount="120" data-desc="智能推荐">
+                    <div class="amount-value">¥120</div>
+                    <div class="amount-desc">智能推荐</div>
+                    <div class="recommend-badge">💡</div>
+                </div>
+                <div class="amount-option" data-amount="200" data-desc="优惠充值">
+                    <div class="amount-value">¥200</div>
+                    <div class="amount-desc">优惠充值</div>
+                </div>
+                <div class="amount-option" data-amount="500" data-desc="大额充值">
+                    <div class="amount-value">¥500</div>
+                    <div class="amount-desc">大额充值</div>
+                </div>
+                <div class="amount-option" data-amount="1000" data-desc="VIP充值">
+                    <div class="amount-value">¥1000</div>
+                    <div class="amount-desc">VIP充值</div>
+                </div>
+                <div class="amount-option custom-option" data-amount="custom" data-desc="自定义">
+                    <div class="amount-value">其他</div>
+                    <div class="amount-desc">自定义</div>
+                </div>
+            </div>
+            
+            <div class="custom-amount">
+                <div class="custom-input-wrapper">
+                    <span class="currency-symbol">¥</span>
+                    <input type="number" class="custom-input" placeholder="请输入充值金额" min="10" max="2000">
+                </div>
+                <div class="amount-limit">充值金额范围：¥10 - ¥2000</div>
+            </div>
+        </div>
+        
+        <!-- 支付方式选择 -->
+        <div class="payment-section">
+            <h3 class="section-title">选择支付方式</h3>
+            <div class="payment-methods">
+                <div class="payment-option selected">
+                    <div class="payment-left">
+                        <div class="payment-icon wechat-icon">💚</div>
+                        <div class="payment-info">
+                            <h4>微信支付</h4>
+                            <p>推荐使用，快速安全</p>
+                        </div>
+                    </div>
+                    <div class="payment-radio"></div>
+                </div>
+                
+                <div class="payment-option">
+                    <div class="payment-left">
+                        <div class="payment-icon alipay-icon">🔵</div>
+                        <div class="payment-info">
+                            <h4>支付宝</h4>
+                            <p>便捷支付，实时到账</p>
+                        </div>
+                    </div>
+                    <div class="payment-radio"></div>
+                </div>
+                
+                <div class="payment-option">
+                    <div class="payment-left">
+                        <div class="payment-icon bank-icon">💳</div>
+                        <div class="payment-info">
+                            <h4>银行卡支付</h4>
+                            <p>支持各大银行储蓄卡</p>
+                        </div>
+                    </div>
+                    <div class="payment-radio"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 充值按钮 -->
+        <div class="recharge-button-section">
+            <div class="recharge-summary">
+                <div class="summary-row">
+                    <span>充值金额</span>
+                    <span>¥100.00</span>
+                </div>
+                <div class="summary-row">
+                    <span>支付方式</span>
+                    <span>微信支付</span>
+                </div>
+                <div class="summary-row">
+                    <span>充值后余额</span>
+                    <span>¥256.80</span>
+                </div>
+            </div>
+            
+            <button class="recharge-btn">
+                💰 立即充值 ¥100.00
+            </button>
+        </div>
+        
+        <!-- 底部导航栏 -->
+        <div class="bottom-nav">
+            <a href="wechat-home.html" class="nav-item">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">首页</div>
+            </a>
+            <a href="wechat-recharge.html" class="nav-item active">
+                <div class="nav-icon">💰</div>
+                <div class="nav-label">充值</div>
+            </a>
+            <a href="wechat-account-details.html" class="nav-item">
+                <div class="nav-icon">💳</div>
+                <div class="nav-label">账户</div>
+            </a>
+            <a href="wechat-notifications.html" class="nav-item">
+                <div class="nav-icon">🔔</div>
+                <div class="nav-label">消息</div>
+                <div class="badge">5</div>
+            </a>
+            <a href="wechat-user-profile.html" class="nav-item">
+                <div class="nav-icon">👤</div>
+                <div class="nav-label">我的</div>
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        // 智能推荐系统
+        let currentBalance = 156.80;
+        let selectedAmount = 120; // 智能推荐金额
+        let selectedPayment = 'wechat';
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            initTouchFeedback();
+            initSmartRecommendation();
+            initAmountSelection();
+            initPaymentSelection();
+            updateSummary();
+        });
+        
+        // 触摸反馈增强
+        function initTouchFeedback() {
+            const touchElements = document.querySelectorAll('.amount-option, .payment-option, .recharge-btn, .recommend-btn');
+            
+            touchElements.forEach(element => {
+                element.addEventListener('touchstart', function(e) {
+                    this.style.transform = 'scale(0.95)';
+                    this.style.transition = 'all 0.1s ease';
+                }, { passive: true });
+                
+                element.addEventListener('touchend', function(e) {
+                    this.style.transform = 'scale(1)';
+                }, { passive: true });
+                
+                element.addEventListener('touchcancel', function(e) {
+                    this.style.transform = 'scale(1)';
+                }, { passive: true });
+            });
+        }
+        
+        // 智能推荐系统初始化
+        function initSmartRecommendation() {
+            // 模拟用户历史用水数据分析
+            const monthlyUsage = [45.6, 52.3, 48.9, 56.7, 51.2]; // 最近5个月用量
+            const avgUsage = monthlyUsage.reduce((a, b) => a + b) / monthlyUsage.length;
+            const recommendAmount = Math.ceil(avgUsage * 2.2 / 10) * 10; // 约2.2个月用量，取整到10
+            
+            selectedAmount = recommendAmount;
+            
+            // 更新推荐卡片显示
+            document.querySelector('.recommend-amount').textContent = `¥${recommendAmount}`;
+            document.querySelector('.recommend-desc').textContent = 
+                `基于您月均用水 ${avgUsage.toFixed(1)}元，建议充值可用约2个月`;
+                
+            // 更新智能推荐选项
+            const smartOption = document.querySelector('.amount-option.smart-recommended');
+            smartOption.setAttribute('data-amount', recommendAmount);
+            smartOption.querySelector('.amount-value').textContent = `¥${recommendAmount}`;
+        }
+        
+        // 金额选择交互
+        function initAmountSelection() {
+            document.querySelectorAll('.amount-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    // 清除所有选中状态
+                    document.querySelectorAll('.amount-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                        const desc = opt.querySelector('.amount-desc');
+                        if (desc) desc.classList.remove('selected');
+                    });
+                    
+                    // 设置当前选中
+                    this.classList.add('selected');
+                    const desc = this.querySelector('.amount-desc');
+                    if (desc) desc.classList.add('selected');
+                    
+                    const amount = this.getAttribute('data-amount');
+                    
+                    // 处理自定义金额
+                    const customInput = document.querySelector('.custom-amount');
+                    if (amount === 'custom') {
+                        customInput.classList.add('show');
+                        document.querySelector('.custom-input').focus();
+                        selectedAmount = 0;
+                    } else {
+                        customInput.classList.remove('show');
+                        selectedAmount = parseInt(amount);
+                    }
+                    
+                    updateSummary();
+                    
+                    // 智能推荐选择动画
+                    if (this.classList.contains('smart-recommended')) {
+                        showToast('已选择智能推荐金额！', 'success');
+                        this.style.animation = 'smartSelection 0.6s ease';
+                    }
+                });
+            });
+            
+            // 自定义金额输入
+            const customInput = document.querySelector('.custom-input');
+            customInput.addEventListener('input', function() {
+                const value = parseFloat(this.value) || 0;
+                selectedAmount = value;
+                updateSummary();
+                
+                // 输入验证
+                if (value < 10) {
+                    this.style.borderColor = 'var(--error-500)';
+                    showInputHint('最小充值金额为¥10', 'error');
+                } else if (value > 2000) {
+                    this.style.borderColor = 'var(--error-500)';
+                    showInputHint('最大充值金额为¥2000', 'error');
+                } else {
+                    this.style.borderColor = 'var(--success-500)';
+                }
+            });
+        }
+        
+        // 支付方式选择
+        function initPaymentSelection() {
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.payment-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    this.classList.add('selected');
+                    
+                    // 获取支付方式
+                    if (this.querySelector('.wechat-icon')) {
+                        selectedPayment = 'wechat';
+                    } else if (this.querySelector('.alipay-icon')) {
+                        selectedPayment = 'alipay';
+                    } else {
+                        selectedPayment = 'bank';
+                    }
+                    
+                    updateSummary();
+                });
+            });
+        }
+        
+        // 智能推荐一键选择
+        function selectSmartAmount() {
+            const smartOption = document.querySelector('.amount-option.smart-recommended');
+            smartOption.click();
+            
+            // 滚动到金额选择区域
+            smartOption.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center' 
+            });
+        }
+        
+        // 更新充值摘要
+        function updateSummary() {
+            const summaryAmount = document.querySelector('.summary-row span:last-child');
+            const summaryPayment = document.querySelectorAll('.summary-row')[1].querySelector('span:last-child');
+            const summaryBalance = document.querySelectorAll('.summary-row')[2].querySelector('span:last-child');
+            const rechargeBtn = document.querySelector('.recharge-btn');
+            
+            if (selectedAmount > 0) {
+                summaryAmount.textContent = `¥${selectedAmount.toFixed(2)}`;
+                summaryBalance.textContent = `¥${(currentBalance + selectedAmount).toFixed(2)}`;
+                rechargeBtn.textContent = `💰 立即充值 ¥${selectedAmount.toFixed(2)}`;
+                rechargeBtn.disabled = false;
+            } else {
+                summaryAmount.textContent = `¥0.00`;
+                summaryBalance.textContent = `¥${currentBalance.toFixed(2)}`;
+                rechargeBtn.textContent = `请选择充值金额`;
+                rechargeBtn.disabled = true;
+            }
+            
+            // 更新支付方式显示
+            const paymentNames = {
+                'wechat': '微信支付',
+                'alipay': '支付宝',
+                'bank': '银行卡支付'
+            };
+            summaryPayment.textContent = paymentNames[selectedPayment];
+        }
+        
+        // Toast提示
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            
+            const bgColor = type === 'success' ? 'var(--success-500)' : 
+                           type === 'error' ? 'var(--error-500)' : 
+                           'var(--gray-600)';
+            
+            toast.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: ${bgColor};
+                color: white;
+                padding: 12px 24px;
+                border-radius: 24px;
+                font-size: 14px;
+                z-index: 2000;
+                animation: fadeInScale 0.3s ease;
+                backdrop-filter: blur(10px);
+                box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            `;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'fadeOutScale 0.3s ease';
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.remove();
+                    }
+                }, 300);
+            }, 2000);
+        }
+        
+        // 输入提示
+        function showInputHint(message, type = 'info') {
+            // 移除已存在的提示
+            const existingHint = document.querySelector('.input-hint');
+            if (existingHint) {
+                existingHint.remove();
+            }
+            
+            const hint = document.createElement('div');
+            hint.className = 'input-hint';
+            hint.textContent = message;
+            
+            const color = type === 'error' ? 'var(--error-500)' : 'var(--text-tertiary)';
+            
+            hint.style.cssText = `
+                font-size: 12px;
+                color: ${color};
+                margin-top: 4px;
+                animation: fadeIn 0.3s ease;
+            `;
+            
+            document.querySelector('.custom-input-wrapper').appendChild(hint);
+            
+            setTimeout(() => {
+                if (hint.parentNode) {
+                    hint.remove();
+                }
+            }, 3000);
+        }
+        
+        // 充值按钮点击处理
+        function processRecharge() {
+            if (selectedAmount <= 0) {
+                showToast('请选择充值金额', 'error');
+                return;
+            }
+            
+            if (selectedAmount < 10 || selectedAmount > 2000) {
+                showToast('充值金额应在¥10-¥2000之间', 'error');
+                return;
+            }
+            
+            // 显示处理中状态
+            const btn = document.querySelector('.recharge-btn');
+            btn.disabled = true;
+            btn.textContent = '正在处理...';
+            btn.style.background = 'var(--gray-400)';
+            
+            // 模拟支付处理
+            setTimeout(() => {
+                showToast('充值成功！', 'success');
+                
+                // 模拟跳转到成功页面或返回首页
+                setTimeout(() => {
+                    window.location.href = 'wechat-home.html';
+                }, 1500);
+            }, 2000);
+        }
+        
+        // 绑定充值按钮事件
+        document.addEventListener('DOMContentLoaded', function() {
+            const rechargeBtn = document.querySelector('.recharge-btn');
+            rechargeBtn.addEventListener('click', processRecharge);
+        });
+        
+        // 添加动画CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInScale {
+                from {
+                    opacity: 0;
+                    transform: translate(-50%, -50%) scale(0.8);
+                }
+                to {
+                    opacity: 1;
+                    transform: translate(-50%, -50%) scale(1);
+                }
+            }
+            
+            @keyframes fadeOutScale {
+                from {
+                    opacity: 1;
+                    transform: translate(-50%, -50%) scale(1);
+                }
+                to {
+                    opacity: 0;
+                    transform: translate(-50%, -50%) scale(0.8);
+                }
+            }
+            
+            @keyframes smartSelection {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); box-shadow: 0 8px 32px rgba(0, 188, 212, 0.3); }
+                100% { transform: scale(1); }
+            }
+            
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

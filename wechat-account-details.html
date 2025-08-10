@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>账户详情 - 智慧水务</title>
+    <style>
+        :root {
+            /* WeChat Brand Colors */
+            --wechat-brand-green: #07C160;
+            --wechat-secondary-green: #38CD7F;
+            --wechat-success-feedback: #059048;
+            --wechat-light-green: #E8F5E8;
+            --wechat-extra-light-green: #F0F9FF;
+            
+            /* Primary Colors - WeChat Aligned */
+            --primary-50: #e6f4ff;
+            --primary-100: #bae0ff;
+            --primary-200: #91caff;
+            --primary-300: #69b1ff;
+            --primary-400: #4096ff;
+            --primary-500: var(--wechat-brand-green);
+            --primary-600: var(--wechat-success-feedback);
+            --primary-700: #004225;
+            --primary-800: #003018;
+            --primary-900: #001d0f;
+            
+            /* Success Colors - Green Scale */
+            --success-50: #f6ffed;
+            --success-100: #d9f7be;
+            --success-200: #b7eb8f;
+            --success-300: #95de64;
+            --success-400: #73d13d;
+            --success-500: #52c41a;
+            --success-600: #389e0d;
+            --success-700: #237804;
+            --success-800: #135200;
+            --success-900: #092b00;
+            
+            /* Warning Colors - Orange Scale */
+            --warning-50: #fffbe6;
+            --warning-100: #fff1b8;
+            --warning-200: #ffe58f;
+            --warning-300: #ffd666;
+            --warning-400: #ffc53d;
+            --warning-500: #fadb14;
+            --warning-600: #d4b106;
+            --warning-700: #ad8b00;
+            --warning-800: #876800;
+            --warning-900: #614700;
+            
+            /* Error Colors - Red Scale */
+            --error-50: #fff2f0;
+            --error-100: #ffccc7;
+            --error-200: #ffa39e;
+            --error-300: #ff7875;
+            --error-400: #ff4d4f;
+            --error-500: #f5222d;
+            --error-600: #cf1322;
+            --error-700: #a8071a;
+            --error-800: #820014;
+            --error-900: #5c0011;
+            
+            /* Info Colors - Blue Scale */
+            --info-50: #e6f7ff;
+            --info-100: #bae7ff;
+            --info-200: #91d5ff;
+            --info-300: #69c0ff;
+            --info-400: #40a9ff;
+            --info-500: #1890ff;
+            --info-600: #096dd9;
+            --info-700: #0050b3;
+            --info-800: #003a8c;
+            --info-900: #002766;
+            
+            /* Neutral Colors - Gray Scale */
+            --neutral-50: #fafafa;
+            --neutral-100: #f5f5f5;
+            --neutral-200: #f0f0f0;
+            --neutral-300: #d9d9d9;
+            --neutral-400: #bfbfbf;
+            --neutral-500: #8c8c8c;
+            --neutral-600: #595959;
+            --neutral-700: #434343;
+            --neutral-800: #262626;
+            --neutral-900: #1f1f1f;
+            
+            /* Semantic Colors - WeChat Aligned */
+            --color-primary: var(--wechat-brand-green);
+            --color-primary-hover: var(--wechat-secondary-green);
+            --color-primary-active: var(--wechat-success-feedback);
+            --color-success: var(--wechat-brand-green);
+            --color-warning: var(--warning-500);
+            --color-error: var(--error-500);
+            --color-info: var(--info-500);
+            
+            /* Primary Action Colors */
+            --primary-action-color: var(--wechat-brand-green);
+            --success-action-color: var(--wechat-success-feedback);
+            
+            /* Text Colors */
+            --text-primary: var(--neutral-800);
+            --text-secondary: var(--neutral-600);
+            --text-tertiary: var(--neutral-500);
+            --text-quaternary: var(--neutral-400);
+            
+            /* Background Colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: var(--neutral-50);
+            --bg-tertiary: var(--neutral-100);
+            --bg-quaternary: var(--neutral-200);
+            
+            /* Border Colors */
+            --border-primary: var(--neutral-300);
+            --border-secondary: var(--neutral-200);
+            --border-tertiary: var(--neutral-100);
+            
+            /* Typography Scale */
+            --font-size-xs: 0.75rem;      /* 12px */
+            --font-size-sm: 0.875rem;     /* 14px */
+            --font-size-base: 1rem;       /* 16px */
+            --font-size-lg: 1.125rem;     /* 18px */
+            --font-size-xl: 1.25rem;      /* 20px */
+            --font-size-2xl: 1.5rem;      /* 24px */
+            --font-size-3xl: 1.875rem;    /* 30px */
+            --font-size-4xl: 2.25rem;     /* 36px */
+            
+            /* Font Weights */
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            
+            /* Line Heights */
+            --line-height-tight: 1.25;
+            --line-height-normal: 1.5;
+            --line-height-relaxed: 1.75;
+            
+            /* Spacing Scale (4px base) */
+            --space-1: 0.25rem;    /* 4px */
+            --space-2: 0.5rem;     /* 8px */
+            --space-3: 0.75rem;    /* 12px */
+            --space-4: 1rem;       /* 16px */
+            --space-5: 1.25rem;    /* 20px */
+            --space-6: 1.5rem;     /* 24px */
+            --space-8: 2rem;       /* 32px */
+            --space-10: 2.5rem;    /* 40px */
+            --space-12: 3rem;      /* 48px */
+            --space-16: 4rem;      /* 64px */
+            --space-20: 5rem;      /* 80px */
+            --space-24: 6rem;      /* 96px */
+            
+            /* Border Radius */
+            --radius-xs: 0.125rem;   /* 2px */
+            --radius-sm: 0.25rem;    /* 4px */
+            --radius-base: 0.5rem;   /* 8px */
+            --radius-lg: 0.75rem;    /* 12px */
+            --radius-xl: 1rem;       /* 16px */
+            --radius-2xl: 1.5rem;    /* 24px */
+            --radius-full: 9999px;
+            
+            /* Shadows */
+            --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-base: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Z-index Scale */
+            --z-dropdown: 1000;
+            --z-sticky: 1010;
+            --z-fixed: 1020;
+            --z-modal: 1030;
+            --z-popover: 1040;
+            --z-tooltip: 1050;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-normal);
+        }
+        
+        /* 移动端容器 */
+        .mobile-container {
+            width: 100%;
+            max-width: 414px;
+            margin: 0 auto;
+            background: var(--bg-secondary);
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 80px;
+            box-shadow: var(--shadow-xl);
+        }
+        
+        /* 顶部导航栏 */
+        .navbar {
+            background: linear-gradient(135deg, var(--wechat-brand-green) 0%, var(--wechat-secondary-green) 100%);
+            padding: var(--space-3) var(--space-5);
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            color: white;
+            box-shadow: 0 2px 12px rgba(7, 193, 96, 0.15);
+        }
+        
+        .nav-back {
+            background: none;
+            border: none;
+            color: white;
+            font-size: var(--font-size-xl);
+            cursor: pointer;
+            margin-right: var(--space-3);
+            padding: var(--space-2);
+            border-radius: var(--radius-full);
+            transition: var(--transition-base);
+            width: var(--space-8);
+            height: var(--space-8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-back:active {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(0.95);
+        }
+        
+        .nav-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-bold);
+            flex: 1;
+        }
+        
+        .nav-menu {
+            background: none;
+            border: none;
+            color: white;
+            font-size: var(--font-size-lg);
+            cursor: pointer;
+            padding: var(--space-2);
+            border-radius: var(--radius-full);
+            transition: var(--transition-base);
+            width: var(--space-8);
+            height: var(--space-8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-menu:active {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(0.95);
+        }
+        
+        /* 账户概览卡片 */
+        .account-overview {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-success) 100%);
+            padding: var(--space-10) var(--space-6) var(--space-12);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .account-overview::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: floatSlow 8s ease-in-out infinite;
+        }
+        
+        .account-overview::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        }
+        
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+        }
+        
+        .account-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-10);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .account-info h2 {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--space-2);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .account-info p {
+            font-size: var(--font-size-sm);
+            opacity: 0.9;
+            font-weight: var(--font-weight-normal);
+        }
+        
+        .account-status {
+            padding: var(--space-2) var(--space-3);
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        /* 余额信息 */
+        .balance-info {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            margin-bottom: var(--space-6);
+        }
+        
+        .balance-label {
+            font-size: var(--font-size-sm);
+            opacity: 0.9;
+            margin-bottom: var(--space-2);
+        }
+        
+        .balance-amount {
+            font-size: 2.625rem;
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--space-4);
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            letter-spacing: -1px;
+        }
+        
+        /* Enhanced Data Visualization */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-3);
+            position: relative;
+            z-index: 2;
+            animation: statsAppear 0.8s ease-out 0.3s both;
+        }
+        
+        @keyframes statsAppear {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: var(--space-4);
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.2);
+        }
+        
+        .stat-item:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+        
+        .stat-value {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--space-1);
+        }
+        
+        .stat-label {
+            font-size: var(--font-size-xs);
+            opacity: 0.9;
+        }
+        
+        .stat-trend {
+            position: absolute;
+            top: var(--space-2);
+            right: var(--space-2);
+            font-size: var(--font-size-sm);
+            opacity: 0.8;
+        }
+        
+        /* 内容区域 */
+        .content-section {
+            padding: var(--space-6);
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* 功能卡片 */
+        .feature-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            margin-bottom: var(--space-6);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-secondary);
+            transition: all var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(24, 144, 255, 0.18);
+            border-color: rgba(24, 144, 255, 0.2);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-4);
+        }
+        
+        .card-title {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .card-title::before {
+            content: '';
+            width: 4px;
+            height: 18px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-success));
+            border-radius: var(--radius-xs);
+        }
+        
+        .card-action {
+            color: var(--color-primary);
+            font-size: var(--font-size-sm);
+            text-decoration: none;
+            font-weight: var(--font-weight-semibold);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-sm);
+            transition: var(--transition-base);
+        }
+        
+        .card-action:hover {
+            background: var(--primary-50);
+        }
+        
+        /* 账户详细信息 */
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-3) 0;
+            border-bottom: 1px solid var(--border-secondary);
+        }
+        
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .detail-value {
+            font-size: var(--font-size-sm);
+            color: var(--text-primary);
+            font-weight: var(--font-weight-semibold);
+        }
+        
+        .detail-value.highlight {
+            color: var(--color-primary);
+        }
+        
+        .detail-value.success {
+            color: var(--color-success);
+        }
+        
+        .detail-value.warning {
+            color: var(--color-warning);
+        }
+        
+        /* 使用量图表 */
+        .usage-chart {
+            background: linear-gradient(135deg, #f8faff, #e6f7ff);
+            border-radius: var(--radius-lg);
+            padding: var(--space-6);
+            margin-bottom: var(--space-4);
+            border: 1px solid rgba(24, 144, 255, 0.1);
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-4);
+        }
+        
+        .chart-title {
+            font-size: var(--font-size-base);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+        }
+        
+        .chart-period {
+            font-size: var(--font-size-xs);
+            color: var(--text-tertiary);
+            background: var(--bg-primary);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-secondary);
+        }
+        
+        .chart-visual {
+            height: 120px;
+            background: var(--bg-primary);
+            border-radius: var(--radius-base);
+            display: flex;
+            align-items: end;
+            justify-content: space-around;
+            padding: var(--space-3);
+            border: 1px solid var(--border-secondary);
+        }
+        
+        /* Enhanced Chart Interactions */
+        .chart-bar {
+            width: 20px;
+            background: linear-gradient(to top, var(--wechat-brand-green), var(--wechat-secondary-green));
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+            position: relative;
+            transition: all var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            animation: chartBarGrow 0.8s ease-out both;
+        }
+        
+        @keyframes chartBarGrow {
+            from {
+                height: 0 !important;
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .chart-bar:hover {
+            background: linear-gradient(to top, var(--wechat-success-feedback), var(--wechat-brand-green));
+            transform: scaleY(1.05) scaleX(1.1);
+            box-shadow: 0 4px 12px rgba(7, 193, 96, 0.3);
+        }
+        
+        .chart-bar:active {
+            transform: scaleY(1.02) scaleX(1.05);
+        }
+        
+        .chart-bar::after {
+            content: attr(data-value);
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: var(--font-size-xs);
+            color: var(--text-tertiary);
+            font-weight: var(--font-weight-semibold);
+        }
+        
+        /* Enhanced Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-4);
+            margin-top: var(--space-6);
+        }
+        
+        .action-btn {
+            padding: var(--space-5);
+            background: var(--bg-primary);
+            border: 2px solid var(--border-secondary);
+            border-radius: var(--radius-xl);
+            cursor: pointer;
+            transition: all var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-3);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(7, 193, 96, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .action-btn:hover {
+            border-color: var(--wechat-brand-green);
+            background: var(--wechat-extra-light-green);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(7, 193, 96, 0.15);
+        }
+        
+        .action-btn:hover::before {
+            left: 100%;
+        }
+        
+        .action-btn:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+        
+        .action-icon {
+            font-size: var(--font-size-3xl);
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-xl);
+            background: linear-gradient(135deg, var(--wechat-brand-green), var(--wechat-secondary-green));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(7, 193, 96, 0.25);
+            transition: all var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .action-btn:hover .action-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 6px 20px rgba(7, 193, 96, 0.4);
+        }
+        
+        .action-text {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+        }
+        
+        /* 底部导航栏 - 微信风格 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 414px;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-top: 0.5px solid rgba(0, 0, 0, 0.05);
+            padding: var(--space-2) 0;
+            display: flex;
+            justify-content: space-around;
+            z-index: var(--z-fixed);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: var(--space-2);
+            transition: all var(--transition-slow) cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: var(--radius-sm);
+            min-width: 60px;
+            text-decoration: none;
+            color: #999999;
+            position: relative;
+        }
+        
+        .nav-item.active {
+            color: #07c160;
+        }
+        
+        .nav-item:active {
+            transform: scale(0.95);
+        }
+        
+        .nav-icon {
+            font-size: var(--font-size-2xl);
+            margin-bottom: var(--space-1);
+            transition: transform var(--transition-slow) ease;
+        }
+        
+        .nav-item.active .nav-icon {
+            transform: scale(1.1);
+        }
+        
+        .nav-label {
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            letter-spacing: 0.5px;
+        }
+        
+        .badge {
+            position: absolute;
+            top: -2px;
+            right: 8px;
+            background: var(--error-500);
+            color: white;
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            padding: 2px 6px;
+            border-radius: 8px;
+            min-width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(255, 77, 79, 0.3);
+            animation: badgePulse 2s infinite;
+        }
+        
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        /* Touch Interactions - WeChat Style */
+        .touchable,
+        .nav-item,
+        .action-btn,
+        .btn,
+        .card-action,
+        .nav-back,
+        .nav-menu,
+        .chart-bar,
+        button,
+        [role="button"],
+        .clickable {
+            transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1), 
+                       box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .touchable:active,
+        .nav-item:active,
+        .action-btn:active,
+        .btn:active,
+        .card-action:active,
+        .nav-back:active,
+        .nav-menu:active,
+        .chart-bar:active,
+        button:active,
+        [role="button"]:active,
+        .clickable:active {
+            transform: scale(0.95);
+        }
+        
+        /* WeChat-style ripple effect */
+        .ripple-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ripple-effect::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 600ms, height 600ms;
+        }
+        
+        .ripple-effect:active::before {
+            width: 300px;
+            height: 300px;
+        }        
+        
+        /* 安全区域适配 */
+        @supports (padding: max(0px)) {
+            .bottom-nav {
+                padding-bottom: max(8px, env(safe-area-inset-bottom));
+            }
+        }
+        
+        /* 加载动画 */
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .loading-shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .loading-shimmer::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 1.5s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- 顶部导航栏 -->
+        <div class="navbar">
+            <button class="nav-back" onclick="history.back()">←</button>
+            <div class="nav-title">账户详情</div>
+            <button class="nav-menu">⋯</button>
+        </div>
+        
+        <!-- 账户概览 -->
+        <div class="account-overview">
+            <div class="account-header">
+                <div class="account-info">
+                    <h2>张三</h2>
+                    <p>账户编号: ACC001001</p>
+                </div>
+                <div class="account-status">🟢 正常使用</div>
+            </div>
+            
+            <div class="balance-info">
+                <div class="balance-label">当前余额</div>
+                <div class="balance-amount">¥186.50</div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-item" onclick="showStatDetail('total')">
+                    <div class="stat-value">145.2</div>
+                    <div class="stat-label">累计用量(m³)</div>
+                    <div class="stat-trend">📈</div>
+                </div>
+                <div class="stat-item" onclick="showStatDetail('monthly')">
+                    <div class="stat-value">12.8</div>
+                    <div class="stat-label">本月用量(m³)</div>
+                    <div class="stat-trend">💧</div>
+                </div>
+                <div class="stat-item" onclick="showStatDetail('cost')">
+                    <div class="stat-value">¥35.84</div>
+                    <div class="stat-label">本月费用</div>
+                    <div class="stat-trend">💰</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 内容区域 -->
+        <div class="content-section">
+            <!-- 账户信息卡片 -->
+            <div class="feature-card">
+                <div class="card-header">
+                    <div class="card-title">账户信息</div>
+                    <a href="#" class="card-action">修改 ></a>
+                </div>
+                
+                <div class="detail-item">
+                    <span class="detail-label">用户编号</span>
+                    <span class="detail-value">10001</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">开户日期</span>
+                    <span class="detail-value">2024-01-15</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">水表编号</span>
+                    <span class="detail-value highlight">WM202401001</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">价格类型</span>
+                    <span class="detail-value">居民阶梯价格</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">所属区域</span>
+                    <span class="detail-value">城东区</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">联系电话</span>
+                    <span class="detail-value">138****5678</span>
+                </div>
+            </div>
+            
+            <!-- 使用情况卡片 -->
+            <div class="feature-card">
+                <div class="card-header">
+                    <div class="card-title">用水趋势</div>
+                    <a href="wechat-usage-analysis.html" class="card-action">详细分析 ></a>
+                </div>
+                
+                <div class="usage-chart">
+                    <div class="chart-header">
+                        <div class="chart-title">近7天用水量</div>
+                        <div class="chart-period">日用量(m³)</div>
+                    </div>
+                    <div class="chart-visual">
+                        <div class="chart-bar" style="height: 60%" data-value="1.2"></div>
+                        <div class="chart-bar" style="height: 80%" data-value="1.6"></div>
+                        <div class="chart-bar" style="height: 45%" data-value="0.9"></div>
+                        <div class="chart-bar" style="height: 70%" data-value="1.4"></div>
+                        <div class="chart-bar" style="height: 90%" data-value="1.8"></div>
+                        <div class="chart-bar" style="height: 55%" data-value="1.1"></div>
+                        <div class="chart-bar" style="height: 85%" data-value="1.7"></div>
+                    </div>
+                </div>
+                
+                <div class="detail-item">
+                    <span class="detail-label">日均用水量</span>
+                    <span class="detail-value success">1.38 m³</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">用水效率</span>
+                    <span class="detail-value success">良好</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">节水排名</span>
+                    <span class="detail-value highlight">小区前15%</span>
+                </div>
+            </div>
+            
+            <!-- 计费信息卡片 -->
+            <div class="feature-card">
+                <div class="card-header">
+                    <div class="card-title">计费详情</div>
+                    <a href="wechat-billing-details.html" class="card-action">查看详情 ></a>
+                </div>
+                
+                <div class="detail-item">
+                    <span class="detail-label">当前阶梯</span>
+                    <span class="detail-value">第1阶梯 (0-20m³)</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">当前单价</span>
+                    <span class="detail-value highlight">¥2.80/m³</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">本月已用</span>
+                    <span class="detail-value">12.8 m³</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">距离下阶梯</span>
+                    <span class="detail-value success">7.2 m³</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">预计月费用</span>
+                    <span class="detail-value warning">¥42.56</span>
+                </div>
+            </div>
+            
+            <!-- 快捷操作 -->
+            <div class="quick-actions">
+                <a href="wechat-recharge.html" class="action-btn">
+                    <div class="action-icon">💰</div>
+                    <div class="action-text">立即充值</div>
+                </a>
+                <a href="wechat-transaction-history.html" class="action-btn">
+                    <div class="action-icon">📊</div>
+                    <div class="action-text">交易记录</div>
+                </a>
+                <a href="wechat-payment-methods.html" class="action-btn">
+                    <div class="action-icon">💳</div>
+                    <div class="action-text">支付方式</div>
+                </a>
+                <a href="wechat-notifications.html" class="action-btn">
+                    <div class="action-icon">🔔</div>
+                    <div class="action-text">消息通知</div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- 底部导航栏 -->
+        <div class="bottom-nav">
+            <a href="wechat-home.html" class="nav-item">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">首页</div>
+            </a>
+            <a href="wechat-recharge.html" class="nav-item">
+                <div class="nav-icon">💰</div>
+                <div class="nav-label">充值</div>
+            </a>
+            <a href="wechat-account-details.html" class="nav-item active">
+                <div class="nav-icon">💳</div>
+                <div class="nav-label">账户</div>
+            </a>
+            <a href="wechat-notifications.html" class="nav-item">
+                <div class="nav-icon">🔔</div>
+                <div class="nav-label">消息</div>
+                <div class="badge">5</div>
+            </a>
+            <a href="wechat-user-profile.html" class="nav-item">
+                <div class="nav-icon">👤</div>
+                <div class="nav-label">我的</div>
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        // Touch Feedback System - WeChat Style
+        class TouchFeedback {
+            constructor() {
+                this.bindTouchEvents();
+            }
+            
+            bindTouchEvents() {
+                // Add touch feedback to all interactive elements
+                const touchableElements = document.querySelectorAll(
+                    '.touchable, .nav-item, .action-btn, .btn, .card-action, .nav-back, .nav-menu, .chart-bar, button, [role="button"], .clickable'
+                );
+                
+                touchableElements.forEach(element => {
+                    // Skip if already has touch feedback
+                    if (element.dataset.touchFeedback) return;
+                    
+                    element.dataset.touchFeedback = 'true';
+                    
+                    // Touch start - scale down
+                    element.addEventListener('touchstart', (e) => {
+                        element.style.transform = 'scale(0.95)';
+                        element.style.transition = 'transform 150ms cubic-bezier(0.4, 0, 0.2, 1)';
+                    }, { passive: true });
+                    
+                    // Touch end - scale back
+                    element.addEventListener('touchend', (e) => {
+                        setTimeout(() => {
+                            element.style.transform = '';
+                        }, 100);
+                    }, { passive: true });
+                    
+                    // Touch cancel - scale back
+                    element.addEventListener('touchcancel', (e) => {
+                        element.style.transform = '';
+                    }, { passive: true });
+                    
+                    // Mouse events for desktop testing
+                    element.addEventListener('mousedown', (e) => {
+                        element.style.transform = 'scale(0.95)';
+                    });
+                    
+                    element.addEventListener('mouseup', (e) => {
+                        setTimeout(() => {
+                            element.style.transform = '';
+                        }, 100);
+                    });
+                    
+                    element.addEventListener('mouseleave', (e) => {
+                        element.style.transform = '';
+                    });
+                });
+            }
+        }
+        
+        // Initialize touch feedback system
+        document.addEventListener('DOMContentLoaded', () => {
+            new TouchFeedback();
+        });
+        
+        // 页面加载动画
+        document.addEventListener('DOMContentLoaded', function() {
+            // 添加页面进入动画
+            const cards = document.querySelectorAll('.feature-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+        
+        // Enhanced Chart Interactions with Touch Optimization
+        class ChartInteractions {
+            constructor() {
+                this.selectedBar = null;
+                this.init();
+            }
+            
+            init() {
+                this.bindChartEvents();
+                this.createTooltip();
+            }
+            
+            createTooltip() {
+                this.tooltip = document.createElement('div');
+                this.tooltip.className = 'chart-tooltip';
+                this.tooltip.style.cssText = `
+                    position: absolute;
+                    background: rgba(0, 0, 0, 0.8);
+                    color: white;
+                    padding: 8px 12px;
+                    border-radius: 6px;
+                    font-size: 12px;
+                    pointer-events: none;
+                    opacity: 0;
+                    transition: opacity 0.2s ease;
+                    z-index: 1000;
+                    transform: translate(-50%, -100%);
+                    margin-top: -10px;
+                `;
+                document.body.appendChild(this.tooltip);
+            }
+            
+            bindChartEvents() {
+                const chartBars = document.querySelectorAll('.chart-bar');
+                const days = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+                
+                chartBars.forEach((bar, index) => {
+                    // Touch events for mobile
+                    bar.addEventListener('touchstart', (e) => {
+                        e.preventDefault();
+                        this.handleBarInteraction(bar, index, days[index], e.touches[0]);
+                    }, { passive: false });
+                    
+                    // Mouse events for desktop
+                    bar.addEventListener('mouseenter', (e) => {
+                        this.showTooltip(bar, index, days[index], e);
+                    });
+                    
+                    bar.addEventListener('mouseleave', () => {
+                        this.hideTooltip();
+                    });
+                    
+                    bar.addEventListener('click', (e) => {
+                        this.handleBarInteraction(bar, index, days[index], e);
+                    });
+                    
+                    // Add animation delay
+                    bar.style.animationDelay = `${index * 0.1}s`;
+                });
+            }
+            
+            handleBarInteraction(bar, index, day, event) {
+                const value = bar.getAttribute('data-value');
+                
+                // Visual feedback
+                if (this.selectedBar) {
+                    this.selectedBar.classList.remove('selected');
+                }
+                
+                bar.classList.add('selected');
+                this.selectedBar = bar;
+                
+                // Add selection styles
+                if (!document.querySelector('.chart-selection-styles')) {
+                    const style = document.createElement('style');
+                    style.className = 'chart-selection-styles';
+                    style.textContent = `
+                        .chart-bar.selected {
+                            background: linear-gradient(to top, var(--wechat-success-feedback), var(--wechat-brand-green)) !important;
+                            transform: scaleY(1.1) scaleX(1.2) !important;
+                            box-shadow: 0 6px 20px rgba(7, 193, 96, 0.4) !important;
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+                
+                // Show detailed information
+                this.showDetailedInfo(day, value, bar, event);
+                
+                // Reset selection after 2 seconds
+                setTimeout(() => {
+                    if (this.selectedBar === bar) {
+                        bar.classList.remove('selected');
+                        this.selectedBar = null;
+                    }
+                }, 2000);
+            }
+            
+            showDetailedInfo(day, value, bar, event) {
+                // Create modal for detailed view
+                const modal = document.createElement('div');
+                modal.className = 'chart-detail-modal';
+                modal.innerHTML = `
+                    <div class="modal-backdrop"></div>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>${day} 用水详情</h3>
+                            <button class="modal-close">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="usage-detail">
+                                <div class="usage-amount">${value} m³</div>
+                                <div class="usage-label">用水量</div>
+                            </div>
+                            <div class="usage-stats">
+                                <div class="stat-row">
+                                    <span>预计费用</span>
+                                    <span>¥${(parseFloat(value) * 2.8).toFixed(2)}</span>
+                                </div>
+                                <div class="stat-row">
+                                    <span>环比变化</span>
+                                    <span class="${Math.random() > 0.5 ? 'positive' : 'negative'}">
+                                        ${Math.random() > 0.5 ? '+' : ''}${(Math.random() * 20 - 10).toFixed(1)}%
+                                    </span>
+                                </div>
+                                <div class="stat-row">
+                                    <span>用水评级</span>
+                                    <span class="rating">${parseFloat(value) < 1.2 ? '节水' : parseFloat(value) < 1.8 ? '正常' : '偏高'}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Add modal styles
+                const modalStyle = document.createElement('style');
+                modalStyle.textContent = `
+                    .chart-detail-modal {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        z-index: 2000;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        animation: modalFadeIn 0.3s ease;
+                    }
+                    
+                    @keyframes modalFadeIn {
+                        from { opacity: 0; }
+                        to { opacity: 1; }
+                    }
+                    
+                    .modal-backdrop {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0, 0, 0, 0.5);
+                        backdrop-filter: blur(4px);
+                    }
+                    
+                    .chart-detail-modal .modal-content {
+                        position: relative;
+                        background: white;
+                        border-radius: 16px;
+                        margin: 20px;
+                        max-width: 320px;
+                        width: 100%;
+                        animation: modalSlideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+                    }
+                    
+                    @keyframes modalSlideUp {
+                        from { transform: translateY(20px); opacity: 0; }
+                        to { transform: translateY(0); opacity: 1; }
+                    }
+                    
+                    .modal-header {
+                        padding: 20px 20px 16px;
+                        border-bottom: 1px solid var(--border-secondary);
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }
+                    
+                    .modal-header h3 {
+                        font-size: 18px;
+                        font-weight: 600;
+                        color: var(--text-primary);
+                    }
+                    
+                    .modal-close {
+                        background: none;
+                        border: none;
+                        font-size: 24px;
+                        color: var(--text-tertiary);
+                        cursor: pointer;
+                        padding: 0;
+                        width: 30px;
+                        height: 30px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 50%;
+                        transition: background 0.2s ease;
+                    }
+                    
+                    .modal-close:hover {
+                        background: var(--neutral-100);
+                    }
+                    
+                    .modal-body {
+                        padding: 20px;
+                    }
+                    
+                    .usage-detail {
+                        text-align: center;
+                        margin-bottom: 24px;
+                        padding: 20px;
+                        background: linear-gradient(135deg, var(--wechat-extra-light-green), var(--wechat-light-green));
+                        border-radius: 12px;
+                    }
+                    
+                    .usage-amount {
+                        font-size: 32px;
+                        font-weight: 700;
+                        color: var(--wechat-brand-green);
+                        margin-bottom: 4px;
+                    }
+                    
+                    .usage-label {
+                        font-size: 14px;
+                        color: var(--text-secondary);
+                    }
+                    
+                    .usage-stats {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 12px;
+                    }
+                    
+                    .stat-row {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 8px 0;
+                        font-size: 15px;
+                    }
+                    
+                    .stat-row span:first-child {
+                        color: var(--text-secondary);
+                    }
+                    
+                    .stat-row span:last-child {
+                        font-weight: 600;
+                        color: var(--text-primary);
+                    }
+                    
+                    .positive {
+                        color: var(--error-500) !important;
+                    }
+                    
+                    .negative {
+                        color: var(--success-500) !important;
+                    }
+                    
+                    .rating {
+                        padding: 4px 8px;
+                        border-radius: 12px;
+                        font-size: 12px;
+                        background: var(--wechat-light-green);
+                        color: var(--wechat-success-feedback) !important;
+                    }
+                `;
+                
+                document.head.appendChild(modalStyle);
+                document.body.appendChild(modal);
+                
+                // Close modal handlers
+                const closeModal = () => {
+                    modal.style.animation = 'modalFadeOut 0.2s ease';
+                    setTimeout(() => {
+                        document.body.removeChild(modal);
+                        document.head.removeChild(modalStyle);
+                    }, 200);
+                };
+                
+                // Add fadeout animation
+                const fadeOutStyle = document.createElement('style');
+                fadeOutStyle.textContent = `
+                    @keyframes modalFadeOut {
+                        from { opacity: 1; }
+                        to { opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(fadeOutStyle);
+                
+                modal.querySelector('.modal-close').addEventListener('click', closeModal);
+                modal.querySelector('.modal-backdrop').addEventListener('click', closeModal);
+            }
+            
+            showTooltip(bar, index, day, event) {
+                const value = bar.getAttribute('data-value');
+                this.tooltip.textContent = `${day}: ${value} m³`;
+                this.tooltip.style.left = event.pageX + 'px';
+                this.tooltip.style.top = event.pageY + 'px';
+                this.tooltip.style.opacity = '1';
+            }
+            
+            hideTooltip() {
+                this.tooltip.style.opacity = '0';
+            }
+        }
+        
+        // Initialize enhanced chart interactions
+        const chartInteractions = new ChartInteractions();
+        
+        // Stat detail function for enhanced interactions
+        function showStatDetail(type) {
+            const statData = {
+                'total': {
+                    title: '累计用量统计',
+                    current: '145.2 m³',
+                    details: [
+                        { label: '今年累计', value: '145.2 m³' },
+                        { label: '去年同期', value: '132.8 m³' },
+                        { label: '同比增长', value: '+9.3%' },
+                        { label: '预计全年', value: '180.5 m³' }
+                    ]
+                },
+                'monthly': {
+                    title: '本月用量分析',
+                    current: '12.8 m³',
+                    details: [
+                        { label: '日均用量', value: '1.38 m³' },
+                        { label: '环比上月', value: '-5.2%' },
+                        { label: '预计月末', value: '15.6 m³' },
+                        { label: '节水排名', value: '前15%' }
+                    ]
+                },
+                'cost': {
+                    title: '本月费用明细',
+                    current: '¥35.84',
+                    details: [
+                        { label: '第一阶梯', value: '¥35.84' },
+                        { label: '第二阶梯', value: '¥0.00' },
+                        { label: '预计月费', value: '¥42.56' },
+                        { label: '同比上月', value: '-8.3%' }
+                    ]
+                }
+            };
+            
+            const data = statData[type];
+            if (!data) return;
+            
+            const modal = document.createElement('div');
+            modal.className = 'stat-detail-modal';
+            modal.innerHTML = `
+                <div class="modal-backdrop"></div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>${data.title}</h3>
+                        <button class="modal-close">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="current-stat">
+                            <div class="current-value">${data.current}</div>
+                            <div class="current-label">当前数值</div>
+                        </div>
+                        <div class="stat-details">
+                            ${data.details.map(item => `
+                                <div class="detail-row">
+                                    <span>${item.label}</span>
+                                    <span>${item.value}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Add modal styles (same as chart modal)
+            const modalStyle = document.createElement('style');
+            modalStyle.textContent = `
+                .stat-detail-modal {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 2000;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    animation: modalFadeIn 0.3s ease;
+                }
+                
+                .current-stat {
+                    text-align: center;
+                    margin-bottom: 24px;
+                    padding: 20px;
+                    background: linear-gradient(135deg, var(--wechat-extra-light-green), var(--wechat-light-green));
+                    border-radius: 12px;
+                }
+                
+                .current-value {
+                    font-size: 32px;
+                    font-weight: 700;
+                    color: var(--wechat-brand-green);
+                    margin-bottom: 4px;
+                }
+                
+                .current-label {
+                    font-size: 14px;
+                    color: var(--text-secondary);
+                }
+                
+                .stat-details {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+                }
+                
+                .detail-row {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 8px 0;
+                    font-size: 15px;
+                }
+                
+                .detail-row span:first-child {
+                    color: var(--text-secondary);
+                }
+                
+                .detail-row span:last-child {
+                    font-weight: 600;
+                    color: var(--text-primary);
+                }
+            `;
+            
+            document.head.appendChild(modalStyle);
+            document.body.appendChild(modal);
+            
+            // Close modal handlers
+            const closeModal = () => {
+                modal.style.animation = 'modalFadeOut 0.2s ease';
+                setTimeout(() => {
+                    document.body.removeChild(modal);
+                    document.head.removeChild(modalStyle);
+                }, 200);
+            };
+            
+            modal.querySelector('.modal-close').addEventListener('click', closeModal);
+            modal.querySelector('.modal-backdrop').addEventListener('click', closeModal);
+        }
+        
+        // 底部导航切换
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        // Enhanced Pull-to-Refresh - WeChat Style
+        class PullToRefresh {
+            constructor() {
+                this.startY = 0;
+                this.currentY = 0;
+                this.pullDistance = 0;
+                this.pullThreshold = 80;
+                this.maxPullDistance = 120;
+                this.isRefreshing = false;
+                this.refreshIndicator = null;
+                this.init();
+            }
+            
+            init() {
+                this.createRefreshIndicator();
+                this.bindEvents();
+            }
+            
+            createRefreshIndicator() {
+                this.refreshIndicator = document.createElement('div');
+                this.refreshIndicator.className = 'pull-refresh-indicator';
+                this.refreshIndicator.innerHTML = `
+                    <div class="refresh-spinner">🔄</div>
+                    <div class="refresh-text">下拉刷新</div>
+                `;
+                
+                // Add CSS for the indicator
+                const style = document.createElement('style');
+                style.textContent = `
+                    .pull-refresh-indicator {
+                        position: fixed;
+                        top: -80px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 200px;
+                        height: 60px;
+                        background: rgba(255, 255, 255, 0.95);
+                        border-radius: 30px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 10px;
+                        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+                        backdrop-filter: blur(10px);
+                        transition: top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                        z-index: 2000;
+                        font-size: 14px;
+                        color: var(--text-primary);
+                    }
+                    
+                    .refresh-spinner {
+                        font-size: 18px;
+                        animation: spin 1s linear infinite;
+                    }
+                    
+                    @keyframes spin {
+                        from { transform: rotate(0deg); }
+                        to { transform: rotate(360deg); }
+                    }
+                    
+                    .pull-refresh-indicator.show {
+                        top: 20px;
+                    }
+                    
+                    .pull-refresh-indicator.ready .refresh-text {
+                        color: var(--wechat-brand-green);
+                    }
+                    
+                    .pull-refresh-indicator.refreshing .refresh-spinner {
+                        color: var(--wechat-brand-green);
+                    }
+                `;
+                
+                document.head.appendChild(style);
+                document.body.appendChild(this.refreshIndicator);
+            }
+            
+            bindEvents() {
+                document.addEventListener('touchstart', this.handleTouchStart.bind(this), { passive: true });
+                document.addEventListener('touchmove', this.handleTouchMove.bind(this), { passive: false });
+                document.addEventListener('touchend', this.handleTouchEnd.bind(this), { passive: true });
+            }
+            
+            handleTouchStart(e) {
+                if (window.pageYOffset === 0 && !this.isRefreshing) {
+                    this.startY = e.touches[0].clientY;
+                }
+            }
+            
+            handleTouchMove(e) {
+                if (window.pageYOffset === 0 && !this.isRefreshing && this.startY > 0) {
+                    this.currentY = e.touches[0].clientY;
+                    this.pullDistance = Math.max(0, this.currentY - this.startY);
+                    
+                    if (this.pullDistance > 0) {
+                        e.preventDefault();
+                        
+                        // Damping effect
+                        const dampedDistance = this.pullDistance > this.pullThreshold 
+                            ? this.pullThreshold + (this.pullDistance - this.pullThreshold) * 0.3
+                            : this.pullDistance;
+                        
+                        // Visual feedback
+                        document.body.style.transform = `translateY(${Math.min(dampedDistance * 0.5, this.maxPullDistance * 0.5)}px)`;
+                        document.body.style.transition = 'none';
+                        
+                        // Update indicator
+                        if (this.pullDistance > 30) {
+                            this.refreshIndicator.classList.add('show');
+                            
+                            if (this.pullDistance > this.pullThreshold) {
+                                this.refreshIndicator.classList.add('ready');
+                                this.refreshIndicator.querySelector('.refresh-text').textContent = '释放刷新';
+                            } else {
+                                this.refreshIndicator.classList.remove('ready');
+                                this.refreshIndicator.querySelector('.refresh-text').textContent = '下拉刷新';
+                            }
+                        } else {
+                            this.refreshIndicator.classList.remove('show');
+                        }
+                    }
+                }
+            }
+            
+            handleTouchEnd() {
+                if (this.pullDistance > this.pullThreshold && !this.isRefreshing) {
+                    this.triggerRefresh();
+                } else {
+                    this.resetPull();
+                }
+                
+                this.startY = 0;
+                this.pullDistance = 0;
+            }
+            
+            triggerRefresh() {
+                this.isRefreshing = true;
+                this.refreshIndicator.classList.add('refreshing');
+                this.refreshIndicator.querySelector('.refresh-text').textContent = '刷新中...';
+                
+                // Keep indicator visible during refresh
+                document.body.style.transform = 'translateY(25px)';
+                document.body.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                
+                // Update account data
+                this.refreshAccountData();
+                
+                // Complete refresh after data is loaded
+                setTimeout(() => {
+                    this.completeRefresh();
+                }, 1500);
+            }
+            
+            refreshAccountData() {
+                // Simulate data refresh with loading states
+                const balanceAmount = document.querySelector('.balance-amount');
+                const statValues = document.querySelectorAll('.stat-value');
+                
+                // Add shimmer effect
+                [balanceAmount, ...statValues].forEach(element => {
+                    element.classList.add('loading-shimmer');
+                });
+                
+                // Simulate API call
+                setTimeout(() => {
+                    // Remove shimmer and update with new data
+                    [balanceAmount, ...statValues].forEach(element => {
+                        element.classList.remove('loading-shimmer');
+                    });
+                    
+                    // Update balance with slight animation
+                    const currentBalance = parseFloat(balanceAmount.textContent.replace('¥', ''));
+                    const newBalance = currentBalance + (Math.random() * 10 - 5); // Random change
+                    this.animateNumber(balanceAmount, currentBalance, newBalance, '¥');
+                }, 1000);
+            }
+            
+            animateNumber(element, from, to, prefix = '') {
+                const duration = 600;
+                const startTime = Date.now();
+                
+                const animate = () => {
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    
+                    const current = from + (to - from) * this.easeOutCubic(progress);
+                    element.textContent = `${prefix}${current.toFixed(2)}`;
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    }
+                };
+                
+                animate();
+            }
+            
+            easeOutCubic(t) {
+                return 1 - Math.pow(1 - t, 3);
+            }
+            
+            completeRefresh() {
+                this.isRefreshing = false;
+                this.refreshIndicator.classList.remove('refreshing', 'ready');
+                this.refreshIndicator.querySelector('.refresh-text').textContent = '刷新完成';
+                
+                setTimeout(() => {
+                    this.resetPull();
+                }, 300);
+            }
+            
+            resetPull() {
+                document.body.style.transform = '';
+                document.body.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                this.refreshIndicator.classList.remove('show', 'ready', 'refreshing');
+                this.refreshIndicator.querySelector('.refresh-text').textContent = '下拉刷新';
+            }
+        }
+        
+        // Initialize pull-to-refresh
+        const pullToRefresh = new PullToRefresh();
+    </script>
+</body>
+</html>

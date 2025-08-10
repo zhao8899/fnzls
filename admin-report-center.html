@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智慧水务管理平台 - 报表中心</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            /* 主品牌色 - 智慧水蓝 */
+            --primary-50: #e8f4fd;
+            --primary-100: #c3e2fb;
+            --primary-200: #9acef8;
+            --primary-300: #6eb9f5;
+            --primary-400: #4aa8f2;
+            --primary-500: #2196f3;  /* 主色 - 清澈水蓝 */
+            --primary-600: #1e88e5;
+            --primary-700: #1976d2;
+            --primary-800: #1565c0;
+            --primary-900: #0d47a1;
+            
+            /* 成功色 - 生命绿 */
+            --success-50: #e8f5e8;
+            --success-100: #c8e6c8;
+            --success-200: #a5d6a5;
+            --success-300: #81c784;
+            --success-400: #66bb6a;
+            --success-500: #4caf50;  /* 主成功色 */
+            --success-600: #43a047;
+            --success-700: #388e3c;
+            --success-800: #2e7d32;
+            --success-900: #1b5e20;
+            
+            /* 警告色 - 阳光橙 */
+            --warning-50: #fff8e1;
+            --warning-100: #ffecb3;
+            --warning-200: #ffe082;
+            --warning-300: #ffd54f;
+            --warning-400: #ffca28;
+            --warning-500: #ffc107;  /* 主警告色 */
+            --warning-600: #ffb300;
+            --warning-700: #ffa000;
+            --warning-800: #ff8f00;
+            --warning-900: #ff6f00;
+            
+            /* 错误色 - 珊瑚红 */
+            --error-50: #ffebee;
+            --error-100: #ffcdd2;
+            --error-200: #ef9a9a;
+            --error-300: #e57373;
+            --error-400: #ef5350;
+            --error-500: #f44336;   /* 主错误色 */
+            --error-600: #e53935;
+            --error-700: #d32f2f;
+            --error-800: #c62828;
+            --error-900: #b71c1c;
+            
+            /* 信息色 - 科技青 */
+            --info-50: #e0f2f1;
+            --info-100: #b2dfdb;
+            --info-200: #80cbc4;
+            --info-300: #4db6ac;
+            --info-400: #26a69a;
+            --info-500: #009688;   /* 主信息色 */
+            --info-600: #00897b;
+            --info-700: #00796b;
+            --info-800: #00695c;
+            --info-900: #004d40;
+            
+            /* 灰度色彩 - 现代中性色 */
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #eeeeee;
+            --gray-300: #e0e0e0;
+            --gray-400: #bdbdbd;
+            --gray-500: #9e9e9e;
+            --gray-600: #757575;
+            --gray-700: #616161;
+            --gray-800: #424242;
+            --gray-900: #212121;
+            
+            /* 语义化文字色彩 */
+            --text-primary: var(--gray-900);
+            --text-secondary: var(--gray-700);
+            --text-tertiary: var(--gray-600);
+            --text-disabled: var(--gray-400);
+            --text-inverse: #ffffff;
+            
+            /* 背景色彩 */
+            --bg-primary: #ffffff;
+            --bg-secondary: var(--gray-50);
+            --bg-tertiary: var(--gray-100);
+            --bg-inverse: var(--gray-900);
+            
+            /* 边框色彩 */
+            --border-light: var(--gray-200);
+            --border-medium: var(--gray-300);
+            --border-strong: var(--gray-400);
+            
+            /* 字体系统 */
+            --font-family-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            --font-family-mono: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', 'Courier New', monospace;
+            
+            /* 字体大小系统 */
+            --font-size-display-xl: 48px;
+            --font-size-display-lg: 36px;
+            --font-size-display-md: 30px;
+            --font-size-display-sm: 24px;
+            --font-size-heading-xl: 20px;
+            --font-size-heading-lg: 18px;
+            --font-size-heading-md: 16px;
+            --font-size-heading-sm: 14px;
+            --font-size-body-lg: 16px;
+            --font-size-body-md: 14px;
+            --font-size-body-sm: 12px;
+            --font-size-body-xs: 11px;
+            --font-size-label-lg: 14px;
+            --font-size-label-md: 12px;
+            --font-size-label-sm: 11px;
+            
+            /* 字重系统 */
+            --font-weight-light: 300;
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            --font-weight-heavy: 800;
+            
+            /* 间距系统 - 8px基准 */
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-5: 20px;
+            --space-6: 24px;
+            --space-8: 32px;
+            --space-10: 40px;
+            --space-12: 48px;
+            --space-16: 64px;
+            --space-20: 80px;
+            
+            /* 圆角系统 */
+            --radius-none: 0;
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-2xl: 20px;
+            --radius-3xl: 24px;
+            --radius-full: 9999px;
+            
+            /* 层级阴影 */
+            --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            
+            /* 彩色阴影 */
+            --shadow-primary: 0 4px 14px 0 rgba(33, 150, 243, 0.15);
+            --shadow-success: 0 4px 14px 0 rgba(76, 175, 80, 0.15);
+            --shadow-warning: 0 4px 14px 0 rgba(255, 193, 7, 0.15);
+            --shadow-error: 0 4px 14px 0 rgba(244, 67, 54, 0.15);
+            --shadow-info: 0 4px 14px 0 rgba(0, 150, 136, 0.15);
+            
+            /* 缓动函数 */
+            --easing-linear: linear;
+            --easing-ease: ease;
+            --easing-ease-in: ease-in;
+            --easing-ease-out: ease-out;
+            --easing-ease-in-out: ease-in-out;
+            --easing-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* 动画系统 */
+            --duration-fast: 150ms;
+            --duration-base: 300ms;
+            --duration-slow: 500ms;
+            --easing: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        
+        /* 现代化顶部导航栏 */
+        .header {
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-sm);
+            padding: 0 var(--space-6);
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-light);
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: var(--font-weight-bold);
+            margin-right: var(--space-3);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(-45deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(-45deg); }
+            50% { transform: translateX(100%) rotate(-45deg); }
+            100% { transform: translateX(-100%) rotate(-45deg); }
+        }
+        
+        .system-name {
+            font-size: var(--font-size-heading-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            background: linear-gradient(135deg, var(--primary-600), var(--info-600));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-right: var(--space-6);
+        }
+        
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--primary-500);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: var(--space-2);
+        }
+        
+        /* 智能自适应侧边栏 */
+        .unified-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 320px;
+            height: 100vh;
+            background: linear-gradient(180deg, #1a1d29 0%, #232940 50%, #1a1d29 100%);
+            box-shadow: var(--shadow-xl);
+            z-index: 1000;
+            overflow-y: auto;
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .unified-sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .unified-sidebar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .unified-sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-full);
+        }
+        
+        /* 水务品牌标识区域 */
+        .sidebar-header {
+            padding: var(--space-6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--space-4);
+        }
+        
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-weight: var(--font-weight-bold);
+            margin-right: var(--space-4);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(33, 150, 243, 0.3);
+        }
+        
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transform: rotate(-45deg);
+            animation: logoShine 3s infinite;
+        }
+        
+        @keyframes logoShine {
+            0% { transform: translateX(-100%) rotate(-45deg); }
+            50% { transform: translateX(100%) rotate(-45deg); }
+            100% { transform: translateX(-100%) rotate(-45deg); }
+        }
+        
+        .system-title {
+            color: var(--text-inverse);
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-1);
+        }
+        
+        .system-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: var(--font-size-sm);
+        }
+        
+        /* 用户信息卡片 */
+        .user-info-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .user-info-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-1px);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--success-500), var(--success-600));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-weight: var(--font-weight-semibold);
+            margin-right: var(--space-3);
+        }
+        
+        .user-details h4 {
+            color: var(--text-inverse);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: 2px;
+        }
+        
+        .user-details span {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: var(--font-size-xs);
+        }
+        
+        /* 权限层级指示器 */
+        .permission-indicator {
+            margin-top: var(--space-3);
+            padding: var(--space-2) var(--space-3);
+            background: rgba(33, 150, 243, 0.2);
+            border-radius: var(--radius-md);
+            border-left: 3px solid var(--primary-500);
+        }
+        
+        .permission-text {
+            color: var(--text-inverse);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        /* 智能导航分组 */
+        .nav-section {
+            padding: var(--space-6) 0;
+        }
+        
+        .nav-group {
+            margin-bottom: var(--space-6);
+        }
+        
+        .nav-group-title {
+            padding: 0 var(--space-6) var(--space-3);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: var(--space-4) var(--space-6);
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all var(--duration-fast) var(--easing);
+            position: relative;
+            border-left: 3px solid transparent;
+        }
+        
+        .nav-item i {
+            width: 20px;
+            margin-right: var(--space-3);
+            font-size: 16px;
+        }
+        
+        .nav-item:hover {
+            background: linear-gradient(90deg, rgba(33, 150, 243, 0.15), transparent);
+            color: var(--text-inverse);
+            border-left-color: var(--primary-400);
+            transform: translateX(4px);
+        }
+        
+        .nav-item.active {
+            background: linear-gradient(90deg, rgba(33, 150, 243, 0.3), rgba(33, 150, 243, 0.1));
+            color: var(--text-inverse);
+            border-left-color: var(--primary-500);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            right: var(--space-4);
+            width: 6px;
+            height: 6px;
+            background: var(--primary-500);
+            border-radius: var(--radius-full);
+            box-shadow: 0 0 8px var(--primary-500);
+        }
+        
+        /* 现代化顶部栏 */
+        .top-bar {
+            background: var(--bg-primary);
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        /* 面包屑导航 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .breadcrumb-item {
+            color: var(--text-tertiary);
+            font-size: var(--font-size-sm);
+            text-decoration: none;
+        }
+        
+        .breadcrumb-item.active {
+            color: var(--text-primary);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .breadcrumb-separator {
+            color: var(--text-tertiary);
+        }
+        
+        /* 快速操作区域 */
+        .quick-actions {
+            display: flex;
+            gap: var(--space-3);
+        }
+        
+        .quick-action-btn {
+            padding: var(--space-2) var(--space-4);
+            background: var(--success-500);
+            color: var(--text-inverse);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--easing);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .quick-action-btn:hover {
+            background: var(--success-600);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+        
+        .quick-action-btn.danger {
+            background: var(--danger-500);
+        }
+        
+        .quick-action-btn.danger:hover {
+            background: var(--danger-600);
+        }
+        
+        .quick-action-btn.warning {
+            background: var(--warning-500);
+        }
+        
+        .quick-action-btn.warning:hover {
+            background: var(--warning-600);
+        }
+
+        /* 现代化主内容区 */
+        .main-content {
+            margin-left: 320px;
+            min-height: 100vh;
+            background: var(--bg-secondary);
+            transition: margin-left var(--duration-base) var(--easing);
+        }
+        
+        .main-content::before {
+            content: '';
+            position: fixed;
+            top: 72px;
+            right: 0;
+            bottom: 0;
+            left: 280px;
+            background: radial-gradient(circle at 30% 20%, rgba(33, 150, 243, 0.03) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(0, 150, 136, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* 页面标题和筛选器 */
+        .page-header {
+            background: var(--bg-primary);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8);
+            margin-bottom: var(--space-8);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, transparent, rgba(33, 150, 243, 0.03));
+            border-radius: 50%;
+            transform: translate(50%, -50%);
+        }
+        
+        .page-title {
+            font-size: var(--font-size-display-sm);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-6);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .page-title i {
+            color: var(--primary-600);
+            font-size: 28px;
+        }
+        
+        .report-filters {
+            display: flex;
+            gap: var(--space-4);
+            flex-wrap: wrap;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .filter-label {
+            font-weight: var(--font-weight-medium);
+            color: var(--text-secondary);
+            white-space: nowrap;
+            font-size: var(--font-size-body-md);
+        }
+        
+        .filter-input {
+            padding: var(--space-3) var(--space-4);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            font-size: var(--font-size-body-md);
+            background: var(--bg-primary);
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .filter-input:focus {
+            outline: none;
+            border-color: var(--primary-500);
+            box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.1);
+        }
+        
+        /* 按钮组件 */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+            padding: var(--space-3) var(--space-6);
+            border: 1px solid transparent;
+            border-radius: var(--radius-lg);
+            font-family: var(--font-family-primary);
+            font-size: var(--font-size-body-md);
+            font-weight: var(--font-weight-medium);
+            line-height: 1.5;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--easing);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            color: var(--text-inverse);
+            box-shadow: var(--shadow-primary);
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: var(--bg-primary);
+            color: var(--primary-600);
+            border: 2px solid var(--primary-500);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary-50);
+            border-color: var(--primary-600);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-medium);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--primary-500);
+            color: var(--primary-600);
+            background: var(--primary-50);
+        }
+        
+        /* 报表统计卡片 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-8);
+            margin-bottom: var(--space-12);
+        }
+        
+        .stat-card {
+            background: var(--bg-primary);
+            padding: var(--space-6);
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, transparent, rgba(33, 150, 243, 0.05));
+            border-radius: 50%;
+            transform: translate(40px, -40px);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-200);
+        }
+        
+        .stat-card.revenue::before {
+            background: linear-gradient(135deg, transparent, rgba(76, 175, 80, 0.08));
+        }
+        
+        .stat-card.transactions::before {
+            background: linear-gradient(135deg, transparent, rgba(0, 150, 136, 0.08));
+        }
+        
+        .stat-card.users::before {
+            background: linear-gradient(135deg, transparent, rgba(255, 193, 7, 0.08));
+        }
+        
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-6);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .stat-title {
+            font-size: var(--font-size-body-sm);
+            color: var(--text-tertiary);
+            font-weight: var(--font-weight-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-size: 20px;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .stat-icon.revenue { 
+            background: linear-gradient(135deg, var(--success-500), var(--success-400));
+        }
+        .stat-icon.transactions { 
+            background: linear-gradient(135deg, var(--info-500), var(--info-400));
+        }
+        .stat-icon.users { 
+            background: linear-gradient(135deg, var(--warning-500), var(--warning-400));
+        }
+        .stat-icon.devices { 
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-400));
+        }
+        
+        .stat-value {
+            font-size: var(--font-size-display-lg);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+            line-height: 1.1;
+            position: relative;
+            z-index: 1;
+            font-family: var(--font-family-mono);
+        }
+        
+        .stat-description {
+            font-size: var(--font-size-body-sm);
+            color: var(--text-tertiary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .stat-trend {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-1);
+            font-weight: var(--font-weight-semibold);
+            font-size: var(--font-size-body-xs);
+            padding: var(--space-1) var(--space-2);
+            border-radius: var(--radius-full);
+        }
+        
+        .stat-trend.up {
+            color: var(--success-600);
+            background: var(--success-50);
+        }
+        
+        .stat-trend.down {
+            color: var(--error-600);
+            background: var(--error-50);
+        }
+        
+        /* 图表区域 */
+        .charts-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--space-8);
+            margin-bottom: var(--space-12);
+        }
+        
+        .chart-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-sm);
+            padding: var(--space-6);
+            border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chart-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, transparent, rgba(33, 150, 243, 0.03));
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-6);
+            padding-bottom: var(--space-4);
+            border-bottom: 2px solid var(--border-light);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .chart-title {
+            font-size: var(--font-size-heading-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+        
+        .chart-title i {
+            color: var(--primary-600);
+            font-size: 20px;
+        }
+        
+        .chart-container {
+            height: 300px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* 报表列表 */
+        .reports-section {
+            background: var(--bg-primary);
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+        }
+        
+        .section-header {
+            padding: var(--space-6);
+            border-bottom: 1px solid var(--border-light);
+            background: linear-gradient(135deg, var(--primary-50), var(--info-50));
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .section-title {
+            font-size: var(--font-size-heading-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+        
+        .section-title i {
+            color: var(--primary-600);
+            font-size: 20px;
+        }
+        
+        .reports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--space-6);
+            padding: var(--space-6);
+        }
+        
+        .report-item {
+            padding: var(--space-6);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-xl);
+            background: linear-gradient(135deg, var(--bg-primary), var(--primary-50));
+            transition: all var(--duration-base) var(--easing);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .report-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, transparent, rgba(33, 150, 243, 0.05));
+            border-radius: 50%;
+            transform: translate(25px, -25px);
+        }
+        
+        .report-item:hover {
+            border-color: var(--primary-500);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+            background: linear-gradient(135deg, var(--bg-primary), var(--primary-100));
+        }
+        
+        .report-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            margin-bottom: var(--space-4);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .report-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            box-shadow: var(--shadow-md);
+        }
+        
+        .report-info h3 {
+            font-size: var(--font-size-heading-md);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+        }
+        
+        .report-info p {
+            font-size: var(--font-size-body-sm);
+            color: var(--text-tertiary);
+            line-height: 1.4;
+        }
+        
+        .report-actions {
+            display: flex;
+            gap: var(--space-2);
+            margin-top: var(--space-4);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: var(--space-2) var(--space-3);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-md);
+            background: var(--bg-primary);
+            cursor: pointer;
+            font-size: var(--font-size-body-xs);
+            text-align: center;
+            transition: all var(--duration-base) var(--easing);
+            font-weight: var(--font-weight-medium);
+            color: var(--text-secondary);
+        }
+        
+        .action-btn:hover {
+            background: var(--primary-50);
+            border-color: var(--primary-500);
+            color: var(--primary-600);
+            transform: translateY(-1px);
+        }
+        
+        /* 页面加载动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        /* 页面元素动画 */
+        .main-content {
+            animation: fadeInUp 0.6s var(--easing);
+        }
+        
+        .stats-grid .stat-card {
+            animation: slideInRight 0.6s var(--easing);
+        }
+        
+        .stats-grid .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stats-grid .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stats-grid .stat-card:nth-child(3) { animation-delay: 0.3s; }
+        .stats-grid .stat-card:nth-child(4) { animation-delay: 0.4s; }
+        
+        .chart-card {
+            animation: scaleIn 0.8s var(--easing);
+        }
+        
+        .chart-card:nth-child(1) { animation-delay: 0.2s; }
+        .chart-card:nth-child(2) { animation-delay: 0.4s; }
+        
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform var(--duration-base) var(--easing);
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: var(--space-4);
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .report-filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-group {
+                justify-content: space-between;
+            }
+            
+            .reports-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header {
+                padding: var(--space-4);
+            }
+            
+            .header {
+                padding: 0 var(--space-4);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .chart-container {
+                height: 250px;
+            }
+            
+            .report-item {
+                padding: var(--space-4);
+            }
+        }
+        /* 搜索功能样式 */
+        .search-container {
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: var(--space-3) var(--space-4);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-lg);
+            color: var(--text-inverse);
+            font-size: var(--font-size-sm);
+            backdrop-filter: blur(10px);
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--primary-400);
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- 智能自适应侧边栏 -->
+    <nav class="unified-sidebar">
+        <!-- 水务品牌标识区域 -->
+        <div class="sidebar-header">
+            <div class="logo-section">
+                <div class="logo">水</div>
+                <div>
+                    <div class="system-title">WaterMIS</div>
+                    <div class="system-subtitle">智慧水务管理平台</div>
+                </div>
+            </div>
+            
+            <!-- 用户信息卡片 -->
+            <div class="user-info-card">
+                <div class="user-info">
+                    <div class="user-avatar">报</div>
+                    <div class="user-details">
+                        <h4>报表管理员</h4>
+                        <span>王分析师 • 在线</span>
+                    </div>
+                </div>
+                <!-- 权限层级指示器 -->
+                <div class="permission-indicator">
+                    <div class="permission-text">权限范围：数据分析全权限</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 搜索功能 -->
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="搜索功能模块..." id="navSearch">
+        </div>
+
+        <!-- 智能导航分组 -->
+        <div class="nav-section">
+            <!-- 营业管理中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">📊 营业管理中心</div>
+                <a href="admin-dashboard-redesigned.html" class="nav-item">
+                    <i>🏠</i>
+                    工作台
+                </a>
+                <a href="admin-user-management.html" class="nav-item">
+                    <i>👥</i>
+                    用户管理
+                </a>
+                <a href="admin-account-management.html" class="nav-item">
+                    <i>💰</i>
+                    账户管理
+                </a>
+                <a href="admin-meter-reading-center.html" class="nav-item">
+                    <i>📊</i>
+                    抄表管理
+                </a>
+                <a href="admin-billing-center.html" class="nav-item">
+                    <i>💳</i>
+                    收费管理
+                </a>
+                <a href="admin-user-recharge.html" class="nav-item">
+                    <i>🏦</i>
+                    预存水费管理
+                </a>
+            </div>
+            
+            <!-- 设备运维中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">⚙️ 设备运维中心</div>
+                <a href="admin-device-management.html" class="nav-item">
+                    <i>🔧</i>
+                    设备管理
+                </a>
+                <a href="#" class="nav-item">
+                    <i>⚖️</i>
+                    计量管理
+                </a>
+            </div>
+            
+            <!-- 数据分析中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">📈 数据分析中心</div>
+                <a href="admin-advanced-query.html" class="nav-item">
+                    <i>🔍</i>
+                    数据查询
+                </a>
+                <a href="admin-report-center.html" class="nav-item active">
+                    <i>📋</i>
+                    统计报表
+                </a>
+                <a href="#" class="nav-item">
+                    <i>📊</i>
+                    分析图表
+                </a>
+            </div>
+            
+            <!-- 系统管控中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">🏛️ 系统管控中心</div>
+                <a href="admin-region-management.html" class="nav-item">
+                    <i>🌏</i>
+                    营业分区管理
+                </a>
+                <a href="admin-operator-management.html" class="nav-item">
+                    <i>👨‍💼</i>
+                    人事管理
+                </a>
+                <a href="admin-system-settings.html" class="nav-item">
+                    <i>⚙️</i>
+                    基本设置
+                </a>
+                <a href="#" class="nav-item">
+                    <i>🔧</i>
+                    系统维护
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 主内容区域 -->
+    <main class="main-content" sy>
+        <!-- 现代化顶部栏 -->
+        <div class="top-bar">
+            <!-- 面包屑导航 -->
+            <div class="breadcrumb">
+                <a href="admin-dashboard-redesigned.html" class="breadcrumb-item">首页</a>
+                <span class="breadcrumb-separator">></span>
+                <a href="#" class="breadcrumb-item">数据分析中心</a>
+                <span class="breadcrumb-separator">></span>
+                <span class="breadcrumb-item active">统计报表</span>
+            </div>
+            
+        </div>
+        
+        <!-- 报表中心内容区域 -->
+    <div class="content-area" style="padding: var(--space-8) var(--space-6);">
+        <div>
+        <!-- 报表筛选器 -->
+        <div class="report-filters" style="margin-bottom: var(--space-6);">
+            <div class="filter-group">
+                <span class="filter-label">统计时间:</span>
+                <input type="date" class="filter-input" value="2024-01-01">
+                <span>至</span>
+                <input type="date" class="filter-input" value="2024-01-15">
+            </div>
+            <div class="filter-group">
+                <span class="filter-label">区域:</span>
+                <select class="filter-input">
+                        <option value="">全部区域</option>
+                        <option value="east">东区</option>
+                        <option value="west">西区</option>
+                        <option value="south">南区</option>
+                        <option value="north">北区</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary">
+                    <i>🔍</i>查询
+                </button>
+                <button class="btn btn-outline">
+                    <i>📤</i>导出Excel
+                </button>
+            </div>
+        </div>
+        
+        <!-- 统计数据概览 -->
+        <div class="stats-grid">
+            <div class="stat-card revenue">
+                <div class="stat-header">
+                    <div class="stat-title">总收入</div>
+                    <div class="stat-icon revenue">💰</div>
+                </div>
+                <div class="stat-value">¥1,245,670</div>
+                <div class="stat-description">
+                    <span class="stat-trend up">↑ +12.5%</span>
+                    较上月增长
+                </div>
+            </div>
+            
+            <div class="stat-card transactions">
+                <div class="stat-header">
+                    <div class="stat-title">交易笔数</div>
+                    <div class="stat-icon transactions">📊</div>
+                </div>
+                <div class="stat-value">28,947</div>
+                <div class="stat-description">
+                    <span class="stat-trend up">↑ +8.3%</span>
+                    日均交易量
+                </div>
+            </div>
+            
+            <div class="stat-card users">
+                <div class="stat-header">
+                    <div class="stat-title">活跃用户</div>
+                    <div class="stat-icon users">👥</div>
+                </div>
+                <div class="stat-value">12,589</div>
+                <div class="stat-description">
+                    <span class="stat-trend up">↑ +5.2%</span>
+                    本月活跃用户
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-title">设备在线率</div>
+                    <div class="stat-icon devices">📱</div>
+                </div>
+                <div class="stat-value">95.8%</div>
+                <div class="stat-description">
+                    <span class="stat-trend up">↑ +2.1%</span>
+                    设备运行状态良好
+                </div>
+            </div>
+        </div>
+        
+        <!-- 图表展示区域 -->
+        <div class="charts-section">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-title">
+                        <i>📈</i>充值消费趋势
+                    </div>
+                    <select class="filter-input">
+                        <option value="7">最近7天</option>
+                        <option value="30">最近30天</option>
+                        <option value="90">最近90天</option>
+                    </select>
+                </div>
+                <div class="chart-container">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-title">
+                        <i>🥧</i>区域分布
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="areaChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 预定义报表 -->
+        <div class="reports-section">
+            <div class="section-header">
+                <div class="section-title">
+                    <i>📋</i>预定义报表
+                </div>
+                <button class="btn btn-primary">
+                    <i>➕</i>自定义报表
+                </button>
+            </div>
+            
+            <div class="reports-grid">
+                <div class="report-item">
+                    <div class="report-header">
+                        <div class="report-icon">💳</div>
+                        <div class="report-info">
+                            <h3>充值明细报表</h3>
+                            <p>用户充值交易详细记录，包含时间、金额、支付方式等</p>
+                        </div>
+                    </div>
+                    <div class="report-actions">
+                        <button class="action-btn">📊 查看</button>
+                        <button class="action-btn">📤 导出</button>
+                        <button class="action-btn">📧 邮件</button>
+                    </div>
+                </div>
+                
+                <div class="report-item">
+                    <div class="report-header">
+                        <div class="report-icon">💧</div>
+                        <div class="report-info">
+                            <h3>用水消费报表</h3>
+                            <p>用户用水消费记录，阶梯计费明细和使用量统计</p>
+                        </div>
+                    </div>
+                    <div class="report-actions">
+                        <button class="action-btn">📊 查看</button>
+                        <button class="action-btn">📤 导出</button>
+                        <button class="action-btn">📧 邮件</button>
+                    </div>
+                </div>
+                
+                <div class="report-item">
+                    <div class="report-header">
+                        <div class="report-icon">👥</div>
+                        <div class="report-info">
+                            <h3>用户分析报表</h3>
+                            <p>用户增长趋势、活跃度分析、消费行为统计</p>
+                        </div>
+                    </div>
+                    <div class="report-actions">
+                        <button class="action-btn">📊 查看</button>
+                        <button class="action-btn">📤 导出</button>
+                        <button class="action-btn">📧 邮件</button>
+                    </div>
+                </div>
+                
+                <div class="report-item">
+                    <div class="report-header">
+                        <div class="report-icon">💰</div>
+                        <div class="report-info">
+                            <h3>财务对账报表</h3>
+                            <p>收支明细、资金流水、财务对账和余额统计</p>
+                        </div>
+                    </div>
+                    <div class="report-actions">
+                        <button class="action-btn">📊 查看</button>
+                        <button class="action-btn">📤 导出</button>
+                        <button class="action-btn">📧 邮件</button>
+                    </div>
+                </div>
+                
+                <div class="report-item">
+                    <div class="report-header">
+                        <div class="report-icon">📱</div>
+                        <div class="report-info">
+                            <h3>设备运行报表</h3>
+                            <p>设备在线状态、故障统计、维护记录和性能分析</p>
+                        </div>
+                    </div>
+                    <div class="report-actions">
+                        <button class="action-btn">📊 查看</button>
+                        <button class="action-btn">📤 导出</button>
+                        <button class="action-btn">📧 邮件</button>
+                    </div>
+                </div>
+                
+                <div class="report-item">
+                    <div class="report-header">
+                        <div class="report-icon">⚠️</div>
+                        <div class="report-info">
+                            <h3>异常监控报表</h3>
+                            <p>系统异常、交易异常、设备故障等监控报表</p>
+                        </div>
+                    </div>
+                    <div class="report-actions">
+                        <button class="action-btn">📊 查看</button>
+                        <button class="action-btn">📤 导出</button>
+                        <button class="action-btn">📧 邮件</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 初始化图表
+        document.addEventListener('DOMContentLoaded', function() {
+            // 充值消费趋势图
+            const trendCtx = document.getElementById('trendChart').getContext('2d');
+            new Chart(trendCtx, {
+                type: 'line',
+                data: {
+                    labels: ['1月1日', '1月2日', '1月3日', '1月4日', '1月5日', '1月6日', '1月7日', '1月8日', '1月9日', '1月10日', '1月11日', '1月12日', '1月13日', '1月14日', '1月15日'],
+                    datasets: [{
+                        label: '充值金额',
+                        data: [65000, 72000, 68000, 71000, 89000, 94000, 85000, 92000, 88000, 96000, 105000, 98000, 102000, 115000, 118000],
+                        borderColor: '#52c41a',
+                        backgroundColor: 'rgba(82, 196, 26, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: '消费金额',
+                        data: [45000, 48000, 52000, 49000, 55000, 58000, 61000, 63000, 59000, 65000, 68000, 72000, 69000, 75000, 78000],
+                        borderColor: '#ff4d4f',
+                        backgroundColor: 'rgba(255, 77, 79, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '¥' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // 区域分布饼状图
+            const areaCtx = document.getElementById('areaChart').getContext('2d');
+            new Chart(areaCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['东区', '西区', '南区', '北区', '中心区'],
+                    datasets: [{
+                        data: [3258, 2847, 2156, 1985, 2343],
+                        backgroundColor: [
+                            '#1890ff',
+                            '#52c41a',
+                            '#fadb14',
+                            '#ff4d4f',
+                            '#13c2c2'
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+        </div>
+    </div>
+    </main>
+</body>
+</html>

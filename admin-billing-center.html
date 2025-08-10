@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WaterMIS智慧水务管理平台 - 收费管理中心</title>
+    <style>
+        :root {
+            /* 智慧水务品牌色彩 */
+            --primary-50: #e6f7ff;
+            --primary-100: #bae7ff;
+            --primary-200: #91d5ff;
+            --primary-300: #69c0ff;
+            --primary-400: #40a9ff;
+            --primary-500: #2196f3;
+            --primary-600: #1976d2;
+            --primary-700: #1565c0;
+            --primary-800: #0d47a1;
+            --primary-900: #01579b;
+            
+            /* 成功色 - 清澈水蓝 */
+            --success-50: #e0f7fa;
+            --success-100: #b2ebf2;
+            --success-200: #80deea;
+            --success-300: #4dd0e1;
+            --success-400: #26c6da;
+            --success-500: #00bcd4;
+            --success-600: #00acc1;
+            --success-700: #0097a7;
+            --success-800: #00838f;
+            --success-900: #006064;
+            
+            /* 警告色 - 阳光橙 */
+            --warning-50: #fff8e1;
+            --warning-100: #ffecb3;
+            --warning-200: #ffe082;
+            --warning-300: #ffd54f;
+            --warning-400: #ffca28;
+            --warning-500: #ff9800;
+            --warning-600: #fb8c00;
+            --warning-700: #f57c00;
+            --warning-800: #ef6c00;
+            --warning-900: #e65100;
+            
+            /* 错误色 - 珊瑚红 */
+            --danger-50: #ffebee;
+            --danger-100: #ffcdd2;
+            --danger-200: #ef9a9a;
+            --danger-300: #e57373;
+            --danger-400: #ef5350;
+            --danger-500: #f44336;
+            --danger-600: #e53935;
+            --danger-700: #d32f2f;
+            --danger-800: #c62828;
+            --danger-900: #b71c1c;
+            
+            /* 中性色系 */
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #eeeeee;
+            --gray-300: #e0e0e0;
+            --gray-400: #bdbdbd;
+            --gray-500: #9e9e9e;
+            --gray-600: #757575;
+            --gray-700: #616161;
+            --gray-800: #424242;
+            --gray-900: #212121;
+            
+            /* 语义化颜色 */
+            --text-primary: var(--gray-900);
+            --text-secondary: var(--gray-700);
+            --text-tertiary: var(--gray-600);
+            --text-inverse: #ffffff;
+            
+            --bg-primary: #ffffff;
+            --bg-secondary: var(--gray-50);
+            --bg-tertiary: var(--gray-100);
+            
+            /* 间距系统 - 8px基准 */
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-5: 20px;
+            --space-6: 24px;
+            --space-8: 32px;
+            --space-10: 40px;
+            --space-12: 48px;
+            --space-16: 64px;
+            --space-20: 80px;
+            
+            /* 圆角系统 */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+            --radius-2xl: 24px;
+            --radius-3xl: 28px;
+            --radius-full: 9999px;
+            
+            /* 阴影系统 */
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.12);
+            --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+            
+            /* 动画系统 */
+            --duration-fast: 150ms;
+            --duration-base: 300ms;
+            --duration-slow: 500ms;
+            --easing: cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* 字体系统 */
+            --font-size-xs: 12px;
+            --font-size-sm: 14px;
+            --font-size-base: 16px;
+            --font-size-lg: 18px;
+            --font-size-xl: 20px;
+            --font-size-2xl: 24px;
+            --font-size-3xl: 30px;
+            --font-size-4xl: 36px;
+            
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* 智能自适应侧边栏 - 与重新设计版一致 */
+        .unified-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 320px;
+            height: 100vh;
+            background: linear-gradient(180deg, #1a1d29 0%, #232940 50%, #1a1d29 100%);
+            box-shadow: var(--shadow-xl);
+            z-index: 1000;
+            overflow-y: auto;
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .unified-sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+        
+        .unified-sidebar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .unified-sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-full);
+        }
+        
+        /* 智慧水务标识区域 */
+        .sidebar-header {
+            padding: var(--space-6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--space-4);
+        }
+        
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-weight: var(--font-weight-bold);
+            margin-right: var(--space-4);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(33, 150, 243, 0.3);
+        }
+        
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transform: rotate(-45deg);
+            animation: logoShine 3s infinite;
+        }
+        
+        @keyframes logoShine {
+            0% { transform: translateX(-100%) rotate(-45deg); }
+            50% { transform: translateX(100%) rotate(-45deg); }
+            100% { transform: translateX(-100%) rotate(-45deg); }
+        }
+        
+        .system-title {
+            color: var(--text-inverse);
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            margin-bottom: var(--space-1);
+        }
+        
+        .system-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: var(--font-size-sm);
+        }
+        
+        /* 用户信息卡片 */
+        .user-info-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .user-info-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-1px);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            background: linear-gradient(135deg, var(--success-500), var(--success-600));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-weight: var(--font-weight-semibold);
+            margin-right: var(--space-3);
+        }
+        
+        .user-details h4 {
+            color: var(--text-inverse);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: 2px;
+        }
+        
+        .user-details span {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: var(--font-size-xs);
+        }
+        
+        /* 权限层级指示器 */
+        .permission-indicator {
+            margin-top: var(--space-3);
+            padding: var(--space-2) var(--space-3);
+            background: rgba(33, 150, 243, 0.2);
+            border-radius: var(--radius-md);
+            border-left: 3px solid var(--primary-500);
+        }
+        
+        .permission-text {
+            color: var(--text-inverse);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        /* 智能导航分组 */
+        .nav-section {
+            padding: var(--space-6) 0;
+        }
+        
+        .nav-group {
+            margin-bottom: var(--space-6);
+        }
+        
+        .nav-group-title {
+            padding: 0 var(--space-6) var(--space-3);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: var(--space-4) var(--space-6);
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all var(--duration-fast) var(--easing);
+            position: relative;
+            border-left: 3px solid transparent;
+        }
+        
+        .nav-item i {
+            width: 20px;
+            margin-right: var(--space-3);
+            font-size: 16px;
+        }
+        
+        .nav-item:hover {
+            background: linear-gradient(90deg, rgba(33, 150, 243, 0.15), transparent);
+            color: var(--text-inverse);
+            border-left-color: var(--primary-400);
+            transform: translateX(4px);
+        }
+        
+        .nav-item.active {
+            background: linear-gradient(90deg, rgba(33, 150, 243, 0.3), rgba(33, 150, 243, 0.1));
+            color: var(--text-inverse);
+            border-left-color: var(--primary-500);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            right: var(--space-4);
+            width: 6px;
+            height: 6px;
+            background: var(--primary-500);
+            border-radius: var(--radius-full);
+            box-shadow: 0 0 8px var(--primary-500);
+        }
+        
+        /* 主内容区域 */
+        .main-content {
+            margin-left: 320px;
+            min-height: 100vh;
+            background: var(--bg-secondary);
+            transition: margin-left var(--duration-base) var(--easing);
+        }
+        
+        /* 现代化顶部栏 */
+        .top-bar {
+            background: var(--bg-primary);
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        /* 面包屑导航 */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .breadcrumb-item {
+            color: var(--text-tertiary);
+            font-size: var(--font-size-sm);
+            text-decoration: none;
+        }
+        
+        .breadcrumb-item.active {
+            color: var(--text-primary);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .breadcrumb-separator {
+            color: var(--text-tertiary);
+        }
+        
+        /* 快速操作区域 */
+        .quick-actions {
+            display: flex;
+            gap: var(--space-3);
+        }
+        
+        .quick-action-btn {
+            padding: var(--space-2) var(--space-4);
+            background: var(--success-500);
+            color: var(--text-inverse);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--easing);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .quick-action-btn:hover {
+            background: var(--success-600);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+        
+        .quick-action-btn.danger {
+            background: var(--danger-500);
+        }
+        
+        .quick-action-btn.danger:hover {
+            background: var(--danger-600);
+        }
+        
+        .quick-action-btn.warning {
+            background: var(--warning-500);
+        }
+        
+        .quick-action-btn.warning:hover {
+            background: var(--warning-600);
+        }
+        
+        /* 收费中心内容区域 */
+        .billing-content {
+            padding: var(--space-8) var(--space-6);
+        }
+        
+        /* 收费概览指标卡片 */
+        .billing-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-6);
+            margin-bottom: var(--space-10);
+        }
+        
+        .overview-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-md);
+            transition: all var(--duration-base) var(--easing);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .overview-card.success {
+            border-left: 4px solid var(--success-500);
+        }
+        
+        .overview-card.warning {
+            border-left: 4px solid var(--warning-500);
+        }
+        
+        .overview-card.danger {
+            border-left: 4px solid var(--danger-500);
+        }
+        
+        .overview-card.primary {
+            border-left: 4px solid var(--primary-500);
+        }
+        
+        .overview-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, transparent, rgba(33, 150, 243, 0.05));
+            border-radius: 50%;
+            transform: translate(30%, -30%);
+        }
+        
+        .overview-card:hover {
+            box-shadow: var(--shadow-xl);
+            transform: translateY(-2px);
+        }
+        
+        .overview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-4);
+        }
+        
+        .overview-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, var(--success-500), var(--success-600));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-size: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .overview-icon.warning {
+            background: linear-gradient(135deg, var(--warning-500), var(--warning-600));
+        }
+        
+        .overview-icon.danger {
+            background: linear-gradient(135deg, var(--danger-500), var(--danger-600));
+        }
+        
+        .overview-icon.primary {
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+        }
+        
+        .overview-trend {
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+        }
+        
+        .overview-trend.up {
+            color: var(--success-600);
+        }
+        
+        .overview-trend.down {
+            color: var(--danger-600);
+        }
+        
+        .overview-value {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
+        }
+        
+        .overview-label {
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .overview-subtitle {
+            color: var(--text-tertiary);
+            font-size: var(--font-size-xs);
+            margin-top: var(--space-1);
+        }
+        
+        /* 收费管理功能区域 */
+        .billing-functions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-6);
+            margin-bottom: var(--space-10);
+        }
+        
+        .function-panel {
+            background: var(--bg-primary);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-md);
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .function-panel:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .function-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--space-6);
+        }
+        
+        .function-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-inverse);
+            font-size: 18px;
+            margin-right: var(--space-3);
+        }
+        
+        .function-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+        }
+        
+        .function-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+        
+        .function-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--space-4);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all var(--duration-fast) var(--easing);
+            border: 1px solid transparent;
+        }
+        
+        .function-item:hover {
+            background: var(--primary-50);
+            border-color: var(--primary-200);
+            transform: translateX(4px);
+        }
+        
+        .function-item-content {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+        
+        .function-item-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-md);
+            background: linear-gradient(135deg, var(--primary-100), var(--primary-200));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-700);
+            font-size: 14px;
+        }
+        
+        .function-item-text {
+            flex: 1;
+        }
+        
+        .function-item-title {
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-medium);
+            margin-bottom: 2px;
+        }
+        
+        .function-item-desc {
+            font-size: var(--font-size-xs);
+            color: var(--text-tertiary);
+        }
+        
+        .function-item-action {
+            color: var(--text-tertiary);
+            font-size: 14px;
+        }
+        
+        /* 实时收费数据表格 */
+        .billing-data-section {
+            background: var(--bg-primary);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+        }
+        
+        .data-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-6);
+        }
+        
+        .data-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+        }
+        
+        .data-controls {
+            display: flex;
+            gap: var(--space-2);
+        }
+        
+        .data-control-btn {
+            padding: var(--space-1) var(--space-3);
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-xs);
+            cursor: pointer;
+            transition: all var(--duration-fast) var(--easing);
+        }
+        
+        .data-control-btn.active {
+            background: var(--primary-500);
+            color: var(--text-inverse);
+        }
+        
+        .billing-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: var(--font-size-sm);
+        }
+        
+        .billing-table th {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            font-weight: var(--font-weight-semibold);
+            padding: var(--space-4);
+            text-align: left;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .billing-table td {
+            padding: var(--space-4);
+            border-bottom: 1px solid var(--gray-200);
+            transition: all var(--duration-fast) var(--easing);
+        }
+        
+        .billing-table tbody tr:hover {
+            background: var(--bg-secondary);
+        }
+        
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: var(--space-1) var(--space-3);
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .status-badge.paid {
+            background: var(--success-100);
+            color: var(--success-700);
+        }
+        
+        .status-badge.pending {
+            background: var(--warning-100);
+            color: var(--warning-700);
+        }
+        
+        .status-badge.overdue {
+            background: var(--danger-100);
+            color: var(--danger-700);
+        }
+        
+        .amount {
+            font-weight: var(--font-weight-semibold);
+            color: var(--primary-600);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .billing-functions {
+                grid-template-columns: 1fr;
+            }
+            
+            .billing-overview {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .unified-sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .billing-overview {
+                grid-template-columns: 1fr;
+            }
+            
+            .billing-content {
+                padding: var(--space-6) var(--space-4);
+            }
+            
+            .billing-table {
+                font-size: var(--font-size-xs);
+            }
+            
+            .billing-table th,
+            .billing-table td {
+                padding: var(--space-2);
+            }
+        }
+        
+        /* 搜索功能样式 */
+        .search-container {
+            padding: var(--space-4) var(--space-6);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: var(--space-3) var(--space-4);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-lg);
+            color: var(--text-inverse);
+            font-size: var(--font-size-sm);
+            backdrop-filter: blur(10px);
+            transition: all var(--duration-base) var(--easing);
+        }
+        
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--primary-400);
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+
+        /* 加载动画 */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .loading {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- 智能自适应侧边栏 -->
+    <nav class="unified-sidebar" id="unifiedSidebar">
+        <!-- 水务品牌标识区域 -->
+        <div class="sidebar-header">
+            <div class="logo-section">
+                <div class="logo">水</div>
+                <div>
+                    <div class="system-title">WaterMIS</div>
+                    <div class="system-subtitle">智慧水务管理平台</div>
+                </div>
+            </div>
+            
+            <!-- 用户信息卡片 -->
+            <div class="user-info-card">
+                <div class="user-info">
+                    <div class="user-avatar">财</div>
+                    <div class="user-details">
+                        <h4>财务管理员</h4>
+                        <span>李经理 • 在线</span>
+                    </div>
+                </div>
+                <!-- 权限层级指示器 -->
+                <div class="permission-indicator">
+                    <div class="permission-text">权限范围：收费管理全权限</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 搜索功能 -->
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="搜索功能模块..." id="navSearch">
+        </div>
+
+        <!-- 智能导航分组 -->
+        <div class="nav-section">
+            <!-- 营业管理中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">📊 营业管理中心</div>
+                <a href="admin-dashboard-redesigned.html" class="nav-item">
+                    <i>🏠</i>
+                    工作台
+                </a>
+                <a href="admin-user-management.html" class="nav-item">
+                    <i>👥</i>
+                    用户管理
+                </a>
+                <a href="admin-account-management.html" class="nav-item">
+                    <i>💰</i>
+                    账户管理
+                </a>
+                <a href="admin-meter-reading-center.html" class="nav-item">
+                    <i>📊</i>
+                    抄表管理
+                </a>
+                <a href="admin-billing-center.html" class="nav-item active">
+                    <i>💳</i>
+                    收费管理
+                </a>
+                <a href="admin-user-recharge.html" class="nav-item">
+                    <i>🏦</i>
+                    预存水费管理
+                </a>
+            </div>
+            
+            <!-- 设备运维中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">⚙️ 设备运维中心</div>
+                <a href="admin-device-management.html" class="nav-item">
+                    <i>🔧</i>
+                    设备管理
+                </a>
+                <a href="#" class="nav-item">
+                    <i>⚖️</i>
+                    计量管理
+                </a>
+            </div>
+            
+            <!-- 数据分析中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">📈 数据分析中心</div>
+                <a href="admin-advanced-query.html" class="nav-item">
+                    <i>🔍</i>
+                    数据查询
+                </a>
+                <a href="admin-report-center.html" class="nav-item">
+                    <i>📋</i>
+                    统计报表
+                </a>
+                <a href="#" class="nav-item">
+                    <i>📊</i>
+                    分析图表
+                </a>
+            </div>
+            
+            <!-- 系统管控中心 -->
+            <div class="nav-group">
+                <div class="nav-group-title">🏛️ 系统管控中心</div>
+                <a href="admin-region-management.html" class="nav-item">
+                    <i>🌏</i>
+                    营业分区管理
+                </a>
+                <a href="admin-operator-management.html" class="nav-item">
+                    <i>👨‍💼</i>
+                    人事管理
+                </a>
+                <a href="admin-system-settings.html" class="nav-item">
+                    <i>⚙️</i>
+                    基本设置
+                </a>
+                <a href="#" class="nav-item">
+                    <i>🔧</i>
+                    系统维护
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 主内容区域 -->
+    <main class="main-content">
+        <!-- 现代化顶部栏 -->
+        <div class="top-bar">
+            <!-- 面包屑导航 -->
+            <div class="breadcrumb">
+                <a href="admin-dashboard-redesigned.html" class="breadcrumb-item">首页</a>
+                <span class="breadcrumb-separator">></span>
+                <span class="breadcrumb-item active">收费管理中心</span>
+            </div>
+            
+            <!-- 快速操作区域 -->
+            <div class="quick-actions">
+                <button class="quick-action-btn">
+                    💳 新建收费单
+                </button>
+                <button class="quick-action-btn warning">
+                    📋 批量开票
+                </button>
+                <button class="quick-action-btn danger">
+                    ⚠️ 月末结账
+                </button>
+            </div>
+        </div>
+        
+        <!-- 收费中心内容区域 -->
+        <div class="billing-content">
+            <!-- 收费概览指标卡片 -->
+            <div class="billing-overview">
+                <!-- 今日收费总额 -->
+                <div class="overview-card success">
+                    <div class="overview-header">
+                        <div class="overview-icon">💰</div>
+                        <div class="overview-trend up">
+                            ↗ +15.8%
+                        </div>
+                    </div>
+                    <div class="overview-value">¥127,456</div>
+                    <div class="overview-label">今日收费总额</div>
+                    <div class="overview-subtitle">已处理482笔收费业务</div>
+                </div>
+                
+                <!-- 待处理收费 -->
+                <div class="overview-card warning">
+                    <div class="overview-header">
+                        <div class="overview-icon warning">⏳</div>
+                        <div class="overview-trend down">
+                            ↘ -8.2%
+                        </div>
+                    </div>
+                    <div class="overview-value">156</div>
+                    <div class="overview-label">待处理收费</div>
+                    <div class="overview-subtitle">涉及金额¥28,945</div>
+                </div>
+                
+                <!-- 逾期账单 -->
+                <div class="overview-card danger">
+                    <div class="overview-header">
+                        <div class="overview-icon danger">⚠️</div>
+                        <div class="overview-trend up">
+                            ↗ +12.3%
+                        </div>
+                    </div>
+                    <div class="overview-value">89</div>
+                    <div class="overview-label">逾期账单</div>
+                    <div class="overview-subtitle">逾期总额¥45,678</div>
+                </div>
+                
+                <!-- 本月收费率 -->
+                <div class="overview-card primary">
+                    <div class="overview-header">
+                        <div class="overview-icon primary">📊</div>
+                        <div class="overview-trend up">
+                            ↗ +2.1%
+                        </div>
+                    </div>
+                    <div class="overview-value">96.8%</div>
+                    <div class="overview-label">本月收费率</div>
+                    <div class="overview-subtitle">高于上月2.1个百分点</div>
+                </div>
+            </div>
+            
+            <!-- 收费管理功能区域 -->
+            <div class="billing-functions">
+                <!-- 发票管理功能组 -->
+                <div class="function-panel">
+                    <div class="function-header">
+                        <div class="function-icon">📋</div>
+                        <h3 class="function-title">发票管理</h3>
+                    </div>
+                    <div class="function-list">
+                        <a href="#" class="function-item">
+                            <div class="function-item-content">
+                                <div class="function-item-icon">🧾</div>
+                                <div class="function-item-text">
+                                    <div class="function-item-title">走收发票打印</div>
+                                    <div class="function-item-desc">批量打印当期应收发票</div>
+                                </div>
+                            </div>
+                            <div class="function-item-action">→</div>
+                        </a>
+                        
+                        <a href="#" class="function-item">
+                            <div class="function-item-content">
+                                <div class="function-item-icon">📝</div>
+                                <div class="function-item-text">
+                                    <div class="function-item-title">单表/多表发票</div>
+                                    <div class="function-item-desc">单户或合并发票打印</div>
+                                </div>
+                            </div>
+                            <div class="function-item-action">→</div>
+                        </a>
+                        
+                        <a href="#" class="function-item">
+                            <div class="function-item-content">
+                                <div class="function-item-icon">🔄</div>
+                                <div class="function-item-text">
+                                    <div class="function-item-title">发票补开</div>
+                                    <div class="function-item-desc">遗失或损坏发票补开</div>
+                                </div>
+                            </div>
+                            <div class="function-item-action">→</div>
+                        </a>
+                        
+                        <a href="#" class="function-item">
+                            <div class="function-item-content">
+                                <div class="function-item-icon">❌</div>
+                                <div class="function-item-text">
+                                    <div class="function-item-title">发票作废</div>
+                                    <div class="function-item-desc">错误发票作废处理</div>
+                                </div>
+                            </div>
+                            <div class="function-item-action">→</div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- 收费处理功能组 -->
+                <div class="function-panel">
+                    <div class="function-header">
+                        <div class="function-icon">💳</div>
+                        <h3 class="function-title">收费处理</h3>
+                    </div>
+                    <div class="function-list">
+                        <a href="#" class="function-item">
+                            <div class="function-item-content">
+                                <div class="function-item-icon">💰</div>
+                                <div class="function-item-text">
+                                    <div class="function-item-title">收费回款登记</div>
+                                    <div class="function-item-desc">现金、刷卡收费登记</div>
+                                </div>
+                            </div>
+                            <div class="function-item-action">→</div>
+                        </a>
+                        
+                        <a href="#" class="function-item">
+                            <div class="function-item-content">
+                                <div class="function-item-icon">🎫</div>
+                                <div class="function-item-text">
+                                    <div class="function-item-title">手工票回款</div>
+                                    <div class="function-item-desc">手工收费票据登记</div>
+                                </div>
+                            </div>
+                            <div class="function-item-action">→</div>
+                        </a>
+                        
+                        <a href="#" class="function-item">
+                            <div class="function-item-content">
+                                <div class="function-item-icon">🏦</div>
+                                <div class="function-item-text">
+                                    <div class="function-item-title">银行托收</div>
+                                    <div class="function-item-desc">银行代扣费用处理</div>
+                                </div>
+                            </div>
+                            <div class="function-item-action">→</div>
+                        </a>
+                        
+                        <a href="#" class="function-item">
+                            <div class="function-item-content">
+                                <div class="function-item-icon">📊</div>
+                                <div class="function-item-text">
+                                    <div class="function-item-title">批量操作</div>
+                                    <div class="function-item-desc">批量补开、多户组合</div>
+                                </div>
+                            </div>
+                            <div class="function-item-action">→</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 实时收费数据表格 -->
+            <div class="billing-data-section">
+                <div class="data-header">
+                    <h3 class="data-title">今日收费记录</h3>
+                    <div class="data-controls">
+                        <button class="data-control-btn active">今日</button>
+                        <button class="data-control-btn">本周</button>
+                        <button class="data-control-btn">本月</button>
+                        <button class="data-control-btn">全部</button>
+                    </div>
+                </div>
+                
+                <table class="billing-table">
+                    <thead>
+                        <tr>
+                            <th>收费时间</th>
+                            <th>用户编号</th>
+                            <th>用户姓名</th>
+                            <th>收费金额</th>
+                            <th>收费方式</th>
+                            <th>发票号码</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>14:25:33</td>
+                            <td>WU202401234</td>
+                            <td>王先生</td>
+                            <td class="amount">¥158.50</td>
+                            <td>现金</td>
+                            <td>FP202408090001</td>
+                            <td><span class="status-badge paid">已收费</span></td>
+                            <td><a href="#" style="color: var(--primary-500);">查看</a></td>
+                        </tr>
+                        <tr>
+                            <td>14:18:45</td>
+                            <td>WU202401235</td>
+                            <td>张女士</td>
+                            <td class="amount">¥203.80</td>
+                            <td>银行卡</td>
+                            <td>FP202408090002</td>
+                            <td><span class="status-badge paid">已收费</span></td>
+                            <td><a href="#" style="color: var(--primary-500);">查看</a></td>
+                        </tr>
+                        <tr>
+                            <td>14:12:17</td>
+                            <td>WU202401236</td>
+                            <td>李先生</td>
+                            <td class="amount">¥89.20</td>
+                            <td>微信</td>
+                            <td>待补开</td>
+                            <td><span class="status-badge pending">待补开</span></td>
+                            <td><a href="#" style="color: var(--warning-500);">补开</a></td>
+                        </tr>
+                        <tr>
+                            <td>14:05:22</td>
+                            <td>WU202401237</td>
+                            <td>陈女士</td>
+                            <td class="amount">¥345.60</td>
+                            <td>支付宝</td>
+                            <td>FP202408090003</td>
+                            <td><span class="status-badge paid">已收费</span></td>
+                            <td><a href="#" style="color: var(--primary-500);">查看</a></td>
+                        </tr>
+                        <tr>
+                            <td>13:58:41</td>
+                            <td>WU202401238</td>
+                            <td>刘先生</td>
+                            <td class="amount">¥0.00</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td><span class="status-badge overdue">逾期</span></td>
+                            <td><a href="#" style="color: var(--danger-500);">催收</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // 模拟实时数据更新
+        function updateBillingData() {
+            const overviewValues = document.querySelectorAll('.overview-value');
+            overviewValues.forEach(value => {
+                value.style.transform = 'scale(1.05)';
+                value.style.transition = 'all 0.3s ease';
+                setTimeout(() => {
+                    value.style.transform = 'scale(1)';
+                }, 300);
+            });
+        }
+
+        // 每60秒更新数据
+        setInterval(updateBillingData, 60000);
+
+        // 数据控制按钮切换
+        document.querySelectorAll('.data-control-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.data-control-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // 模拟数据加载
+                const tableBody = document.querySelector('.billing-table tbody');
+                tableBody.classList.add('loading');
+                setTimeout(() => {
+                    tableBody.classList.remove('loading');
+                }, 1000);
+            });
+        });
+
+        // 功能项点击统计
+        document.querySelectorAll('.function-item').forEach((item, index) => {
+            item.addEventListener('click', function(e) {
+                console.log(`收费功能 ${this.querySelector('.function-item-title').textContent} 被点击`);
+                
+                // 添加点击反馈
+                this.style.transform = 'translateX(8px)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+
+        // 快速操作按钮功能
+        document.querySelectorAll('.quick-action-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const action = this.textContent.trim();
+                console.log(`快速操作: ${action}`);
+                
+                // 添加点击动画
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+
+        // 表格行悬停效果增强
+        document.querySelectorAll('.billing-table tbody tr').forEach(row => {
+            row.addEventListener('mouseenter', function() {
+                this.style.backgroundColor = 'var(--primary-50)';
+            });
+            
+            row.addEventListener('mouseleave', function() {
+                this.style.backgroundColor = '';
+            });
+        });
+
+        // 概览卡片点击事件
+        document.querySelectorAll('.overview-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const label = this.querySelector('.overview-label').textContent;
+                console.log(`概览卡片被点击: ${label}`);
+                
+                // 添加点击动画
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>

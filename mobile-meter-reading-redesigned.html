@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>移动抄表 - 智慧水务</title>
+    <style>
+        :root {
+            /* 水务专用色彩系统 */
+            --primary-50: #e8f4fd;
+            --primary-100: #c3e2fb;
+            --primary-200: #9acef8;
+            --primary-300: #6eb9f5;
+            --primary-400: #4aa8f2;
+            --primary-500: #2196f3;
+            --primary-600: #1e88e5;
+            --primary-700: #1976d2;
+            --primary-800: #1565c0;
+            --primary-900: #0d47a1;
+            
+            --success-50: #e8f5e8;
+            --success-100: #c8e6c8;
+            --success-200: #a5d6a5;
+            --success-300: #81c784;
+            --success-400: #66bb6a;
+            --success-500: #4caf50;
+            --success-600: #43a047;
+            --success-700: #388e3c;
+            --success-800: #2e7d32;
+            --success-900: #1b5e20;
+            
+            --warning-50: #fff3e0;
+            --warning-100: #ffe0b2;
+            --warning-200: #ffcc80;
+            --warning-300: #ffb74d;
+            --warning-400: #ffa726;
+            --warning-500: #ff9800;
+            --warning-600: #fb8c00;
+            --warning-700: #f57c00;
+            --warning-800: #ef6c00;
+            --warning-900: #e65100;
+            
+            --danger-50: #ffebee;
+            --danger-100: #ffcdd2;
+            --danger-200: #ef9a9a;
+            --danger-300: #e57373;
+            --danger-400: #ef5350;
+            --danger-500: #f44336;
+            --danger-600: #e53935;
+            --danger-700: #d32f2f;
+            --danger-800: #c62828;
+            --danger-900: #b71c1c;
+            
+            --gray-50: #fafbfc;
+            --gray-100: #f4f6f8;
+            --gray-200: #e6ebf1;
+            --gray-300: #d2d9e0;
+            --gray-400: #9aa5b1;
+            --gray-500: #6b7684;
+            --gray-600: #57606a;
+            --gray-700: #424a53;
+            --gray-800: #32363a;
+            --gray-900: #1f2329;
+            
+            /* 语义化颜色 */
+            --text-primary: var(--gray-900);
+            --text-secondary: var(--gray-700);
+            --text-tertiary: var(--gray-600);
+            --text-disabled: var(--gray-400);
+            --text-inverse: #ffffff;
+            
+            --bg-primary: #ffffff;
+            --bg-secondary: var(--gray-50);
+            --bg-tertiary: var(--gray-100);
+            
+            /* 间距和布局 */
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-5: 20px;
+            --space-6: 24px;
+            --space-8: 32px;
+            
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-2xl: 28px;
+            
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .mobile-container {
+            max-width: 414px;
+            margin: 0 auto;
+            background: var(--bg-secondary);
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* ========== 抄表专用顶部栏 ========== */
+        .meter-header {
+            background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-600) 100%);
+            padding: var(--space-4);
+            color: var(--text-inverse);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            margin-bottom: var(--space-3);
+        }
+        
+        .back-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-md);
+            color: var(--text-inverse);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            flex: 1;
+        }
+        
+        .sync-status {
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        .sync-indicator {
+            width: 8px;
+            height: 8px;
+            background: var(--success-400);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.2); }
+        }
+        
+        .progress-bar {
+            height: 3px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--success-400);
+            width: 65%;
+            transition: width 0.3s ease;
+        }
+        
+        /* ========== 用户信息卡片 ========== */
+        .user-card {
+            background: var(--bg-primary);
+            margin: var(--space-4);
+            border-radius: var(--radius-xl);
+            padding: var(--space-5);
+            box-shadow: var(--shadow-md);
+            border-left: 4px solid var(--primary-500);
+        }
+        
+        .user-header {
+            display: flex;
+            align-items: center;
+            justify-content: between;
+            margin-bottom: var(--space-4);
+        }
+        
+        .user-info h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+        }
+        
+        .user-details {
+            display: flex;
+            gap: var(--space-4);
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+        
+        .user-id {
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+        }
+        
+        .user-address {
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+        }
+        
+        .meter-info {
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-3);
+        }
+        
+        .meter-item {
+            text-align: center;
+        }
+        
+        .meter-label {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            margin-bottom: var(--space-1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .meter-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        /* ========== 抄表输入区域 ========== */
+        .reading-section {
+            margin: 0 var(--space-4) var(--space-6);
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-4);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+        
+        .current-reading {
+            background: var(--bg-primary);
+            border-radius: var(--radius-xl);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            margin-bottom: var(--space-4);
+            border: 2px solid var(--primary-100);
+        }
+        
+        .reading-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-2);
+        }
+        
+        .reading-input {
+            width: 100%;
+            border: none;
+            background: transparent;
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--primary-600);
+            text-align: center;
+            outline: none;
+            letter-spacing: 2px;
+        }
+        
+        .reading-unit {
+            font-size: 16px;
+            color: var(--text-tertiary);
+            margin-top: var(--space-2);
+        }
+        
+        .reading-diff {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+            margin-top: var(--space-3);
+            padding: var(--space-2) var(--space-4);
+            background: var(--success-50);
+            color: var(--success-700);
+            border-radius: var(--radius-lg);
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        /* ========== 快速输入工具 ========== */
+        .input-tools {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-3);
+            margin-bottom: var(--space-6);
+        }
+        
+        .tool-btn {
+            background: var(--bg-primary);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .tool-btn:active {
+            transform: scale(0.98);
+            background: var(--gray-50);
+        }
+        
+        .tool-icon {
+            font-size: 24px;
+            margin-bottom: var(--space-2);
+            color: var(--primary-500);
+        }
+        
+        .tool-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        /* ========== 异常标记区域 ========== */
+        .exception-section {
+            background: var(--bg-primary);
+            margin: 0 var(--space-4) var(--space-6);
+            border-radius: var(--radius-xl);
+            padding: var(--space-5);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .exception-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-3);
+        }
+        
+        .exception-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-3);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .exception-item:hover {
+            background: var(--gray-50);
+        }
+        
+        .exception-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        
+        .exception-checkbox.checked {
+            background: var(--warning-500);
+            border-color: var(--warning-500);
+            color: white;
+        }
+        
+        .exception-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        
+        /* ========== 拍照区域 ========== */
+        .photo-section {
+            background: var(--bg-primary);
+            margin: 0 var(--space-4) var(--space-6);
+            border-radius: var(--radius-xl);
+            padding: var(--space-5);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-3);
+        }
+        
+        .photo-item {
+            aspect-ratio: 1;
+            border: 2px dashed var(--gray-300);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: var(--gray-50);
+        }
+        
+        .photo-item:hover {
+            border-color: var(--primary-400);
+            background: var(--primary-50);
+        }
+        
+        .photo-placeholder {
+            text-align: center;
+            color: var(--text-tertiary);
+        }
+        
+        .photo-icon {
+            font-size: 32px;
+            margin-bottom: var(--space-2);
+            color: var(--primary-400);
+        }
+        
+        .photo-label {
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        /* ========== 提交按钮区域 ========== */
+        .submit-section {
+            position: sticky;
+            bottom: 0;
+            background: var(--bg-primary);
+            padding: var(--space-4);
+            border-top: 1px solid var(--gray-200);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .submit-actions {
+            display: flex;
+            gap: var(--space-3);
+        }
+        
+        .btn-secondary {
+            flex: 1;
+            padding: var(--space-4);
+            border: 2px solid var(--gray-300);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border-radius: var(--radius-lg);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-secondary:active {
+            background: var(--gray-50);
+            transform: scale(0.98);
+        }
+        
+        .btn-primary {
+            flex: 2;
+            padding: var(--space-4);
+            border: none;
+            background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+            color: var(--text-inverse);
+            border-radius: var(--radius-lg);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-primary:active {
+            transform: scale(0.98);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .btn-primary:disabled {
+            background: var(--gray-400);
+            cursor: not-allowed;
+        }
+        
+        /* ========== 语音输入动画 ========== */
+        .voice-recording {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8);
+            color: white;
+            text-align: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .voice-icon {
+            font-size: 48px;
+            margin-bottom: var(--space-3);
+            animation: voicePulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes voicePulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .voice-text {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        /* ========== 响应式优化 ========== */
+        @media (max-width: 375px) {
+            .input-tools {
+                grid-template-columns: repeat(3, 1fr);
+                gap: var(--space-2);
+            }
+            
+            .reading-input {
+                font-size: 36px;
+            }
+            
+            .meter-info {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--space-2);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <!-- 抄表专用顶部栏 -->
+        <header class="meter-header">
+            <div class="header-content">
+                <button class="back-btn">←</button>
+                <div class="header-title">移动抄表</div>
+                <div class="sync-status">
+                    <div class="sync-indicator"></div>
+                    <span>已同步</span>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </header>
+        
+        <!-- 用户信息卡片 -->
+        <div class="user-card">
+            <div class="user-header">
+                <div class="user-info">
+                    <h3>张明华</h3>
+                    <div class="user-details">
+                        <div class="user-id">
+                            <span>🏷️</span>
+                            <span>WU20240001</span>
+                        </div>
+                        <div class="user-address">
+                            <span>📍</span>
+                            <span>花园小区2-301</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="meter-info">
+                <div class="meter-item">
+                    <div class="meter-label">水表编号</div>
+                    <div class="meter-value">SB001234</div>
+                </div>
+                <div class="meter-item">
+                    <div class="meter-label">上次读数</div>
+                    <div class="meter-value">1,245.6</div>
+                </div>
+                <div class="meter-item">
+                    <div class="meter-label">抄表日期</div>
+                    <div class="meter-value">2024-08-09</div>
+                </div>
+                <div class="meter-item">
+                    <div class="meter-label">表计状态</div>
+                    <div class="meter-value" style="color: var(--success-600);">正常</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 抄表输入区域 -->
+        <section class="reading-section">
+            <h2 class="section-title">
+                <span>📏</span>
+                当前读数
+            </h2>
+            
+            <div class="current-reading">
+                <div class="reading-label">请输入当前水表读数</div>
+                <input type="number" class="reading-input" placeholder="1250" step="0.1" />
+                <div class="reading-unit">立方米 (m³)</div>
+                <div class="reading-diff">
+                    <span>📈</span>
+                    <span>本期用量: 4.4 m³</span>
+                </div>
+            </div>
+            
+            <!-- 快速输入工具 -->
+            <div class="input-tools">
+                <div class="tool-btn" onclick="openCamera()">
+                    <div class="tool-icon">📷</div>
+                    <div class="tool-label">拍照识别</div>
+                </div>
+                <div class="tool-btn" onclick="startVoiceInput()">
+                    <div class="tool-icon">🎤</div>
+                    <div class="tool-label">语音输入</div>
+                </div>
+                <div class="tool-btn" onclick="scanBarcode()">
+                    <div class="tool-icon">🔍</div>
+                    <div class="tool-label">扫码录入</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 异常标记区域 -->
+        <section class="exception-section">
+            <h2 class="section-title">
+                <span>⚠️</span>
+                异常标记
+            </h2>
+            
+            <div class="exception-grid">
+                <div class="exception-item" onclick="toggleException(this)">
+                    <div class="exception-checkbox"></div>
+                    <div class="exception-label">表具损坏</div>
+                </div>
+                <div class="exception-item" onclick="toggleException(this)">
+                    <div class="exception-checkbox"></div>
+                    <div class="exception-label">无法读数</div>
+                </div>
+                <div class="exception-item" onclick="toggleException(this)">
+                    <div class="exception-checkbox"></div>
+                    <div class="exception-label">表停转</div>
+                </div>
+                <div class="exception-item" onclick="toggleException(this)">
+                    <div class="exception-checkbox"></div>
+                    <div class="exception-label">用户不在</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 拍照存档区域 -->
+        <section class="photo-section">
+            <h2 class="section-title">
+                <span>📸</span>
+                拍照存档
+            </h2>
+            
+            <div class="photo-grid">
+                <div class="photo-item" onclick="takePhoto('meter')">
+                    <div class="photo-placeholder">
+                        <div class="photo-icon">📷</div>
+                        <div class="photo-label">水表照片</div>
+                    </div>
+                </div>
+                <div class="photo-item" onclick="takePhoto('environment')">
+                    <div class="photo-placeholder">
+                        <div class="photo-icon">🏠</div>
+                        <div class="photo-label">环境照片</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 提交按钮区域 -->
+        <div class="submit-section">
+            <div class="submit-actions">
+                <button class="btn-secondary" onclick="saveDraft()">暂存</button>
+                <button class="btn-primary" onclick="submitReading()">提交抄表</button>
+            </div>
+        </div>
+        
+        <!-- 语音录入提示 (隐藏状态) -->
+        <div class="voice-recording" style="display: none;" id="voiceModal">
+            <div class="voice-icon">🎤</div>
+            <div class="voice-text">正在监听...</div>
+        </div>
+    </div>
+    
+    <script>
+        // 抄表相关交互功能
+        function openCamera() {
+            // 模拟拍照识别功能
+            alert('正在启动相机进行OCR识别...');
+            // 实际实现中会调用设备相机API
+        }
+        
+        function startVoiceInput() {
+            // 显示语音录入模态框
+            const voiceModal = document.getElementById('voiceModal');
+            voiceModal.style.display = 'block';
+            
+            // 模拟语音识别
+            setTimeout(() => {
+                voiceModal.style.display = 'none';
+                document.querySelector('.reading-input').value = '1250.3';
+                alert('语音识别成功：1250.3');
+            }, 2000);
+        }
+        
+        function scanBarcode() {
+            // 模拟条码扫描功能
+            alert('正在启动条码扫描...');
+        }
+        
+        function toggleException(element) {
+            // 切换异常标记状态
+            const checkbox = element.querySelector('.exception-checkbox');
+            checkbox.classList.toggle('checked');
+            
+            if (checkbox.classList.contains('checked')) {
+                checkbox.innerHTML = '✓';
+            } else {
+                checkbox.innerHTML = '';
+            }
+        }
+        
+        function takePhoto(type) {
+            // 模拟拍照功能
+            alert(`正在拍摄${type === 'meter' ? '水表' : '环境'}照片...`);
+        }
+        
+        function saveDraft() {
+            // 保存草稿
+            alert('抄表数据已暂存，可稍后继续编辑');
+        }
+        
+        function submitReading() {
+            // 提交抄表数据
+            const reading = document.querySelector('.reading-input').value;
+            if (!reading) {
+                alert('请先输入水表读数');
+                return;
+            }
+            
+            // 模拟提交过程
+            const btn = event.target;
+            btn.disabled = true;
+            btn.textContent = '提交中...';
+            
+            setTimeout(() => {
+                alert('抄表数据提交成功！');
+                btn.disabled = false;
+                btn.textContent = '提交抄表';
+                
+                // 跳转到下一个用户
+                // window.location.href = 'next-user.html';
+            }, 1500);
+        }
+        
+        // 监听读数输入变化，自动计算用量差值
+        document.querySelector('.reading-input').addEventListener('input', function(e) {
+            const currentReading = parseFloat(e.target.value) || 0;
+            const lastReading = 1245.6; // 上次读数
+            const usage = Math.max(0, currentReading - lastReading);
+            
+            const diffElement = document.querySelector('.reading-diff span:last-child');
+            diffElement.textContent = `本期用量: ${usage.toFixed(1)} m³`;
+        });
+        
+        // 防止页面缩放 (抄表场景需要固定布局)
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
+        
+        // 支持键盘快捷键 (外接键盘场景)
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && e.ctrlKey) {
+                submitReading();
+            } else if (e.key === 's' && e.ctrlKey) {
+                e.preventDefault();
+                saveDraft();
+            }
+        });
+    </script>
+</body>
+</html>
